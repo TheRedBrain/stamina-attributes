@@ -1,0 +1,14 @@
+{
+	"attribute.name.generic.stamina_regeneration": "Stamina Regen",
+	"attribute.name.generic.max_stamina": "Max Stamina",
+	"attribute.name.generic.stamina_regeneration_delay_threshold": "Stamina Regeneration Delay Threshold",
+	"attribute.name.generic.stamina_tick_threshold": "Stamina Tick Threshold",
+
+	"text.autoconfig.staminaattributes.title": "Stamina Attribute",
+	"text.autoconfig.staminaattributes.option.client.show_stamina_bar": "Shows the stamina bar",
+	"text.autoconfig.staminaattributes.option.client.show_stamina_bar_number": "Show numeric stamina value",
+	"text.autoconfig.staminaattributes.option.client.stamina_bar_number_color": "Color of the stamina bar number",
+	"text.autoconfig.staminaattributes.option.client.stamina_bar_y_offset": "Offset from the bottom of the screen.",
+
+	"gamerule.naturalStaminaRegeneration": "Naturally regenerate stamina"
+}
