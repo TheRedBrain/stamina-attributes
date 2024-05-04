@@ -6,6 +6,7 @@
 
 	"text.autoconfig.staminaattributes.title": "Stamina Attribute",
 	"text.autoconfig.staminaattributes.option.client.show_stamina_bar": "Shows the stamina bar",
+	"text.autoconfig.staminaattributes.option.client.show_full_stamina_bar": "Shows the stamina bar even if it's full",
 	"text.autoconfig.staminaattributes.option.client.show_stamina_bar_number": "Show numeric stamina value",
 	"text.autoconfig.staminaattributes.option.client.stamina_bar_number_color": "Color of the stamina bar number",
 	"text.autoconfig.staminaattributes.option.client.stamina_bar_y_offset": "Offset from the bottom of the screen.",

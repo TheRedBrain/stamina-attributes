@@ -51,7 +51,7 @@ public abstract class InGameHudMixin {
                 int attributeBarNumberY;
                 int normalizedStaminaRatio = (int) (((double) stamina / Math.max(maxStamina, 1)) * 182);
 
-                if (maxStamina > 0 && (normalizedStaminaRatio < 1 || clientConfig.show_full_stamina_bar)) {
+                if (maxStamina > 0 && (stamina < maxStamina || clientConfig.show_full_stamina_bar)) {
                     this.client.getProfiler().push("stamina_bar");
                     context.drawTexture(BARS_TEXTURE, attributeBarX, attributeBarY - 9, 0, 30, 182, 5);
                     if (normalizedStaminaRatio > 0) {
