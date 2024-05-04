@@ -9,7 +9,6 @@ import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import me.shedaniel.autoconfig.serializer.PartitioningSerializer;
 import net.fabricmc.api.ModInitializer;
-
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.network.PacketByteBuf;
@@ -61,21 +60,5 @@ public class StaminaAttributes implements ModInitializer {
 
 	public static Identifier identifier(String path) {
 		return new Identifier(MOD_ID, path);
-	}
-
-	public static void info(String message) {
-		LOGGER.info("[" + MOD_ID + "] [info]: " + message);
-	}
-
-	public static void warn(String message) {
-		LOGGER.warn("[" + MOD_ID + "] [warn]: " + message);
-	}
-
-	public static void debug(String message) {
-		LOGGER.debug("[" + MOD_ID + "] [debug]: " + message);
-	}
-
-	public static void error(String message) {
-		LOGGER.error("[" + MOD_ID + "] [error]: " + message);
 	}
 }

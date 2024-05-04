@@ -1,14 +1,14 @@
 {
 	"schemaVersion": 1,
 	"id": "staminaattributes",
-	"version": "0.0.1-1.20.1",
-	"name": "Stamina API",
-	"description": "This mod adds mechanics which allow for a more RPG styled gameplay.",
+	"version": "${version}",
+	"name": "Stamina Attributes",
+	"description": "A small API that adds a stamina system controlled by entity attributes.",
 	"authors": [
 		"TheRedBrain"
 	],
 	"contact": {
-		"sources": "https://github.com/TheRedBrain/better_adventure_mode"
+		"sources": "https://github.com/TheRedBrain/stamina-attributes"
 	},
 
 	"license": "MIT",
