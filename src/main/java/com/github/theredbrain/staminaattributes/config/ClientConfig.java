@@ -11,7 +11,7 @@ public class ClientConfig implements ConfigData {
     public boolean show_full_stamina_bar = true;
     public boolean show_stamina_bar_number = true;
     public int stamina_bar_number_color = -6250336;
-    public int stamina_bar_y_offset = 40;
+    public int stamina_bar_y_offset = 45;
     public ClientConfig() {
 
     }

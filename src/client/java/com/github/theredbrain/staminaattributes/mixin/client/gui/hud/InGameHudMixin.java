@@ -53,15 +53,15 @@ public abstract class InGameHudMixin {
 
                 if (maxStamina > 0 && (stamina < maxStamina || clientConfig.show_full_stamina_bar)) {
                     this.client.getProfiler().push("stamina_bar");
-                    context.drawTexture(BARS_TEXTURE, attributeBarX, attributeBarY - 9, 0, 30, 182, 5);
+                    context.drawTexture(BARS_TEXTURE, attributeBarX, attributeBarY, 0, 30, 182, 5);
                     if (normalizedStaminaRatio > 0) {
-                        context.drawTexture(BARS_TEXTURE, attributeBarX, attributeBarY - 9, 0, 35, normalizedStaminaRatio, 5);
+                        context.drawTexture(BARS_TEXTURE, attributeBarX, attributeBarY, 0, 35, normalizedStaminaRatio, 5);
                     }
                     if (clientConfig.show_stamina_bar_number) {
                         this.client.getProfiler().swap("stamina_bar_number");
                         String string = String.valueOf(stamina);
                         attributeBarNumberX = (this.scaledWidth - this.getTextRenderer().getWidth(string)) / 2;
-                        attributeBarNumberY = attributeBarY - 10;
+                        attributeBarNumberY = attributeBarY - 1;
                         context.drawText(this.getTextRenderer(), string, attributeBarNumberX + 1, attributeBarNumberY, 0, false);
                         context.drawText(this.getTextRenderer(), string, attributeBarNumberX - 1, attributeBarNumberY, 0, false);
                         context.drawText(this.getTextRenderer(), string, attributeBarNumberX, attributeBarNumberY + 1, 0, false);
