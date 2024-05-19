@@ -1,7 +1,7 @@
 package com.github.theredbrain.staminaattributes.mixin.entity;
 
+import com.github.theredbrain.staminaattributes.StaminaAttributes;
 import com.github.theredbrain.staminaattributes.entity.StaminaUsingEntity;
-import com.github.theredbrain.staminaattributes.registry.EntityAttributesRegistry;
 import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttribute;
@@ -47,10 +47,10 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
     @Inject(method = "createLivingAttributes", at = @At("RETURN"))
     private static void staminaattributes$createLivingAttributes(CallbackInfoReturnable<DefaultAttributeContainer.Builder> cir) {
         cir.getReturnValue()
-                .add(EntityAttributesRegistry.STAMINA_REGENERATION)
-                .add(EntityAttributesRegistry.MAX_STAMINA)
-                .add(EntityAttributesRegistry.STAMINA_REGENERATION_DELAY_THRESHOLD)
-                .add(EntityAttributesRegistry.STAMINA_TICK_THRESHOLD)
+                .add(StaminaAttributes.STAMINA_REGENERATION)
+                .add(StaminaAttributes.MAX_STAMINA)
+                .add(StaminaAttributes.STAMINA_REGENERATION_DELAY_THRESHOLD)
+                .add(StaminaAttributes.STAMINA_TICK_THRESHOLD)
         ;
     }
 
@@ -101,12 +101,12 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 
     @Override
     public int staminaattributes$getStaminaRegenerationDelayThreshold() {
-        return (int) this.getAttributeValue(EntityAttributesRegistry.STAMINA_REGENERATION_DELAY_THRESHOLD);
+        return (int) this.getAttributeValue(StaminaAttributes.STAMINA_REGENERATION_DELAY_THRESHOLD);
     }
 
     @Override
     public int staminaattributes$getStaminaTickThreshold() {
-        return (int) this.getAttributeValue(EntityAttributesRegistry.STAMINA_TICK_THRESHOLD);
+        return (int) this.getAttributeValue(StaminaAttributes.STAMINA_TICK_THRESHOLD);
     }
 
     @Override
@@ -116,12 +116,12 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 
     @Override
     public float staminaattributes$getStaminaRegeneration() {
-        return (float) this.getAttributeValue(EntityAttributesRegistry.STAMINA_REGENERATION);
+        return (float) this.getAttributeValue(StaminaAttributes.STAMINA_REGENERATION);
     }
 
     @Override
     public float staminaattributes$getMaxStamina() {
-        return (float) this.getAttributeValue(EntityAttributesRegistry.MAX_STAMINA);
+        return (float) this.getAttributeValue(StaminaAttributes.MAX_STAMINA);
     }
 
     @Override

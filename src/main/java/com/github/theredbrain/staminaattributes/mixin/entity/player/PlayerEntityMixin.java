@@ -2,7 +2,6 @@ package com.github.theredbrain.staminaattributes.mixin.entity.player;
 
 import com.github.theredbrain.staminaattributes.StaminaAttributes;
 import com.github.theredbrain.staminaattributes.entity.StaminaUsingEntity;
-import com.github.theredbrain.staminaattributes.registry.EntityAttributesRegistry;
 import com.github.theredbrain.staminaattributes.registry.GameRulesRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -30,7 +29,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements StaminaU
     @Inject(method = "createPlayerAttributes", at = @At("RETURN"))
     private static void staminaattributes$createPlayerAttributes(CallbackInfoReturnable<DefaultAttributeContainer.Builder> cir) {
         cir.getReturnValue()
-                .add(EntityAttributesRegistry.MAX_STAMINA, 10.0F)
+                .add(StaminaAttributes.MAX_STAMINA, 10.0F)
         ;
     }
 

@@ -2,7 +2,6 @@ package com.github.theredbrain.staminaattributes;
 
 import com.github.theredbrain.staminaattributes.config.ServerConfig;
 import com.github.theredbrain.staminaattributes.config.ServerConfigWrapper;
-import com.github.theredbrain.staminaattributes.registry.EntityAttributesRegistry;
 import com.github.theredbrain.staminaattributes.registry.GameRulesRegistry;
 import com.google.gson.Gson;
 import me.shedaniel.autoconfig.AutoConfig;
@@ -11,6 +10,7 @@ import me.shedaniel.autoconfig.serializer.PartitioningSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
@@ -21,6 +21,11 @@ public class StaminaAttributes implements ModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static ServerConfig serverConfig;
 	private static PacketByteBuf serverConfigSerialized = PacketByteBufs.create();
+
+	public static EntityAttribute STAMINA_REGENERATION;
+	public static EntityAttribute MAX_STAMINA;
+	public static EntityAttribute STAMINA_REGENERATION_DELAY_THRESHOLD;
+	public static EntityAttribute STAMINA_TICK_THRESHOLD;
 
 	@Override
 	public void onInitialize() {
@@ -36,7 +41,6 @@ public class StaminaAttributes implements ModInitializer {
 			sender.sendPacket(ServerConfigSync.ID, serverConfigSerialized);
 		});
 
-		EntityAttributesRegistry.registerAttributes();
 		GameRulesRegistry.init();
 	}
 
