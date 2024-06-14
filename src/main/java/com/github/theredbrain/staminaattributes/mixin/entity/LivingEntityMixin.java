@@ -10,6 +10,7 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.*;
@@ -21,8 +22,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity implements StaminaUsingEntity {
 
-    @Shadow
-    public abstract double getAttributeValue(EntityAttribute attribute);
+    @Shadow public abstract double getAttributeValue(RegistryEntry<EntityAttribute> attribute);
 
     @Unique
     private int staminaTickTimer = 0;
@@ -39,8 +39,8 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
     }
 
     @Inject(method = "initDataTracker", at = @At("RETURN"))
-    protected void staminaattributes$initDataTracker(CallbackInfo ci) {
-        this.dataTracker.startTracking(STAMINA, 0.0F);
+    protected void staminaattributes$initDataTracker(DataTracker.Builder builder, CallbackInfo ci) {
+        builder.add(STAMINA, 0.0F);
 
     }
 

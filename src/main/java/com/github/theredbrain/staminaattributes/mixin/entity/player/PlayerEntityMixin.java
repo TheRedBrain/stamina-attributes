@@ -51,55 +51,6 @@ public abstract class PlayerEntityMixin extends LivingEntity implements StaminaU
         }
     }
 
-    @Inject(method = "increaseTravelMotionStats", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;addExhaustion(F)V", ordinal = 0))
-    private void staminaattributes$increaseTravelMotionStats_swimming(CallbackInfo ci) {
-        if (!this.abilities.invulnerable) {
-            this.staminaattributes$addStamina(-StaminaAttributes.serverConfig.stamina_cost_swimming);
-        }
-    }
-
-    @Inject(method = "increaseTravelMotionStats", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;addExhaustion(F)V", ordinal = 1))
-    private void staminaattributes$increaseTravelMotionStats_walk_underwater(CallbackInfo ci) {
-        if (!this.abilities.invulnerable) {
-            this.staminaattributes$addStamina(-StaminaAttributes.serverConfig.stamina_cost_walking_underwater);
-        }
-    }
-
-    @Inject(method = "increaseTravelMotionStats", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;addExhaustion(F)V", ordinal = 2))
-    private void staminaattributes$increaseTravelMotionStats_walk_in_water(CallbackInfo ci) {
-        if (!this.abilities.invulnerable) {
-            this.staminaattributes$addStamina(-StaminaAttributes.serverConfig.stamina_cost_walking_in_water);
-        }
-    }
-
-    @Inject(method = "increaseTravelMotionStats", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;increaseStat(Lnet/minecraft/util/Identifier;I)V", ordinal = 3))
-    private void staminaattributes$increaseTravelMotionStats_climbing(CallbackInfo ci) {
-        if (!this.abilities.invulnerable) {
-            this.staminaattributes$addStamina(-StaminaAttributes.serverConfig.stamina_cost_climbing);
-        }
-    }
-
-    @Inject(method = "increaseTravelMotionStats", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;addExhaustion(F)V", ordinal = 3))
-    private void staminaattributes$increaseTravelMotionStats_sprinting(CallbackInfo ci) {
-        if (!this.abilities.invulnerable) {
-            this.staminaattributes$addStamina(-StaminaAttributes.serverConfig.stamina_cost_sprinting);
-        }
-    }
-
-    @Inject(method = "increaseTravelMotionStats", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;addExhaustion(F)V", ordinal = 4))
-    private void staminaattributes$increaseTravelMotionStats_sneaking(CallbackInfo ci) {
-        if (!this.abilities.invulnerable) {
-            this.staminaattributes$addStamina(-StaminaAttributes.serverConfig.stamina_cost_sneaking);
-        }
-    }
-
-    @Inject(method = "increaseTravelMotionStats", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;addExhaustion(F)V", ordinal = 5))
-    private void staminaattributes$increaseTravelMotionStats_walking(CallbackInfo ci) {
-        if (!this.abilities.invulnerable) {
-            this.staminaattributes$addStamina(-StaminaAttributes.serverConfig.stamina_cost_walking);
-        }
-    }
-
     @Override
     public float staminaattributes$getRegeneratedStamina() {
         return Math.max(this.staminaattributes$getStaminaRegeneration(), (this.getServer() != null && this.getServer().getGameRules().getBoolean(GameRulesRegistry.NATURAL_STAMINA_REGENERATION) ? 1.0F : 0.0F));

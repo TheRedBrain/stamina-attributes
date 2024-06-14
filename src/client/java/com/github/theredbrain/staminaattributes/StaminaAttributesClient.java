@@ -17,8 +17,8 @@ public class StaminaAttributesClient implements ClientModInitializer {
 		clientConfig = ((ClientConfigWrapper)AutoConfig.getConfigHolder(ClientConfigWrapper.class).getConfig()).client;
 
 		// Packets
-		ClientPlayNetworking.registerGlobalReceiver(StaminaAttributes.ServerConfigSync.ID, (client, handler, buf, responseSender) -> {
-			StaminaAttributes.serverConfig = StaminaAttributes.ServerConfigSync.read(buf);
+		ClientPlayNetworking.registerGlobalReceiver(StaminaAttributes.ServerConfigSyncPacket.PACKET_ID, (payload, context) -> {
+			StaminaAttributes.serverConfig = payload.serverConfig();
 		});
 	}
 }
