@@ -12,6 +12,7 @@
 	},
 
 	"license": "MIT",
+	"icon": "assets/staminaattributes/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
