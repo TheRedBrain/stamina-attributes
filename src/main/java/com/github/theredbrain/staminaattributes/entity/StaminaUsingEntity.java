@@ -1,6 +1,7 @@
 package com.github.theredbrain.staminaattributes.entity;
 
 public interface StaminaUsingEntity {
+    int staminaattributes$getDepletedStaminaRegenerationDelayThreshold();
     int staminaattributes$getStaminaRegenerationDelayThreshold();
     int staminaattributes$getStaminaTickThreshold();
     float staminaattributes$getRegeneratedStamina();

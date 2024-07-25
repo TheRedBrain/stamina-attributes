@@ -25,6 +25,7 @@ public class StaminaAttributes implements ModInitializer {
 	public static EntityAttribute STAMINA_REGENERATION;
 	public static EntityAttribute MAX_STAMINA;
 	public static EntityAttribute STAMINA_REGENERATION_DELAY_THRESHOLD;
+	public static EntityAttribute DEPLETED_STAMINA_REGENERATION_DELAY_THRESHOLD;
 	public static EntityAttribute STAMINA_TICK_THRESHOLD;
 
 	@Override

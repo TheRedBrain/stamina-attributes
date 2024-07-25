@@ -27,6 +27,8 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
     @Unique
     private int staminaTickTimer = 0;
     @Unique
+    private int depletedStaminaRegenerationDelayTimer = 0;
+    @Unique
     private int staminaRegenerationDelayTimer = 0;
     @Unique
     private boolean delayStaminaRegeneration = false;
@@ -50,6 +52,7 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
                 .add(StaminaAttributes.STAMINA_REGENERATION)
                 .add(StaminaAttributes.MAX_STAMINA)
                 .add(StaminaAttributes.STAMINA_REGENERATION_DELAY_THRESHOLD)
+                .add(StaminaAttributes.DEPLETED_STAMINA_REGENERATION_DELAY_THRESHOLD)
                 .add(StaminaAttributes.STAMINA_TICK_THRESHOLD)
         ;
     }
@@ -77,17 +80,25 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
             this.staminaTickTimer++;
 
             if (this.staminaattributes$getStamina() <= 0 && this.delayStaminaRegeneration) {
-                this.staminaRegenerationDelayTimer = 0;
+                this.depletedStaminaRegenerationDelayTimer = 0;
+                this.staminaRegenerationDelayTimer = this.staminaattributes$getStaminaRegenerationDelayThreshold();
                 this.delayStaminaRegeneration = false;
             }
             if (this.staminaattributes$getStamina() > 0 && !this.delayStaminaRegeneration) {
                 this.delayStaminaRegeneration = true;
             }
+            if (this.depletedStaminaRegenerationDelayTimer <= this.staminaattributes$getDepletedStaminaRegenerationDelayThreshold()) {
+                this.depletedStaminaRegenerationDelayTimer++;
+            }
             if (this.staminaRegenerationDelayTimer <= this.staminaattributes$getStaminaRegenerationDelayThreshold()) {
                 this.staminaRegenerationDelayTimer++;
             }
 
-            if (this.staminaTickTimer >= this.staminaattributes$getStaminaTickThreshold() && this.staminaRegenerationDelayTimer >= this.staminaattributes$getStaminaRegenerationDelayThreshold()) {
+            if (
+                    this.staminaTickTimer > this.staminaattributes$getStaminaTickThreshold()
+                    && this.depletedStaminaRegenerationDelayTimer > this.staminaattributes$getDepletedStaminaRegenerationDelayThreshold()
+                    && this.staminaRegenerationDelayTimer > this.staminaattributes$getStaminaRegenerationDelayThreshold()
+            ) {
                 if (this.staminaattributes$getStamina() < this.staminaattributes$getMaxStamina()) {
                     this.staminaattributes$addStamina(this.staminaattributes$getRegeneratedStamina());
                 } else if (this.staminaattributes$getStamina() > this.staminaattributes$getMaxStamina()) {
@@ -97,6 +108,11 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
             }
 
         }
+    }
+
+    @Override
+    public int staminaattributes$getDepletedStaminaRegenerationDelayThreshold() {
+        return (int) this.getAttributeValue(StaminaAttributes.DEPLETED_STAMINA_REGENERATION_DELAY_THRESHOLD);
     }
 
     @Override
@@ -129,6 +145,7 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
         float f = this.staminaattributes$getStamina();
         this.staminaattributes$setStamina(f + amount);
         if (amount < 0) {
+            this.staminaRegenerationDelayTimer = 0;
             this.staminaTickTimer = 0;
         }
     }
