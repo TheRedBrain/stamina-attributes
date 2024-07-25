@@ -26,13 +26,6 @@ public abstract class PlayerEntityMixin extends LivingEntity implements StaminaU
         super(entityType, world);
     }
 
-    @Inject(method = "createPlayerAttributes", at = @At("RETURN"))
-    private static void staminaattributes$createPlayerAttributes(CallbackInfoReturnable<DefaultAttributeContainer.Builder> cir) {
-        cir.getReturnValue()
-                .add(StaminaAttributes.MAX_STAMINA, 10.0F)
-        ;
-    }
-
     @Inject(method = "jump", at = @At("HEAD"), cancellable = true)
     public void staminaattributes$pre_jump(CallbackInfo ci) {
         if (!this.abilities.invulnerable && StaminaAttributes.serverConfig.jumping_requires_stamina && this.staminaattributes$getStamina() <= 0) {
