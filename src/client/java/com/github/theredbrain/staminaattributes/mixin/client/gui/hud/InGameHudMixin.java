@@ -66,7 +66,7 @@ public abstract class InGameHudMixin {
                     this.oldNormalizedStaminaRatio = normalizedStaminaRatio;
                 }
 
-                this.animationCounter = this.animationCounter + MathHelper.ceil(((StaminaUsingEntity) playerEntity).staminaattributes$getRegeneratedStamina());
+                this.animationCounter = this.animationCounter + Math.max(1, MathHelper.ceil(((StaminaUsingEntity) playerEntity).staminaattributes$getStaminaRegeneration()));
 
                 if (this.oldNormalizedStaminaRatio != normalizedStaminaRatio && this.animationCounter > Math.max(0, clientConfig.stamina_bar_animation_interval)) {
                     boolean reduceOldRatio = this.oldNormalizedStaminaRatio > normalizedStaminaRatio;
@@ -89,6 +89,7 @@ public abstract class InGameHudMixin {
                     // foreground
                     int displayRatio = clientConfig.enable_smooth_animation ? this.oldNormalizedStaminaRatio : normalizedStaminaRatio;
                     if (displayRatio > 0) {
+                        this.client.getProfiler().swap("stamina_bar_foreground");
                         context.drawTexture(BARS_TEXTURE, attributeBarX, attributeBarY, 0, 35, Math.min(5, displayRatio), 5, 256, 256);
                         if (displayRatio > 5) {
                             if (stamina_bar_additional_length > 0) {
@@ -104,10 +105,9 @@ public abstract class InGameHudMixin {
 
                     // overlay
                     if (clientConfig.enable_smooth_animation && clientConfig.show_current_value_overlay) {
-                        if (normalizedStaminaRatio > 0) {
-                            if (normalizedStaminaRatio > 2 && normalizedStaminaRatio < (5 + stamina_bar_additional_length + 3)) {
-                                context.drawTexture(BARS_TEXTURE, attributeBarX + normalizedStaminaRatio - 2, attributeBarY + 1, 7, 116, 5, 3, 256, 256);
-                            }
+                        if (stamina > 0 && stamina < maxStamina) {
+                            this.client.getProfiler().swap("stamina_bar_overlay");
+                            context.drawTexture(BARS_TEXTURE, attributeBarX + normalizedStaminaRatio - 2, attributeBarY + 1, 7, 116, 5, 3, 256, 256);
                         }
                     }
 
