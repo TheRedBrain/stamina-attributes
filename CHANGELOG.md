@@ -2,6 +2,7 @@
 
 - added optional smooth stamina bar animations
 - added a stamina regeneration delay after stamina is reduced, controlled by an entity attribute
+- added a missing translation key
 
 # 1.2.1
 

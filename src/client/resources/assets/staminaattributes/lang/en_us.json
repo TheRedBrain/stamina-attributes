@@ -5,6 +5,8 @@
 	"attribute.name.generic.stamina_regeneration_delay_threshold": "Stamina Regeneration Delay Threshold",
 	"attribute.name.generic.stamina_tick_threshold": "Stamina Tick Threshold",
 
+	"hud.message.staminaTooLow": "Your stamina is too low!",
+
 	"text.autoconfig.staminaattributes.title": "Stamina Attribute",
 	"text.autoconfig.staminaattributes.option.client.show_stamina_bar": "Shows the stamina bar",
 	"text.autoconfig.staminaattributes.option.client.show_full_stamina_bar": "Shows the stamina bar even if it's full",
