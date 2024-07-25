@@ -36,6 +36,15 @@ public abstract class InGameHudMixin {
     @Unique
     private static final Identifier BARS_TEXTURE = new Identifier("textures/gui/bars.png");
 
+    @Unique
+    private int oldNormalizedStaminaRatio = -1;
+
+    @Unique
+    private int oldMaxStamina = -1;
+
+    @Unique
+    private int animationCounter = 0;
+
     @Inject(method = "renderStatusBars", at = @At("RETURN"))
     private void staminaattributes$renderStatusBars(DrawContext context, CallbackInfo ci) {
         var clientConfig = StaminaAttributesClient.clientConfig;
@@ -52,6 +61,19 @@ public abstract class InGameHudMixin {
                 int attributeBarNumberY;
                 int normalizedStaminaRatio = (int) (((double) stamina / Math.max(maxStamina, 1)) * (5 + clientConfig.stamina_bar_additional_length + 5));
 
+                if (this.oldMaxStamina != maxStamina) {
+                    this.oldMaxStamina = maxStamina;
+                    this.oldNormalizedStaminaRatio = normalizedStaminaRatio;
+                }
+
+                this.animationCounter = this.animationCounter + MathHelper.ceil(((StaminaUsingEntity) playerEntity).staminaattributes$getRegeneratedStamina());
+
+                if (this.oldNormalizedStaminaRatio != normalizedStaminaRatio && this.animationCounter > Math.max(0, clientConfig.stamina_bar_animation_interval)) {
+                    boolean reduceOldRatio = this.oldNormalizedStaminaRatio > normalizedStaminaRatio;
+                    this.oldNormalizedStaminaRatio = this.oldNormalizedStaminaRatio + (reduceOldRatio ? -1 : 1);
+                    this.animationCounter = 0;
+                }
+
                 if (maxStamina > 0 && (stamina < maxStamina || clientConfig.show_full_stamina_bar)) {
                     this.client.getProfiler().push("stamina_bar");
 
@@ -65,17 +87,27 @@ public abstract class InGameHudMixin {
                     context.drawTexture(BARS_TEXTURE, attributeBarX + 5 + stamina_bar_additional_length, attributeBarY, 177, 30, 5, 5, 256, 256);
 
                     // foreground
-                    if (normalizedStaminaRatio > 0) {
-                        context.drawTexture(BARS_TEXTURE, attributeBarX, attributeBarY, 0, 35, Math.min(5, normalizedStaminaRatio), 5, 256, 256);
-                        if (normalizedStaminaRatio > 5) {
+                    int displayRatio = clientConfig.enable_smooth_animation ? this.oldNormalizedStaminaRatio : normalizedStaminaRatio;
+                    if (displayRatio > 0) {
+                        context.drawTexture(BARS_TEXTURE, attributeBarX, attributeBarY, 0, 35, Math.min(5, displayRatio), 5, 256, 256);
+                        if (displayRatio > 5) {
                             if (stamina_bar_additional_length > 0) {
-                                for (int i = 5; i < Math.min(5 + stamina_bar_additional_length, normalizedStaminaRatio); i++) {
+                                for (int i = 5; i < Math.min(5 + stamina_bar_additional_length, displayRatio); i++) {
                                     context.drawTexture(BARS_TEXTURE, attributeBarX + i, attributeBarY, 5, 35, 1, 5, 256, 256);
                                 }
                             }
                         }
-                        if (normalizedStaminaRatio > (5 + stamina_bar_additional_length)) {
-                            context.drawTexture(BARS_TEXTURE, attributeBarX + 5 + stamina_bar_additional_length, attributeBarY, 177, 35, Math.min(5, normalizedStaminaRatio - 5 - stamina_bar_additional_length), 5, 256, 256);
+                        if (displayRatio > (5 + stamina_bar_additional_length)) {
+                            context.drawTexture(BARS_TEXTURE, attributeBarX + 5 + stamina_bar_additional_length, attributeBarY, 177, 35, Math.min(5, displayRatio - 5 - stamina_bar_additional_length), 5, 256, 256);
+                        }
+                    }
+
+                    // overlay
+                    if (clientConfig.enable_smooth_animation && clientConfig.show_current_value_overlay) {
+                        if (normalizedStaminaRatio > 0) {
+                            if (normalizedStaminaRatio > 2 && normalizedStaminaRatio < (5 + stamina_bar_additional_length + 3)) {
+                                context.drawTexture(BARS_TEXTURE, attributeBarX + normalizedStaminaRatio - 2, attributeBarY + 1, 7, 116, 5, 3, 256, 256);
+                            }
                         }
                     }
 

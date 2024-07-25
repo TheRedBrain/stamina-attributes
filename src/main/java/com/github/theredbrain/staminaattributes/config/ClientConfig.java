@@ -13,6 +13,9 @@ public class ClientConfig implements ConfigData {
     public int stamina_bar_additional_length = 172;
     public int stamina_bar_x_offset = -91;
     public int stamina_bar_y_offset = -45;
+    public boolean enable_smooth_animation = true;
+    public int stamina_bar_animation_interval = 1;
+    public boolean show_current_value_overlay = true;
     public boolean show_stamina_bar_number = true;
     public int stamina_bar_number_color = -6250336;
     public int stamina_bar_number_x_offset = 0;
