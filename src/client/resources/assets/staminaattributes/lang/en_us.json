@@ -4,9 +4,7 @@
 	"attribute.name.generic.depleted_stamina_regeneration_delay_threshold": "Depleted Stamina Regeneration Delay Threshold",
 	"attribute.name.generic.stamina_regeneration_delay_threshold": "Stamina Regeneration Delay Threshold",
 	"attribute.name.generic.stamina_tick_threshold": "Stamina Tick Threshold",
-
 	"hud.message.staminaTooLow": "Your stamina is too low!",
-
 	"text.autoconfig.staminaattributes.title": "Stamina Attribute",
 	"text.autoconfig.staminaattributes.option.client.show_stamina_bar": "Shows the stamina bar",
 	"text.autoconfig.staminaattributes.option.client.show_full_stamina_bar": "Shows the stamina bar even if it's full",
@@ -21,6 +19,5 @@
 	"text.autoconfig.staminaattributes.option.client.stamina_bar_number_color": "Color of the stamina bar number",
 	"text.autoconfig.staminaattributes.option.client.stamina_bar_number_x_offset": "Stamina bar number x offset",
 	"text.autoconfig.staminaattributes.option.client.stamina_bar_number_y_offset": "Stamina bar number y offset",
-
 	"gamerule.naturalStaminaRegeneration": "Naturally regenerate stamina"
 }

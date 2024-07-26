@@ -10,7 +10,6 @@
 	"contact": {
 		"sources": "https://github.com/TheRedBrain/stamina-attributes"
 	},
-
 	"license": "MIT",
 	"environment": "*",
 	"icon": "assets/staminaattributes/icon.png",
