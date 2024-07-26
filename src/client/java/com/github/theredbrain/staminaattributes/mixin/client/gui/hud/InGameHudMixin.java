@@ -35,6 +35,18 @@ public abstract class InGameHudMixin {
     @Unique
     private static final Identifier BOSS_BAR_GREEN_BACKGROUND_TEXTURE = Identifier.ofVanilla("textures/gui/sprites/boss_bar/green_background.png");
 
+    @Unique
+    private static final Identifier NOTCHED_20_PROGRESS_TEXTURE = Identifier.ofVanilla("textures/gui/sprites/boss_bar/notched_20_progress.png");
+
+    @Unique
+    private int oldNormalizedStaminaRatio = -1;
+
+    @Unique
+    private int oldMaxStamina = -1;
+
+    @Unique
+    private int animationCounter = 0;
+
     @Inject(method = "renderStatusBars", at = @At("RETURN"))
     private void staminaattributes$renderStatusBars(DrawContext context, CallbackInfo ci) {
         var clientConfig = StaminaAttributesClient.clientConfig;
@@ -51,6 +63,19 @@ public abstract class InGameHudMixin {
                 int attributeBarNumberY;
                 int normalizedStaminaRatio = (int) (((double) stamina / Math.max(maxStamina, 1)) * (5 + clientConfig.stamina_bar_additional_length + 5));
 
+                if (this.oldMaxStamina != maxStamina) {
+                    this.oldMaxStamina = maxStamina;
+                    this.oldNormalizedStaminaRatio = normalizedStaminaRatio;
+                }
+
+                this.animationCounter = this.animationCounter + Math.max(1, MathHelper.ceil(((StaminaUsingEntity) playerEntity).staminaattributes$getStaminaRegeneration()));
+
+                if (this.oldNormalizedStaminaRatio != normalizedStaminaRatio && this.animationCounter > Math.max(0, clientConfig.stamina_bar_animation_interval)) {
+                    boolean reduceOldRatio = this.oldNormalizedStaminaRatio > normalizedStaminaRatio;
+                    this.oldNormalizedStaminaRatio = this.oldNormalizedStaminaRatio + (reduceOldRatio ? -1 : 1);
+                    this.animationCounter = 0;
+                }
+
                 if (maxStamina > 0 && (stamina < maxStamina || clientConfig.show_full_stamina_bar)) {
                     this.client.getProfiler().push("stamina_bar");
 
@@ -64,20 +89,28 @@ public abstract class InGameHudMixin {
                     context.drawTexture(BOSS_BAR_GREEN_BACKGROUND_TEXTURE, attributeBarX + 5 + stamina_bar_additional_length, attributeBarY, 177, 0, 5, 5, 182, 5);
 
                     // foreground
-                    if (normalizedStaminaRatio > 0) {
-                        context.drawTexture(BOSS_BAR_GREEN_PROGRESS_TEXTURE, attributeBarX, attributeBarY, 0, 0, Math.min(5, normalizedStaminaRatio), 5, 182, 5);
-                        if (normalizedStaminaRatio > 5) {
+                    int displayRatio = clientConfig.enable_smooth_animation ? this.oldNormalizedStaminaRatio : normalizedStaminaRatio;
+                    if (displayRatio > 0) {
+                        context.drawTexture(BOSS_BAR_GREEN_PROGRESS_TEXTURE, attributeBarX, attributeBarY, 0, 0, Math.min(5, displayRatio), 5, 182, 5);
+                        if (displayRatio > 5) {
                             if (stamina_bar_additional_length > 0) {
-                                for (int i = 5; i < Math.min(5 + stamina_bar_additional_length, normalizedStaminaRatio); i++) {
+                                for (int i = 5; i < Math.min(5 + stamina_bar_additional_length, displayRatio); i++) {
                                     context.drawTexture(BOSS_BAR_GREEN_PROGRESS_TEXTURE, attributeBarX + i, attributeBarY, 5, 0, 1, 5, 182, 5);
                                 }
                             }
                         }
-                        if (normalizedStaminaRatio > (5 + stamina_bar_additional_length)) {
-                            context.drawTexture(BOSS_BAR_GREEN_PROGRESS_TEXTURE, attributeBarX + 5 + stamina_bar_additional_length, attributeBarY, 177, 0, Math.min(5, normalizedStaminaRatio - 5 - stamina_bar_additional_length), 5, 182, 5);
+                        if (displayRatio > (5 + stamina_bar_additional_length)) {
+                            context.drawTexture(BOSS_BAR_GREEN_PROGRESS_TEXTURE, attributeBarX + 5 + stamina_bar_additional_length, attributeBarY, 177, 0, Math.min(5, displayRatio - 5 - stamina_bar_additional_length), 5, 182, 5);
                         }
                     }
 
+                    // overlay
+                    if (clientConfig.enable_smooth_animation && clientConfig.show_current_value_overlay) {
+                        if (stamina > 0 && stamina < maxStamina) {
+                            this.client.getProfiler().swap("stamina_bar_overlay");
+                            context.drawTexture(NOTCHED_20_PROGRESS_TEXTURE, attributeBarX + normalizedStaminaRatio - 2, attributeBarY + 1, 7, 116, 5, 3, 256, 256);
+                        }
+                    }
                     if (clientConfig.show_stamina_bar_number) {
                         this.client.getProfiler().swap("stamina_bar_number");
                         String string = String.valueOf(stamina);

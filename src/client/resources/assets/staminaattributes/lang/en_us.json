@@ -1,5 +1,5 @@
 {
-	"attribute.name.generic.stamina_regeneration": "Stamina Regen",
+	"attribute.name.generic.stamina_regeneration": "Stamina Regeneration",
 	"attribute.name.generic.max_stamina": "Max Stamina",
 	"attribute.name.generic.stamina_regeneration_delay_threshold": "Stamina Regeneration Delay Threshold",
 	"attribute.name.generic.stamina_tick_threshold": "Stamina Tick Threshold",
@@ -13,6 +13,9 @@
 	"text.autoconfig.staminaattributes.option.client.stamina_bar_additional_length": "Additional length of the stamina bar",
 	"text.autoconfig.staminaattributes.option.client.stamina_bar_x_offset": "Stamina bar x offset",
 	"text.autoconfig.staminaattributes.option.client.stamina_bar_y_offset": "Stamina bar y offset",
+	"text.autoconfig.staminaattributes.option.client.enable_smooth_animation": "Enable a smooth animation on value changes",
+	"text.autoconfig.staminaattributes.option.client.stamina_bar_animation_interval": "Animation update interval in ticks",
+	"text.autoconfig.staminaattributes.option.client.show_current_value_overlay": "Displays the current value on the bar",
 	"text.autoconfig.staminaattributes.option.client.show_stamina_bar_number": "Show numeric stamina value",
 	"text.autoconfig.staminaattributes.option.client.stamina_bar_number_color": "Color of the stamina bar number",
 	"text.autoconfig.staminaattributes.option.client.stamina_bar_number_x_offset": "Stamina bar number x offset",
