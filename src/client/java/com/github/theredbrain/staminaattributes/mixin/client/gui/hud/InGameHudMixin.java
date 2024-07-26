@@ -45,7 +45,7 @@ public abstract class InGameHudMixin {
     private int oldMaxStamina = -1;
 
     @Unique
-    private int animationCounter = 0;
+    private int staminaBarAnimationCounter = 0;
 
     @Inject(method = "renderStatusBars", at = @At("RETURN"))
     private void staminaattributes$renderStatusBars(DrawContext context, CallbackInfo ci) {
@@ -68,12 +68,12 @@ public abstract class InGameHudMixin {
                     this.oldNormalizedStaminaRatio = normalizedStaminaRatio;
                 }
 
-                this.animationCounter = this.animationCounter + Math.max(1, MathHelper.ceil(((StaminaUsingEntity) playerEntity).staminaattributes$getStaminaRegeneration()));
+                this.staminaBarAnimationCounter = this.staminaBarAnimationCounter + Math.max(1, MathHelper.ceil(((StaminaUsingEntity) playerEntity).staminaattributes$getRegeneratedStamina()));
 
-                if (this.oldNormalizedStaminaRatio != normalizedStaminaRatio && this.animationCounter > Math.max(0, clientConfig.stamina_bar_animation_interval)) {
+                if (this.oldNormalizedStaminaRatio != normalizedStaminaRatio && this.staminaBarAnimationCounter > Math.max(0, clientConfig.stamina_bar_animation_interval)) {
                     boolean reduceOldRatio = this.oldNormalizedStaminaRatio > normalizedStaminaRatio;
                     this.oldNormalizedStaminaRatio = this.oldNormalizedStaminaRatio + (reduceOldRatio ? -1 : 1);
-                    this.animationCounter = 0;
+                    this.staminaBarAnimationCounter = 0;
                 }
 
                 if (maxStamina > 0 && (stamina < maxStamina || clientConfig.show_full_stamina_bar)) {
@@ -91,6 +91,7 @@ public abstract class InGameHudMixin {
                     // foreground
                     int displayRatio = clientConfig.enable_smooth_animation ? this.oldNormalizedStaminaRatio : normalizedStaminaRatio;
                     if (displayRatio > 0) {
+                        this.client.getProfiler().swap("stamina_bar_foreground");
                         context.drawTexture(BOSS_BAR_GREEN_PROGRESS_TEXTURE, attributeBarX, attributeBarY, 0, 0, Math.min(5, displayRatio), 5, 182, 5);
                         if (displayRatio > 5) {
                             if (stamina_bar_additional_length > 0) {
@@ -108,7 +109,7 @@ public abstract class InGameHudMixin {
                     if (clientConfig.enable_smooth_animation && clientConfig.show_current_value_overlay) {
                         if (stamina > 0 && stamina < maxStamina) {
                             this.client.getProfiler().swap("stamina_bar_overlay");
-                            context.drawTexture(NOTCHED_20_PROGRESS_TEXTURE, attributeBarX + normalizedStaminaRatio - 2, attributeBarY + 1, 7, 116, 5, 3, 256, 256);
+                            context.drawTexture(NOTCHED_20_PROGRESS_TEXTURE, attributeBarX + normalizedStaminaRatio - 2, attributeBarY + 1, 7, 1, 5, 3, 182, 5);
                         }
                     }
                     if (clientConfig.show_stamina_bar_number) {

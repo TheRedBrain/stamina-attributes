@@ -87,14 +87,17 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
             if (this.staminaattributes$getStamina() > 0 && !this.delayStaminaRegeneration) {
                 this.delayStaminaRegeneration = true;
             }
+            if (this.depletedStaminaRegenerationDelayTimer <= this.staminaattributes$getDepletedStaminaRegenerationDelayThreshold()) {
+                this.depletedStaminaRegenerationDelayTimer++;
+            }
             if (this.staminaRegenerationDelayTimer <= this.staminaattributes$getStaminaRegenerationDelayThreshold()) {
                 this.staminaRegenerationDelayTimer++;
             }
 
             if (
-                    this.staminaTickTimer >= this.staminaattributes$getStaminaTickThreshold()
+                    this.staminaTickTimer > this.staminaattributes$getStaminaTickThreshold()
                     && this.depletedStaminaRegenerationDelayTimer > this.staminaattributes$getDepletedStaminaRegenerationDelayThreshold()
-                    && this.staminaRegenerationDelayTimer >= this.staminaattributes$getStaminaRegenerationDelayThreshold()
+                    && this.staminaRegenerationDelayTimer > this.staminaattributes$getStaminaRegenerationDelayThreshold()
             ) {
                 if (this.staminaattributes$getStamina() < this.staminaattributes$getMaxStamina()) {
                     this.staminaattributes$addStamina(this.staminaattributes$getRegeneratedStamina());

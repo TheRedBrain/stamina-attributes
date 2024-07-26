@@ -5,7 +5,6 @@ import com.github.theredbrain.staminaattributes.entity.StaminaUsingEntity;
 import com.github.theredbrain.staminaattributes.registry.GameRulesRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.player.PlayerAbilities;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
@@ -15,7 +14,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity implements StaminaUsingEntity {
@@ -24,13 +22,6 @@ public abstract class PlayerEntityMixin extends LivingEntity implements StaminaU
 
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
-    }
-
-    @Inject(method = "createPlayerAttributes", at = @At("RETURN"))
-    private static void staminaattributes$createPlayerAttributes(CallbackInfoReturnable<DefaultAttributeContainer.Builder> cir) {
-        cir.getReturnValue()
-                .add(StaminaAttributes.MAX_STAMINA, 10.0F)
-        ;
     }
 
     @Inject(method = "jump", at = @At("HEAD"), cancellable = true)
