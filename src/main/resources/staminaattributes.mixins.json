@@ -1,14 +1,14 @@
 {
-  "required": true,
-  "package": "com.github.theredbrain.staminaattributes.mixin",
-  "compatibilityLevel": "JAVA_21",
-  "mixins": [
-    "entity.LivingEntityMixin",
-    "entity.attribute.EntityAttributesMixin",
-    "entity.player.PlayerEntityMixin",
-    "server.network.ServerPLayerEntityMixin"
-  ],
-  "injectors": {
-    "defaultRequire": 1
+	"required": true,
+	"package": "com.github.theredbrain.staminaattributes.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+		"entity.LivingEntityMixin",
+		"entity.attribute.EntityAttributesMixin",
+		"entity.player.PlayerEntityMixin",
+		"server.network.ServerPLayerEntityMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
 	}
 }

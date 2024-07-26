@@ -14,8 +14,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ClientPlayerEntity.class)
 public abstract class ClientPlayerEntityMixin implements StaminaUsingEntity {
 
-    @Inject(method = "canSprint", at = @At("RETURN"), cancellable = true)
-    private void staminaattributes$canSprint(CallbackInfoReturnable<Boolean> cir) {
-        cir.setReturnValue(cir.getReturnValue() && (!StaminaAttributes.serverConfig.sprinting_requires_stamina || this.staminaattributes$getStamina() > 0));
-    }
+	@Inject(method = "canSprint", at = @At("RETURN"), cancellable = true)
+	private void staminaattributes$canSprint(CallbackInfoReturnable<Boolean> cir) {
+		cir.setReturnValue(cir.getReturnValue() && (!StaminaAttributes.serverConfig.sprinting_requires_stamina || this.staminaattributes$getStamina() > 0));
+	}
 }

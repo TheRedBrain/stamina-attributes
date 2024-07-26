@@ -10,11 +10,12 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 
 public class StaminaAttributesClient implements ClientModInitializer {
 	public static ClientConfig clientConfig;
+
 	@Override
 	public void onInitializeClient() {
 		// Config
 		AutoConfig.register(ClientConfigWrapper.class, PartitioningSerializer.wrap(JanksonConfigSerializer::new));
-		clientConfig = ((ClientConfigWrapper)AutoConfig.getConfigHolder(ClientConfigWrapper.class).getConfig()).client;
+		clientConfig = ((ClientConfigWrapper) AutoConfig.getConfigHolder(ClientConfigWrapper.class).getConfig()).client;
 
 		// Packets
 		ClientPlayNetworking.registerGlobalReceiver(StaminaAttributes.ServerConfigSyncPacket.PACKET_ID, (payload, context) -> {
