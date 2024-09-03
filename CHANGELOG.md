@@ -1,5 +1,6 @@
 # 2.2.0
 
+- update to 1.21.1
 - improved stamina bar customization
 
 # 2.1.0
