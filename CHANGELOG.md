@@ -1,3 +1,7 @@
+# 2.2.0
+
+- improved stamina bar customization
+
 # 2.1.0
 
 - added optional smooth stamina bar animations
