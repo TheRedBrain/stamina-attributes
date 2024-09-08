@@ -17,7 +17,7 @@ When stamina is <= 0, regeneration is stopped for **_generic.depleted_stamina_re
 ## Customization
 When the gamerule "naturalStaminaRegeneration" is true, players have a stamina regeneration of at least 1.
 
-The client config allows customizing the HUD element.
+The client config allows customizing the HUD element. The details are explained in [this wiki article](https://github.com/TheRedBrain/overhauled-damage/wiki/Resource-Bar-Customization).
 
 The server config controls the integration with game mechanics, like stamina costs for various actions like jumping.
 
