@@ -13,9 +13,10 @@
 	"text.autoconfig.staminaattributes.option.client.show_full_stamina_bar": "Shows the stamina bar even if it's full",
 	"text.autoconfig.staminaattributes.option.client.dynamically_adjust_to_armor_bar": "Dynamically adjusts to the armor bar",
 
-	"text.autoconfig.staminaattributes.option.client.x_offset": "X offset from screen center",
-	"text.autoconfig.staminaattributes.option.client.y_offset": "Y offset from screen center",
+	"text.autoconfig.staminaattributes.option.client.offset_x": "X offset from origin",
+	"text.autoconfig.staminaattributes.option.client.offset_y": "Y offset from origin",
 	"text.autoconfig.staminaattributes.option.client.fill_direction": "Fill direction",
+	"text.autoconfig.staminaattributes.option.client.origin": "Origin",
 
 	"text.autoconfig.staminaattributes.option.client.background_middle_segment_amount.@PrefixText": "\nBackground Texture",
 	"text.autoconfig.staminaattributes.option.client.background_middle_segment_amount": "Middle segment amount",
@@ -69,11 +70,16 @@
 	"text.autoconfig.staminaattributes.option.client.enable_smooth_animation": "Enable smooth animation",
 	"text.autoconfig.staminaattributes.option.client.animation_interval": "Animation interval",
 
+	"text.autoconfig.staminaattributes.option.client.max_value_change_is_animated": "Animate changes to the max value",
+
 	"text.autoconfig.staminaattributes.option.client.show_number.@PrefixText": "\nNumber",
 	"text.autoconfig.staminaattributes.option.client.show_number": "Show number",
 
-	"text.autoconfig.staminaattributes.option.client.number_x_offset": "X offset from screen center",
-	"text.autoconfig.staminaattributes.option.client.number_y_offset": "Y offset from screen center",
+	"text.autoconfig.staminaattributes.option.client.show_max_value.@PrefixText": "Show the max value in addition to the current value",
+	"text.autoconfig.staminaattributes.option.client.show_max_value": "Show maximum value",
+
+	"text.autoconfig.staminaattributes.option.client.number_offset_x": "X offset from origin",
+	"text.autoconfig.staminaattributes.option.client.number_offset_y": "Y offset from origin",
 
 	"text.autoconfig.staminaattributes.option.client.number_color": "Number color",
 
