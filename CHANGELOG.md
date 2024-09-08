@@ -1,6 +1,6 @@
-# 2.2.0
+# 2.3.0
 
-- further improvements to effect build up bar customization
+- further improvements to stamina bar customization
 
 # 2.2.0
 
