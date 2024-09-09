@@ -1,3 +1,7 @@
+# 2.3.1
+
+- fixed some internal issues
+
 # 2.3.0
 
 - further improvements to stamina bar customization
