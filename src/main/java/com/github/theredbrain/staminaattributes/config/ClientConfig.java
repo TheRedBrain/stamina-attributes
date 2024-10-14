@@ -1,5 +1,6 @@
 package com.github.theredbrain.staminaattributes.config;
 
+import com.github.theredbrain.staminaattributes.StaminaAttributes;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
@@ -21,12 +22,12 @@ public class ClientConfig implements ConfigData {
 			option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON
 	)
 	@Comment("fill_direction")
-	public FillDirection fill_direction = FillDirection.LEFT_TO_RIGHT;
+	public StaminaAttributes.ResourceBarFillDirection fill_direction = StaminaAttributes.ResourceBarFillDirection.LEFT_TO_RIGHT;
 	@ConfigEntry.Gui.EnumHandler(
 			option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON
 	)
 	@Comment("origin")
-	public Origin origin = Origin.BOTTOM_MIDDLE;
+	public StaminaAttributes.ResourceBarOrigin origin = StaminaAttributes.ResourceBarOrigin.BOTTOM_MIDDLE;
 
 	@ConfigEntry.Gui.PrefixText
 	@Comment("background_middle_segment_amount")
@@ -129,30 +130,5 @@ public class ClientConfig implements ConfigData {
 
 
 	public ClientConfig() {
-	}
-
-	public enum FillDirection {
-		LEFT_TO_RIGHT,
-		BOTTOM_TO_TOP,
-		RIGHT_TO_LEFT,
-		TOP_TO_BOTTOM;
-
-		FillDirection() {
-		}
-	}
-
-	public enum Origin {
-		TOP_LEFT,
-		TOP_MIDDLE,
-		TOP_RIGHT,
-		MIDDLE_LEFT,
-		MIDDLE_MIDDLE,
-		MIDDLE_RIGHT,
-		BOTTOM_LEFT,
-		BOTTOM_MIDDLE,
-		BOTTOM_RIGHT;
-
-		Origin() {
-		}
 	}
 }
