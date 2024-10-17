@@ -84,6 +84,35 @@ public class ClientConfig implements ConfigData {
 	public int vertical_progress_bottom_end_height = 5;
 
 	@ConfigEntry.Gui.PrefixText
+	@Comment("reserved_offset_x")
+	public int reserved_offset_x = 0;
+	@Comment("reserved_offset_y")
+	public int reserved_offset_y = 0;
+	@Comment("reserved_middle_segment_amount")
+	public int reserved_middle_segment_amount = 172;
+
+	@ConfigEntry.Gui.PrefixText
+	@Comment("horizontal_reserved_left_end_width")
+	public int horizontal_reserved_left_end_width = 5;
+	@Comment("horizontal_reserved_middle_segment_width")
+	public int horizontal_reserved_middle_segment_width = 1;
+	@Comment("horizontal_reserved_right_end_width")
+	public int horizontal_reserved_right_end_width = 5;
+	@Comment("horizontal_reserved_height")
+	public int horizontal_reserved_height = 5;
+
+	@ConfigEntry.Gui.PrefixText
+	@Comment("vertical_reserved_width")
+	public int vertical_reserved_width = 5;
+	@ConfigEntry.Gui.PrefixText
+	@Comment("vertical_reserved_top_end_height")
+	public int vertical_reserved_top_end_height = 5;
+	@Comment("vertical_reserved_middle_segment_height")
+	public int vertical_reserved_middle_segment_height = 1;
+	@Comment("vertical_reserved_bottom_end_height")
+	public int vertical_reserved_bottom_end_height = 5;
+
+	@ConfigEntry.Gui.PrefixText
 	@Comment("show_current_value_overlay")
 	public boolean show_current_value_overlay = false;
 
