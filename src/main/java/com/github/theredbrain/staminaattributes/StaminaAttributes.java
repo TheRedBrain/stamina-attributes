@@ -30,6 +30,7 @@ public class StaminaAttributes implements ModInitializer {
 	public static RegistryEntry<EntityAttribute> DEPLETED_STAMINA_REGENERATION_DELAY_THRESHOLD;
 	public static RegistryEntry<EntityAttribute> STAMINA_REGENERATION_DELAY_THRESHOLD;
 	public static RegistryEntry<EntityAttribute> STAMINA_TICK_THRESHOLD;
+	public static RegistryEntry<EntityAttribute> RESERVED_STAMINA;
 
 	@Override
 	public void onInitialize() {
