@@ -169,7 +169,7 @@ public class StaminaAttributesClient implements ClientModInitializer {
 		int normalizedResourceRatio = (int) (((double) current_value / Math.max(max_value, 1)) * (progressBarLength));
 		int normalizedReservedResourceRatio = (int) (((double) current_value_reservation / Math.max(max_value, 1)) * (reservedBarLength));
 
-		int[] cachedValues = CACHED_RESOURCE_BAR_VALUES.getOrDefault(identifier_string, new int[]{-1, -1, 0});
+		int[] cachedValues = CACHED_RESOURCE_BAR_VALUES.getOrDefault(identifier_string, new int[]{-1, -1, 0}); // TODO default should be a method parameter
 
 		int oldMaxBuildUp = cachedValues[0];
 		int oldNormalizedBuildUpRatio = cachedValues[1];

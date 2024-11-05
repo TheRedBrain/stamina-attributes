@@ -9,11 +9,12 @@ When stamina is reduced, regeneration is stopped for **_generic.stamina_regenera
 When stamina is <= 0, regeneration is stopped for **_generic.depleted_stamina_regeneration_delay_threshold_** ticks.
 
 ### Default attribute values
-**_generic.max_stamina_**: 10
-**_generic.stamina_regeneration_**: 0
-**_generic.stamina_tick_threshold_**: 20
-**_generic.stamina_regeneration_delay_threshold_**: 20
-**_generic.depleted_stamina_regeneration_delay_threshold_**: 60
+
+- **_generic.max_stamina_**: 10
+- **_generic.stamina_regeneration_**: 0
+- **_generic.stamina_tick_threshold_**: 20
+- **_generic.stamina_regeneration_delay_threshold_**: 20
+- **_generic.depleted_stamina_regeneration_delay_threshold_**: 60
 
 ## Customization
 When the gamerule "naturalStaminaRegeneration" is true, players have a stamina regeneration of at least 1.
