@@ -14,6 +14,10 @@ public class ClientConfig implements ConfigData {
 	public boolean show_full_stamina_bar = true;
 	public boolean dynamically_adjust_to_armor_bar = true;
 
+	@ConfigEntry.Gui.PrefixText
+	@Comment("is_centered")
+	public boolean is_centered = false;
+
 	@Comment("offset_x")
 	public int offset_x = -91;
 	@Comment("offset_y")
