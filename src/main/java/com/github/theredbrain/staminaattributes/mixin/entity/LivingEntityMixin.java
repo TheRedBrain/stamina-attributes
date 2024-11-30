@@ -58,6 +58,7 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 				.add(StaminaAttributes.STAMINA_REGENERATION_DELAY_THRESHOLD)
 				.add(StaminaAttributes.DEPLETED_STAMINA_REGENERATION_DELAY_THRESHOLD)
 				.add(StaminaAttributes.STAMINA_TICK_THRESHOLD)
+				.add(StaminaAttributes.RESERVED_STAMINA)
 		;
 	}
 
@@ -103,10 +104,10 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 							&& this.depletedStaminaRegenerationDelayTimer > this.staminaattributes$getDepletedStaminaRegenerationDelayThreshold()
 							&& this.staminaRegenerationDelayTimer > this.staminaattributes$getStaminaRegenerationDelayThreshold()
 			) {
-				if (this.staminaattributes$getStamina() < this.staminaattributes$getMaxStamina()) {
+				if (this.staminaattributes$getStamina() < this.staminaattributes$getUnreservedStamina()) {
 					this.staminaattributes$addStamina(this.staminaattributes$getRegeneratedStamina());
-				} else if (this.staminaattributes$getStamina() > this.staminaattributes$getMaxStamina()) {
-					this.staminaattributes$setStamina(this.staminaattributes$getMaxStamina());
+				} else if (this.staminaattributes$getStamina() > this.staminaattributes$getUnreservedStamina()) {
+					this.staminaattributes$setStamina(this.staminaattributes$getUnreservedStamina());
 				}
 				this.staminaTickTimer = 0;
 			}
@@ -140,8 +141,18 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 	}
 
 	@Override
+	public float staminaattributes$getUnreservedStamina() {
+		return this.staminaattributes$getMaxStamina() - ((this.staminaattributes$getMaxStamina() * this.staminaattributes$getReservedStamina()) / 100);
+	}
+
+	@Override
 	public float staminaattributes$getMaxStamina() {
 		return (float) this.getAttributeValue(StaminaAttributes.MAX_STAMINA);
+	}
+
+	@Override
+	public float staminaattributes$getReservedStamina() {
+		return (float) this.getAttributeValue(StaminaAttributes.RESERVED_STAMINA);
 	}
 
 	@Override
@@ -161,7 +172,7 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 
 	@Override
 	public void staminaattributes$setStamina(float stamina) {
-		this.dataTracker.set(STAMINA, MathHelper.clamp(stamina, -100, this.staminaattributes$getMaxStamina()));
+		this.dataTracker.set(STAMINA, MathHelper.clamp(stamina, -100, this.staminaattributes$getUnreservedStamina()));
 	}
 
 }

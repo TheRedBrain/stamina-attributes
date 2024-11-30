@@ -20,5 +20,6 @@ public class EntityAttributesMixin {
 		StaminaAttributes.DEPLETED_STAMINA_REGENERATION_DELAY_THRESHOLD = register(StaminaAttributes.MOD_ID + ":generic.depleted_stamina_regeneration_delay_threshold", new ClampedEntityAttribute("attribute.name.generic.depleted_stamina_regeneration_delay_threshold", 60.0F, 0.0F, 1024.0F).setTracked(true));
 		StaminaAttributes.STAMINA_REGENERATION_DELAY_THRESHOLD = register(StaminaAttributes.MOD_ID + ":generic.stamina_regeneration_delay_threshold", new ClampedEntityAttribute("attribute.name.generic.stamina_regeneration_delay_threshold", 20.0F, 0.0F, 1024.0F).setTracked(true));
 		StaminaAttributes.STAMINA_TICK_THRESHOLD = register(StaminaAttributes.MOD_ID + ":generic.stamina_tick_threshold", new ClampedEntityAttribute("attribute.name.generic.stamina_tick_threshold", 20.0F, 0.0F, 1024.0F).setTracked(true));
+		StaminaAttributes.RESERVED_STAMINA = register(StaminaAttributes.MOD_ID + ":generic.reserved_stamina", new ClampedEntityAttribute("attribute.name.generic.reserved_stamina", 0.0F, 0.0F, 100.0F).setTracked(true));
 	}
 }
