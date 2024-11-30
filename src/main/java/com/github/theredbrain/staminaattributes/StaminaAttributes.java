@@ -56,8 +56,11 @@ public class StaminaAttributes implements ModInitializer {
 		});
 		UseItemCallback.EVENT.register((player, world, hand) -> {
 			ItemStack itemStack = player.getStackInHand(hand);
-			if (itemStack.isIn(StaminaAttributes.REQUIRES_STAMINA_FOR_USE) && (((StaminaUsingEntity) player).staminaattributes$getStamina() <= 0 && ((StaminaUsingEntity) player).staminaattributes$getItemUseStaminaCost() > 0)) {
-				return TypedActionResult.fail(itemStack);
+			if (itemStack.isIn(StaminaAttributes.REQUIRES_STAMINA_FOR_USE)) {
+				if(((StaminaUsingEntity) player).staminaattributes$getStamina() <= 0 && ((StaminaUsingEntity) player).staminaattributes$getItemUseStaminaCost() > 0){
+					return TypedActionResult.fail(itemStack);
+				}
+				((StaminaUsingEntity) player).staminaattributes$addStamina(-((StaminaUsingEntity) player).staminaattributes$getItemUseStaminaCost());
 			}
 			return TypedActionResult.pass(itemStack);
 		});
