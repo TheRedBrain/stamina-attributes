@@ -3,7 +3,6 @@
 	"package": "com.github.theredbrain.staminaattributes.mixin.client",
 	"compatibilityLevel": "JAVA_21",
 	"client": [
-		"gui.hud.InGameHudMixin",
 		"network.ClientPlayerEntityMixin"
 	],
 	"injectors": {
