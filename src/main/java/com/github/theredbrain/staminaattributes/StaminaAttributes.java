@@ -2,21 +2,28 @@ package com.github.theredbrain.staminaattributes;
 
 import com.github.theredbrain.staminaattributes.config.ServerConfig;
 import com.github.theredbrain.staminaattributes.config.ServerConfigWrapper;
+import com.github.theredbrain.staminaattributes.entity.StaminaUsingEntity;
 import com.github.theredbrain.staminaattributes.registry.GameRulesRegistry;
 import com.google.gson.Gson;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import me.shedaniel.autoconfig.serializer.PartitioningSerializer;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.packet.CustomPayload;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.TypedActionResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,6 +38,9 @@ public class StaminaAttributes implements ModInitializer {
 	public static RegistryEntry<EntityAttribute> STAMINA_REGENERATION_DELAY_THRESHOLD;
 	public static RegistryEntry<EntityAttribute> STAMINA_TICK_THRESHOLD;
 	public static RegistryEntry<EntityAttribute> RESERVED_STAMINA;
+	public static RegistryEntry<EntityAttribute> ITEM_USE_STAMINA_COST;
+
+	public static final TagKey<Item> REQUIRES_STAMINA_FOR_USE = TagKey.of(RegistryKeys.ITEM, identifier("requires_stamina_for_use"));
 
 	@Override
 	public void onInitialize() {
@@ -43,6 +53,13 @@ public class StaminaAttributes implements ModInitializer {
 		PayloadTypeRegistry.playS2C().register(ServerConfigSyncPacket.PACKET_ID, ServerConfigSyncPacket.PACKET_CODEC);
 		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
 			ServerPlayNetworking.send(handler.player, new ServerConfigSyncPacket(serverConfig));
+		});
+		UseItemCallback.EVENT.register((player, world, hand) -> {
+			ItemStack itemStack = player.getStackInHand(hand);
+			if (itemStack.isIn(StaminaAttributes.REQUIRES_STAMINA_FOR_USE) && (((StaminaUsingEntity) player).staminaattributes$getStamina() <= 0 && ((StaminaUsingEntity) player).staminaattributes$getItemUseStaminaCost() > 0)) {
+				return TypedActionResult.fail(itemStack);
+			}
+			return TypedActionResult.pass(itemStack);
 		});
 
 		GameRulesRegistry.init();

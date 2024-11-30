@@ -10,6 +10,7 @@ import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -29,6 +30,11 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 	@Shadow
 	public abstract double getAttributeValue(RegistryEntry<EntityAttribute> attribute);
 
+	@Shadow public abstract boolean isUsingItem();
+
+	@Shadow public abstract void stopUsingItem();
+
+	@Shadow protected ItemStack activeItemStack;
 	@Unique
 	private int staminaTickTimer = 0;
 	@Unique
@@ -60,6 +66,7 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 				.add(StaminaAttributes.STAMINA_REGENERATION_DELAY_THRESHOLD)
 				.add(StaminaAttributes.STAMINA_TICK_THRESHOLD)
 				.add(StaminaAttributes.RESERVED_STAMINA)
+				.add(StaminaAttributes.ITEM_USE_STAMINA_COST)
 		;
 	}
 
@@ -113,6 +120,15 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 				this.staminaTickTimer = 0;
 			}
 
+			if (this.isUsingItem() && this.activeItemStack.isIn(StaminaAttributes.REQUIRES_STAMINA_FOR_USE) && staminaattributes$getStamina() <= 0) {
+				this.stopUsingItem();
+			}
+		}
+	}
+	@Inject(method = "tickItemStackUsage", at = @At("HEAD"))
+	protected void staminaattributes$tickItemStackUsage(ItemStack stack, CallbackInfo ci) {
+		if (stack.isIn(StaminaAttributes.REQUIRES_STAMINA_FOR_USE) && staminaattributes$getItemUseStaminaCost() > 0) {
+			this.staminaattributes$addStamina(-staminaattributes$getItemUseStaminaCost());
 		}
 	}
 
@@ -154,6 +170,11 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 	@Override
 	public float staminaattributes$getReservedStamina() {
 		return (float) this.getAttributeValue(StaminaAttributes.RESERVED_STAMINA);
+	}
+
+	@Override
+	public float staminaattributes$getItemUseStaminaCost() {
+		return (float) this.getAttributeValue(StaminaAttributes.ITEM_USE_STAMINA_COST);
 	}
 
 	@Override
