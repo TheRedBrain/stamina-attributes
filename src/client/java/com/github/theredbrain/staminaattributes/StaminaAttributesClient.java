@@ -2,6 +2,7 @@ package com.github.theredbrain.staminaattributes;
 
 import com.github.theredbrain.staminaattributes.config.ClientConfig;
 import com.github.theredbrain.staminaattributes.config.ClientConfigWrapper;
+import com.github.theredbrain.staminaattributes.registry.ClientEventsRegistry;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import me.shedaniel.autoconfig.serializer.PartitioningSerializer;
@@ -21,5 +22,7 @@ public class StaminaAttributesClient implements ClientModInitializer {
 		ClientPlayNetworking.registerGlobalReceiver(StaminaAttributes.ServerConfigSync.ID, (client, handler, buf, responseSender) -> {
 			StaminaAttributes.serverConfig = StaminaAttributes.ServerConfigSync.read(buf);
 		});
+
+		ClientEventsRegistry.initializeClientEvents();
 	}
 }
