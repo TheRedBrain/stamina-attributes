@@ -17,6 +17,8 @@ public interface StaminaUsingEntity {
 
 	float staminaattributes$getReservedStamina();
 
+	float staminaattributes$getItemUseStaminaCost();
+
 	void staminaattributes$addStamina(float amount);
 
 	float staminaattributes$getStamina();
