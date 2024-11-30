@@ -1,3 +1,8 @@
+# 2.4.0
+
+- added dependency on Resource Bar API
+- added "generic.reserved_stamina" entity attribute
+
 # 2.3.1
 
 - fixed some internal issues
