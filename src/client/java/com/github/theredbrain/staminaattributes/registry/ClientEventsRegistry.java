@@ -133,7 +133,7 @@ public class ClientEventsRegistry {
 							clientConfig.show_number,
 							clientConfig.show_max_value,
 							clientConfig.number_offset_x,
-							clientConfig.number_offset_y - (clientConfig.dynamically_adjust_to_armor_bar ? 10 : 0),
+							clientConfig.number_offset_y - ((clientConfig.dynamically_adjust_to_armor_bar && playerEntity.getArmor() > 0) ? 10 : 0),
 							clientConfig.number_color
 					);
 				}
