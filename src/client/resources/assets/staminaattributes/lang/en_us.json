@@ -14,23 +14,23 @@
 	"text.autoconfig.staminaattributes.option.client.show_full_stamina_bar": "Shows the stamina bar even if it's full",
 	"text.autoconfig.staminaattributes.option.client.dynamically_adjust_to_armor_bar": "Dynamically adjusts to the armor bar",
 
-	"text.autoconfig.staminaattributes.option.client.offset_x": "X offset from origin",
-	"text.autoconfig.staminaattributes.option.client.offset_y": "Y offset from origin",
+	"text.autoconfig.staminaattributes.option.client.is_centered": "Is centered",
+
+	"text.autoconfig.staminaattributes.option.client.offsets_x.@PrefixText": "X offset from origin\n\nThis config option can only be edited in the config file",
+	"text.autoconfig.staminaattributes.option.client.offsets_y.@PrefixText": "Y offset from origin\n\nThis config option can only be edited in the config file",
 	"text.autoconfig.staminaattributes.option.client.fill_direction": "Fill direction",
 	"text.autoconfig.staminaattributes.option.client.origin": "Origin",
 
-	"text.autoconfig.staminaattributes.option.client.background_middle_segment_amount.@PrefixText": "\nBackground Texture",
-	"text.autoconfig.staminaattributes.option.client.background_middle_segment_amount": "Middle segment amount",
+	"text.autoconfig.staminaattributes.option.client.background_middle_segment_amounts.@PrefixText": "Middle segment amounts\n\nThis config option can only be edited in the config file",
 
-	"text.autoconfig.staminaattributes.option.client.horizontal_background_left_end_width.@PrefixText": "\nHorizontal texture\nThe texture width should be the sum of the 3 following values",
+	"text.autoconfig.staminaattributes.option.client.horizontal_background_left_end_width.@PrefixText": "\nHorizontal background texture",
 	"text.autoconfig.staminaattributes.option.client.horizontal_background_left_end_width": "Left end width",
 	"text.autoconfig.staminaattributes.option.client.horizontal_background_middle_segment_width": "Middle segment width",
 	"text.autoconfig.staminaattributes.option.client.horizontal_background_right_end_width": "Right end width",
 	"text.autoconfig.staminaattributes.option.client.horizontal_background_height": "Height",
 
-	"text.autoconfig.staminaattributes.option.client.vertical_background_width.@PrefixText": "\nVertical texture",
+	"text.autoconfig.staminaattributes.option.client.vertical_background_width.@PrefixText": "\nVertical background texture",
 	"text.autoconfig.staminaattributes.option.client.vertical_background_width": "Width",
-	"text.autoconfig.staminaattributes.option.client.vertical_background_top_end_height.@PrefixText": "\nThe texture height should be the sum of the 3 following values",
 	"text.autoconfig.staminaattributes.option.client.vertical_background_top_end_height": "Top end height",
 	"text.autoconfig.staminaattributes.option.client.vertical_background_middle_segment_height": "Middle segment height",
 	"text.autoconfig.staminaattributes.option.client.vertical_background_bottom_end_height": "Bottom end height",
@@ -38,20 +38,36 @@
 	"text.autoconfig.staminaattributes.option.client.progress_offset_x.@PrefixText": "\nProgress Texture",
 	"text.autoconfig.staminaattributes.option.client.progress_offset_x": "X offset from background",
 	"text.autoconfig.staminaattributes.option.client.progress_offset_y": "Y offset from background",
-	"text.autoconfig.staminaattributes.option.client.progress_middle_segment_amount": "Middle segment amount",
+	"text.autoconfig.staminaattributes.option.client.progress_middle_segment_amounts.@PrefixText": "Middle segment amount\n\nThis config option can only be edited in the config file",
 
-	"text.autoconfig.staminaattributes.option.client.horizontal_progress_left_end_width.@PrefixText": "\nHorizontal texture\nThe texture width should be the sum of the 3 following values",
+	"text.autoconfig.staminaattributes.option.client.horizontal_progress_left_end_width.@PrefixText": "\nHorizontal progress texture",
 	"text.autoconfig.staminaattributes.option.client.horizontal_progress_left_end_width": "Left end width",
 	"text.autoconfig.staminaattributes.option.client.horizontal_progress_middle_segment_width": "Middle segment width",
 	"text.autoconfig.staminaattributes.option.client.horizontal_progress_right_end_width": "Right end width",
 	"text.autoconfig.staminaattributes.option.client.horizontal_progress_height": "Height",
 
-	"text.autoconfig.staminaattributes.option.client.vertical_progress_width.@PrefixText": "\nVertical texture",
+	"text.autoconfig.staminaattributes.option.client.vertical_progress_width.@PrefixText": "\nVertical progress texture",
 	"text.autoconfig.staminaattributes.option.client.vertical_progress_width": "Width",
-	"text.autoconfig.staminaattributes.option.client.vertical_progress_top_end_height.@PrefixText": "\nThe texture height should be the sum of the 3 following values",
 	"text.autoconfig.staminaattributes.option.client.vertical_progress_top_end_height": "Top end height",
 	"text.autoconfig.staminaattributes.option.client.vertical_progress_middle_segment_height": "Middle segment height",
 	"text.autoconfig.staminaattributes.option.client.vertical_progress_bottom_end_height": "Bottom end height",
+
+	"text.autoconfig.staminaattributes.option.client.reserved_offset_x.@PrefixText": "\nReserved Texture",
+	"text.autoconfig.staminaattributes.option.client.reserved_offset_x": "X offset from background",
+	"text.autoconfig.staminaattributes.option.client.reserved_offset_y": "Y offset from background",
+	"text.autoconfig.staminaattributes.option.client.reserved_middle_segment_amounts.@PrefixText": "Middle segment amount\n\nThis config option can only be edited in the config file",
+
+	"text.autoconfig.staminaattributes.option.client.horizontal_reserved_left_end_width.@PrefixText": "\nHorizontal reserved texture",
+	"text.autoconfig.staminaattributes.option.client.horizontal_reserved_left_end_width": "Left end width",
+	"text.autoconfig.staminaattributes.option.client.horizontal_reserved_middle_segment_width": "Middle segment width",
+	"text.autoconfig.staminaattributes.option.client.horizontal_reserved_right_end_width": "Right end width",
+	"text.autoconfig.staminaattributes.option.client.horizontal_reserved_height": "Height",
+
+	"text.autoconfig.staminaattributes.option.client.vertical_reserved_width.@PrefixText": "\nVertical reserved texture",
+	"text.autoconfig.staminaattributes.option.client.vertical_reserved_width": "Width",
+	"text.autoconfig.staminaattributes.option.client.vertical_reserved_top_end_height": "Top end height",
+	"text.autoconfig.staminaattributes.option.client.vertical_reserved_middle_segment_height": "Middle segment height",
+	"text.autoconfig.staminaattributes.option.client.vertical_reserved_bottom_end_height": "Bottom end height",
 
 	"text.autoconfig.staminaattributes.option.client.show_current_value_overlay.@PrefixText": "\nCurrent value overlay",
 	"text.autoconfig.staminaattributes.option.client.show_current_value_overlay": "Show overlay",
@@ -76,7 +92,6 @@
 	"text.autoconfig.staminaattributes.option.client.show_number.@PrefixText": "\nNumber",
 	"text.autoconfig.staminaattributes.option.client.show_number": "Show number",
 
-	"text.autoconfig.staminaattributes.option.client.show_max_value.@PrefixText": "Show the max value in addition to the current value",
 	"text.autoconfig.staminaattributes.option.client.show_max_value": "Show maximum value",
 
 	"text.autoconfig.staminaattributes.option.client.number_offset_x": "X offset from origin",
