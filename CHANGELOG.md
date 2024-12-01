@@ -1,3 +1,11 @@
+# 1.4.0
+
+- added "generic.reserved_stamina" entity attribute
+- added "generic.item_use_stamina_cost" entity attribute
+- added "requires_stamina_for_use" item tag. Using items in this tag costs stamina
+- changed render call for HUD element to use an event provided by FAPI, instead of a mixin. This should improve compatibility with mods that change the vanilla HUD.
+- changed HUD element rendering to use Resource Bar API, this increases the customization options
+
 # 1.3.0
 
 - added optional smooth stamina bar animations
