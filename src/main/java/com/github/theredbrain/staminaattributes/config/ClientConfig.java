@@ -6,6 +6,8 @@ import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
 
+import java.util.LinkedHashMap;
+
 @Config(
 		name = "client"
 )
@@ -18,10 +20,18 @@ public class ClientConfig implements ConfigData {
 	@Comment("is_centered")
 	public boolean is_centered = false;
 
-	@Comment("offset_x")
-	public int offset_x = -91;
-	@Comment("offset_y")
-	public int offset_y = -45;
+	@ConfigEntry.Gui.PrefixText
+	@Comment("offsets_x")
+	public LinkedHashMap<Integer, Integer> offsets_x = new LinkedHashMap<>() {{
+		put(0, -91);
+	}};
+
+	@ConfigEntry.Gui.PrefixText
+	@Comment("offsets_y")
+	public LinkedHashMap<Integer, Integer> offsets_y = new LinkedHashMap<>() {{
+		put(0, -45);
+	}};
+
 	@ConfigEntry.Gui.EnumHandler(
 			option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON
 	)
@@ -34,8 +44,10 @@ public class ClientConfig implements ConfigData {
 	public ResourceBarAPI.ResourceBarOrigin origin = ResourceBarAPI.ResourceBarOrigin.BOTTOM_MIDDLE;
 
 	@ConfigEntry.Gui.PrefixText
-	@Comment("background_middle_segment_amount")
-	public int background_middle_segment_amount = 172;
+	@Comment("background_middle_segment_amounts")
+	public LinkedHashMap<Integer, Integer> background_middle_segment_amounts = new LinkedHashMap<>() {{
+		put(0, 172);
+	}};
 
 	@ConfigEntry.Gui.PrefixText
 	@Comment("horizontal_background_left_end_width")
@@ -63,8 +75,10 @@ public class ClientConfig implements ConfigData {
 	public int progress_offset_x = 0;
 	@Comment("progress_offset_y")
 	public int progress_offset_y = 0;
-	@Comment("progress_middle_segment_amount")
-	public int progress_middle_segment_amount = 172;
+	@Comment("progress_middle_segment_amounts")
+	public LinkedHashMap<Integer, Integer> progress_middle_segment_amounts = new LinkedHashMap<>() {{
+		put(0, 172);
+	}};
 
 	@ConfigEntry.Gui.PrefixText
 	@Comment("horizontal_progress_left_end_width")
@@ -92,8 +106,10 @@ public class ClientConfig implements ConfigData {
 	public int reserved_offset_x = 0;
 	@Comment("reserved_offset_y")
 	public int reserved_offset_y = 0;
-	@Comment("reserved_middle_segment_amount")
-	public int reserved_middle_segment_amount = 172;
+	@Comment("reserved_middle_segment_amounts")
+	public LinkedHashMap<Integer, Integer> reserved_middle_segment_amounts = new LinkedHashMap<>() {{
+		put(0, 172);
+	}};
 
 	@ConfigEntry.Gui.PrefixText
 	@Comment("horizontal_reserved_left_end_width")
