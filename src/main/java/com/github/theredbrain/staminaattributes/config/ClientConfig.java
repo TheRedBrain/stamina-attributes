@@ -16,18 +16,18 @@ public class ClientConfig implements ConfigData {
 	public boolean show_full_stamina_bar = true;
 	public boolean dynamically_adjust_to_armor_bar = true;
 
-	@ConfigEntry.Gui.PrefixText
 	@Comment("is_centered")
 	public boolean is_centered = false;
 
 	@ConfigEntry.Gui.PrefixText
-	@Comment("offsets_x")
+//	@Comment("offsets_x")
+	@Comment("This is a map 'max_value_threshold' to 'offset'. Only the highest reached threshold is used.")
 	public LinkedHashMap<Integer, Integer> offsets_x = new LinkedHashMap<>() {{
 		put(0, -91);
 	}};
-
 	@ConfigEntry.Gui.PrefixText
-	@Comment("offsets_y")
+//	@Comment("offsets_y")
+	@Comment("This is a map 'max_value_threshold' to 'offset'. Only the highest reached threshold is used.")
 	public LinkedHashMap<Integer, Integer> offsets_y = new LinkedHashMap<>() {{
 		put(0, -45);
 	}};
@@ -44,7 +44,7 @@ public class ClientConfig implements ConfigData {
 	public ResourceBarAPI.ResourceBarOrigin origin = ResourceBarAPI.ResourceBarOrigin.BOTTOM_MIDDLE;
 
 	@ConfigEntry.Gui.PrefixText
-	@Comment("background_middle_segment_amounts")
+	@Comment("This is a map 'max_value_threshold' to 'middle_segment_amount'. Only the highest reached threshold is used.")
 	public LinkedHashMap<Integer, Integer> background_middle_segment_amounts = new LinkedHashMap<>() {{
 		put(0, 172);
 	}};
@@ -62,7 +62,6 @@ public class ClientConfig implements ConfigData {
 	@ConfigEntry.Gui.PrefixText
 	@Comment("vertical_background_width")
 	public int vertical_background_width = 5;
-	@ConfigEntry.Gui.PrefixText
 	@Comment("vertical_background_top_end_height")
 	public int vertical_background_top_end_height = 5;
 	@Comment("vertical_background_middle_segment_height")
@@ -75,7 +74,8 @@ public class ClientConfig implements ConfigData {
 	public int progress_offset_x = 0;
 	@Comment("progress_offset_y")
 	public int progress_offset_y = 0;
-	@Comment("progress_middle_segment_amounts")
+	@ConfigEntry.Gui.PrefixText
+	@Comment("This is a map 'max_value_threshold' to 'middle_segment_amount'. Only the highest reached threshold is used.")
 	public LinkedHashMap<Integer, Integer> progress_middle_segment_amounts = new LinkedHashMap<>() {{
 		put(0, 172);
 	}};
@@ -93,7 +93,6 @@ public class ClientConfig implements ConfigData {
 	@ConfigEntry.Gui.PrefixText
 	@Comment("vertical_progress_width")
 	public int vertical_progress_width = 5;
-	@ConfigEntry.Gui.PrefixText
 	@Comment("vertical_progress_top_end_height")
 	public int vertical_progress_top_end_height = 5;
 	@Comment("vertical_progress_middle_segment_height")
@@ -106,7 +105,8 @@ public class ClientConfig implements ConfigData {
 	public int reserved_offset_x = 0;
 	@Comment("reserved_offset_y")
 	public int reserved_offset_y = 0;
-	@Comment("reserved_middle_segment_amounts")
+	@ConfigEntry.Gui.PrefixText
+	@Comment("This is a map 'max_value_threshold' to 'middle_segment_amount'. Only the highest reached threshold is used.")
 	public LinkedHashMap<Integer, Integer> reserved_middle_segment_amounts = new LinkedHashMap<>() {{
 		put(0, 172);
 	}};
@@ -124,7 +124,6 @@ public class ClientConfig implements ConfigData {
 	@ConfigEntry.Gui.PrefixText
 	@Comment("vertical_reserved_width")
 	public int vertical_reserved_width = 5;
-	@ConfigEntry.Gui.PrefixText
 	@Comment("vertical_reserved_top_end_height")
 	public int vertical_reserved_top_end_height = 5;
 	@Comment("vertical_reserved_middle_segment_height")
@@ -165,7 +164,6 @@ public class ClientConfig implements ConfigData {
 	@Comment("show_number")
 	public boolean show_number = false;
 
-	@ConfigEntry.Gui.PrefixText
 	@Comment("show_max_value")
 	public boolean show_max_value = false;
 
@@ -177,8 +175,6 @@ public class ClientConfig implements ConfigData {
 	@Comment("number_color")
 	public int number_color = -6250336;
 
-
 	public ClientConfig() {
-
 	}
 }
