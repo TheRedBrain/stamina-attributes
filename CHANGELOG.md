@@ -7,6 +7,7 @@
 - server config can now be edited in game (Thanks to Fzzy Config)
 - removed dependency on Cloth Config
 - added dependency on Fzzy Config
+- added dependency on Resource Bar API
 
 # 1.3.0
 
