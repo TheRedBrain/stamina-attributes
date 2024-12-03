@@ -10,6 +10,7 @@ import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -120,14 +121,17 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 				this.staminaTickTimer = 0;
 			}
 
-			if (this.isUsingItem() && this.activeItemStack.isIn(StaminaAttributes.REQUIRES_STAMINA_FOR_USE) && staminaattributes$getStamina() <= 0) {
+			if (this.isUsingItem() && this.activeItemStack.isIn(StaminaAttributes.CONTINUOUS_USING_COSTS_STAMINA) && this.staminaattributes$getItemUseStaminaCost() > 0 && this.staminaattributes$getStamina() <= 0) {
+				if (((LivingEntity) (Object) this) instanceof PlayerEntity playerEntity) {
+					playerEntity.getItemCooldownManager().set(this.activeItemStack.getItem(), StaminaAttributes.SERVER_CONFIG.item_use_cooldown_when_no_stamina);
+				}
 				this.stopUsingItem();
 			}
 		}
 	}
 	@Inject(method = "tickItemStackUsage", at = @At("HEAD"))
 	protected void staminaattributes$tickItemStackUsage(ItemStack stack, CallbackInfo ci) {
-		if (stack.isIn(StaminaAttributes.REQUIRES_STAMINA_FOR_USE) && staminaattributes$getItemUseStaminaCost() > 0) {
+		if (stack.isIn(StaminaAttributes.CONTINUOUS_USING_COSTS_STAMINA) && staminaattributes$getItemUseStaminaCost() > 0 && staminaattributes$getStamina() > 0) {
 			this.staminaattributes$addStamina(-staminaattributes$getItemUseStaminaCost());
 		}
 	}

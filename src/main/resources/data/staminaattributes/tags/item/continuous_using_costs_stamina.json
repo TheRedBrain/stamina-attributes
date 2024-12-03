@@ -2,7 +2,6 @@
 	"values": [
 		"minecraft:bow",
 		"minecraft:crossbow",
-		"minecraft:shield",
-		"minecraft:snowball"
+		"minecraft:shield"
 	]
 }
