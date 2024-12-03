@@ -1,13 +1,13 @@
 package com.github.theredbrain.staminaattributes.config;
 
-import me.shedaniel.autoconfig.ConfigData;
-import me.shedaniel.autoconfig.annotation.Config;
-import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
+import com.github.theredbrain.staminaattributes.StaminaAttributes;
+import me.fzzyhmstrs.fzzy_config.annotations.Comment;
+import me.fzzyhmstrs.fzzy_config.config.Config;
 
-@Config(
-		name = "server"
-)
-public class ServerConfig implements ConfigData {
+public class ServerConfig extends Config {
+	public ServerConfig() {
+		super(StaminaAttributes.identifier("server"));
+	}
 	public boolean jumping_requires_stamina = true;
 	public boolean sprinting_requires_stamina = true;
 	@Comment("""
@@ -25,8 +25,4 @@ public class ServerConfig implements ConfigData {
 			""")
 	public float stamina_cost_sprint_jumping = 1.0F;
 	public float stamina_cost_jumping = 1.0F;
-
-	public ServerConfig() {
-
-	}
 }

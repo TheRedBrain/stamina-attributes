@@ -1,7 +1,13 @@
 # 2.4.0
 
-- added dependency on Resource Bar API
 - added "generic.reserved_stamina" entity attribute
+- added "generic.item_use_stamina_cost" entity attribute
+- added "requires_stamina_for_use" item tag. Using items in this tag costs stamina
+- HUD element overhaul, improves mod compatibility, increases customization options
+- server config can now be edited in game (Thanks to Fzzy Config)
+- removed dependency on Cloth Config
+- added dependency on Fzzy Config
+- added dependency on Resource Bar API
 
 # 2.3.1
 

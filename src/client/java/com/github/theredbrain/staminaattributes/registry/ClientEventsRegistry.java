@@ -64,7 +64,7 @@ public class ClientEventsRegistry {
 		HudRenderCallback.EVENT.register((matrixStack, delta) -> {
 			MinecraftClient minecraftClient = MinecraftClient.getInstance();
 			PlayerEntity playerEntity = minecraftClient.player;
-			ClientConfig clientConfig = StaminaAttributesClient.clientConfig;
+			ClientConfig clientConfig = StaminaAttributesClient.CLIENT_CONFIG;
 
 			if (clientConfig.show_stamina_bar && playerEntity != null) {
 				int stamina = MathHelper.ceil(((StaminaUsingEntity) playerEntity).staminaattributes$getStamina());

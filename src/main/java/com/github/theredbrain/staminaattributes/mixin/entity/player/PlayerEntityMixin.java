@@ -28,7 +28,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements StaminaU
 
 	@Inject(method = "jump", at = @At("HEAD"), cancellable = true)
 	public void staminaattributes$pre_jump(CallbackInfo ci) {
-		if (!this.abilities.invulnerable && StaminaAttributes.serverConfig.jumping_requires_stamina && this.staminaattributes$getStamina() <= 0) {
+		if (!this.abilities.invulnerable && StaminaAttributes.SERVER_CONFIG.jumping_requires_stamina && this.staminaattributes$getStamina() <= 0) {
 			ci.cancel();
 		}
 	}
@@ -37,9 +37,9 @@ public abstract class PlayerEntityMixin extends LivingEntity implements StaminaU
 	public void staminaattributes$post_jump(CallbackInfo ci) {
 		if (!this.abilities.invulnerable) {
 			if (this.isSprinting()) {
-				this.staminaattributes$addStamina(-StaminaAttributes.serverConfig.stamina_cost_sprint_jumping);
+				this.staminaattributes$addStamina(-StaminaAttributes.SERVER_CONFIG.stamina_cost_sprint_jumping);
 			} else {
-				this.staminaattributes$addStamina(-StaminaAttributes.serverConfig.stamina_cost_jumping);
+				this.staminaattributes$addStamina(-StaminaAttributes.SERVER_CONFIG.stamina_cost_jumping);
 			}
 		}
 	}

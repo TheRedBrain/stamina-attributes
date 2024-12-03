@@ -1,28 +1,16 @@
 package com.github.theredbrain.staminaattributes;
 
 import com.github.theredbrain.staminaattributes.config.ClientConfig;
-import com.github.theredbrain.staminaattributes.config.ClientConfigWrapper;
 import com.github.theredbrain.staminaattributes.registry.ClientEventsRegistry;
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
-import me.shedaniel.autoconfig.serializer.PartitioningSerializer;
+import me.fzzyhmstrs.fzzy_config.api.ConfigApiJava;
+import me.fzzyhmstrs.fzzy_config.api.RegisterType;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 
 public class StaminaAttributesClient implements ClientModInitializer {
-	public static ClientConfig clientConfig;
+	public static ClientConfig CLIENT_CONFIG = ConfigApiJava.registerAndLoadConfig(ClientConfig::new, RegisterType.CLIENT);
 
 	@Override
 	public void onInitializeClient() {
-		// Config
-		AutoConfig.register(ClientConfigWrapper.class, PartitioningSerializer.wrap(JanksonConfigSerializer::new));
-		clientConfig = ((ClientConfigWrapper) AutoConfig.getConfigHolder(ClientConfigWrapper.class).getConfig()).client;
-
-		// Packets
-		ClientPlayNetworking.registerGlobalReceiver(StaminaAttributes.ServerConfigSyncPacket.PACKET_ID, (payload, context) -> {
-			StaminaAttributes.serverConfig = payload.serverConfig();
-		});
-
 		ClientEventsRegistry.initializeClientEvents();
 	}
 
