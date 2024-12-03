@@ -8,6 +8,7 @@ public class ServerConfig extends Config {
 	public ServerConfig() {
 		super(StaminaAttributes.identifier("server"));
 	}
+	public int item_use_cooldown_when_no_stamina = 20;
 	public boolean jumping_requires_stamina = true;
 	public boolean sprinting_requires_stamina = true;
 //	@Comment("""

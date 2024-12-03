@@ -2,7 +2,8 @@
 
 - added "generic.reserved_stamina" entity attribute
 - added "generic.item_use_stamina_cost" entity attribute
-- added "requires_stamina_for_use" item tag. Using items in this tag costs stamina
+- added "using_costs_stamina" item tag. Using items in this tag costs stamina (contains snowball by default)
+- added "continuous_using_costs_stamina" item tag. Continuously using items in this tag costs stamina (contains bow, crossbow and shield by default)
 - HUD element overhaul, improves mod compatibility, increases customization options
 - server config can now be edited in game (Thanks to Fzzy Config)
 - removed dependency on Cloth Config

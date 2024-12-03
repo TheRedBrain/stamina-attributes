@@ -29,7 +29,8 @@ public class StaminaAttributes implements ModInitializer {
 	public static EntityAttribute RESERVED_STAMINA;
 	public static EntityAttribute ITEM_USE_STAMINA_COST;
 
-	public static final TagKey<Item> REQUIRES_STAMINA_FOR_USE = TagKey.of(RegistryKeys.ITEM, identifier("requires_stamina_for_use"));
+	public static final TagKey<Item> USING_COSTS_STAMINA = TagKey.of(RegistryKeys.ITEM, identifier("using_costs_stamina"));
+	public static final TagKey<Item> CONTINUOUS_USING_COSTS_STAMINA = TagKey.of(RegistryKeys.ITEM, identifier("continuous_using_costs_stamina"));
 
 	@Override
 	public void onInitialize() {
@@ -38,8 +39,9 @@ public class StaminaAttributes implements ModInitializer {
 		UseItemCallback.EVENT.register((player, world, hand) -> {
 
 			ItemStack itemStack = player.getStackInHand(hand);
-			if (itemStack.isIn(StaminaAttributes.REQUIRES_STAMINA_FOR_USE)) {
+			if (itemStack.isIn(StaminaAttributes.USING_COSTS_STAMINA)) {
 				if (((StaminaUsingEntity) player).staminaattributes$getStamina() <= 0 && ((StaminaUsingEntity) player).staminaattributes$getItemUseStaminaCost() > 0) {
+					player.getItemCooldownManager().set(itemStack.getItem(), SERVER_CONFIG.item_use_cooldown_when_no_stamina);
 					return TypedActionResult.fail(itemStack);
 				}
 				((StaminaUsingEntity) player).staminaattributes$addStamina(-((StaminaUsingEntity) player).staminaattributes$getItemUseStaminaCost());
