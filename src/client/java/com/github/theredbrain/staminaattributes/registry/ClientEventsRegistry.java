@@ -67,8 +67,8 @@ public class ClientEventsRegistry {
 			ClientConfig clientConfig = StaminaAttributesClient.CLIENT_CONFIG;
 
 			if (clientConfig.show_stamina_bar && playerEntity != null) {
-				int stamina = MathHelper.ceil(((StaminaUsingEntity) playerEntity).staminaattributes$getStamina());
-				int maxStamina = MathHelper.ceil(((StaminaUsingEntity) playerEntity).staminaattributes$getMaxStamina());
+				double stamina = MathHelper.ceil(((StaminaUsingEntity) playerEntity).staminaattributes$getStamina());
+				double maxStamina = MathHelper.ceil(((StaminaUsingEntity) playerEntity).staminaattributes$getMaxStamina());
 
 				if (maxStamina > 0 && (stamina < maxStamina || clientConfig.show_full_stamina_bar)) {
 
@@ -77,11 +77,11 @@ public class ClientEventsRegistry {
 							minecraftClient.textRenderer,
 							matrixStack,
 							StaminaAttributes.MOD_ID + ":stamina",
-							new int[]{-1, -1, 0, 0, 0, 0, 0, 0},
+							new double[]{-1, -1, 0, 0, 0, 0, 0, 0},
 							stamina,
 							maxStamina,
 							MathHelper.ceil(((StaminaUsingEntity) playerEntity).staminaattributes$getRegeneratedStamina()),
-							0,
+							MathHelper.ceil(((StaminaUsingEntity) playerEntity).staminaattributes$getUnreservedStamina()),
 							clientConfig.origin,
 							clientConfig.offsets_x,
 							clientConfig.offsets_y,
