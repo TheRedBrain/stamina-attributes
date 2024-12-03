@@ -3,8 +3,10 @@
 - added "generic.reserved_stamina" entity attribute
 - added "generic.item_use_stamina_cost" entity attribute
 - added "requires_stamina_for_use" item tag. Using items in this tag costs stamina
-- changed render call for HUD element to use an event provided by FAPI, instead of a mixin. This should improve compatibility with mods that change the vanilla HUD.
-- changed HUD element rendering to use Resource Bar API, this increases the customization options
+- HUD element overhaul, improves mod compatibility, increases customization options
+- server config can now be edited in game (Thanks to Fzzy Config)
+- removed dependency on Cloth Config
+- added dependency on Fzzy Config
 
 # 1.3.0
 

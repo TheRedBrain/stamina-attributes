@@ -1,17 +1,20 @@
 package com.github.theredbrain.staminaattributes.config;
 
 import com.github.theredbrain.resourcebarapi.ResourceBarAPI;
-import me.shedaniel.autoconfig.ConfigData;
-import me.shedaniel.autoconfig.annotation.Config;
-import me.shedaniel.autoconfig.annotation.ConfigEntry;
-import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
+import com.github.theredbrain.staminaattributes.StaminaAttributes;
+import me.fzzyhmstrs.fzzy_config.annotations.Comment;
+import me.fzzyhmstrs.fzzy_config.config.Config;
+import me.fzzyhmstrs.fzzy_config.validation.collection.ValidatedMap;
+import me.fzzyhmstrs.fzzy_config.validation.number.ValidatedInt;
 
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 
-@Config(
-		name = "client"
-)
-public class ClientConfig implements ConfigData {
+public class ClientConfig extends Config {
+
+	public ClientConfig() {
+		super(StaminaAttributes.identifier("client"));
+	}
+
 	public boolean show_stamina_bar = true;
 	public boolean show_full_stamina_bar = true;
 	public boolean dynamically_adjust_to_armor_bar = true;
@@ -19,37 +22,37 @@ public class ClientConfig implements ConfigData {
 	@Comment("is_centered")
 	public boolean is_centered = false;
 
-	@ConfigEntry.Gui.PrefixText
+	//	@ConfigEntry.Gui.PrefixText
 //	@Comment("offsets_x")
 	@Comment("This is a map 'max_value_threshold' to 'offset'. Only the highest reached threshold is used.")
-	public LinkedHashMap<Integer, Integer> offsets_x = new LinkedHashMap<>() {{
+	public ValidatedMap<Integer, Integer> offsets_x = new ValidatedMap<>(new HashMap<>() {{
 		put(0, -91);
-	}};
-	@ConfigEntry.Gui.PrefixText
+	}}, new ValidatedInt(), new ValidatedInt());
+	//	@ConfigEntry.Gui.PrefixText
 //	@Comment("offsets_y")
 	@Comment("This is a map 'max_value_threshold' to 'offset'. Only the highest reached threshold is used.")
-	public LinkedHashMap<Integer, Integer> offsets_y = new LinkedHashMap<>() {{
+	public ValidatedMap<Integer, Integer> offsets_y = new ValidatedMap<>(new HashMap<>() {{
 		put(0, -45);
-	}};
+	}}, new ValidatedInt(), new ValidatedInt());
 
-	@ConfigEntry.Gui.EnumHandler(
-			option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON
-	)
+	//	@ConfigEntry.Gui.EnumHandler(
+//			option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON
+//	)
 	@Comment("fill_direction")
 	public ResourceBarAPI.ResourceBarFillDirection fill_direction = ResourceBarAPI.ResourceBarFillDirection.LEFT_TO_RIGHT;
-	@ConfigEntry.Gui.EnumHandler(
-			option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON
-	)
+	//	@ConfigEntry.Gui.EnumHandler(
+//			option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON
+//	)
 	@Comment("origin")
 	public ResourceBarAPI.ResourceBarOrigin origin = ResourceBarAPI.ResourceBarOrigin.BOTTOM_MIDDLE;
 
-	@ConfigEntry.Gui.PrefixText
+	//	@ConfigEntry.Gui.PrefixText
 	@Comment("This is a map 'max_value_threshold' to 'middle_segment_amount'. Only the highest reached threshold is used.")
-	public LinkedHashMap<Integer, Integer> background_middle_segment_amounts = new LinkedHashMap<>() {{
+	public ValidatedMap<Integer, Integer> background_middle_segment_amounts = new ValidatedMap<>(new HashMap<>() {{
 		put(0, 172);
-	}};
+	}}, new ValidatedInt(), new ValidatedInt());
 
-	@ConfigEntry.Gui.PrefixText
+	//	@ConfigEntry.Gui.PrefixText
 	@Comment("horizontal_background_left_end_width")
 	public int horizontal_background_left_end_width = 5;
 	@Comment("horizontal_background_middle_segment_width")
@@ -59,7 +62,7 @@ public class ClientConfig implements ConfigData {
 	@Comment("horizontal_background_height")
 	public int horizontal_background_height = 5;
 
-	@ConfigEntry.Gui.PrefixText
+	//	@ConfigEntry.Gui.PrefixText
 	@Comment("vertical_background_width")
 	public int vertical_background_width = 5;
 	@Comment("vertical_background_top_end_height")
@@ -69,18 +72,18 @@ public class ClientConfig implements ConfigData {
 	@Comment("vertical_background_bottom_end_height")
 	public int vertical_background_bottom_end_height = 5;
 
-	@ConfigEntry.Gui.PrefixText
+	//	@ConfigEntry.Gui.PrefixText
 	@Comment("progress_offset_x")
 	public int progress_offset_x = 0;
 	@Comment("progress_offset_y")
 	public int progress_offset_y = 0;
-	@ConfigEntry.Gui.PrefixText
+	//	@ConfigEntry.Gui.PrefixText
 	@Comment("This is a map 'max_value_threshold' to 'middle_segment_amount'. Only the highest reached threshold is used.")
-	public LinkedHashMap<Integer, Integer> progress_middle_segment_amounts = new LinkedHashMap<>() {{
+	public ValidatedMap<Integer, Integer> progress_middle_segment_amounts = new ValidatedMap<>(new HashMap<>() {{
 		put(0, 172);
-	}};
+	}}, new ValidatedInt(), new ValidatedInt());
 
-	@ConfigEntry.Gui.PrefixText
+	//	@ConfigEntry.Gui.PrefixText
 	@Comment("horizontal_progress_left_end_width")
 	public int horizontal_progress_left_end_width = 5;
 	@Comment("horizontal_progress_middle_segment_width")
@@ -90,7 +93,7 @@ public class ClientConfig implements ConfigData {
 	@Comment("horizontal_progress_height")
 	public int horizontal_progress_height = 5;
 
-	@ConfigEntry.Gui.PrefixText
+	//	@ConfigEntry.Gui.PrefixText
 	@Comment("vertical_progress_width")
 	public int vertical_progress_width = 5;
 	@Comment("vertical_progress_top_end_height")
@@ -100,18 +103,18 @@ public class ClientConfig implements ConfigData {
 	@Comment("vertical_progress_bottom_end_height")
 	public int vertical_progress_bottom_end_height = 5;
 
-	@ConfigEntry.Gui.PrefixText
+	//	@ConfigEntry.Gui.PrefixText
 	@Comment("reserved_offset_x")
 	public int reserved_offset_x = 0;
 	@Comment("reserved_offset_y")
 	public int reserved_offset_y = 0;
-	@ConfigEntry.Gui.PrefixText
+	//	@ConfigEntry.Gui.PrefixText
 	@Comment("This is a map 'max_value_threshold' to 'middle_segment_amount'. Only the highest reached threshold is used.")
-	public LinkedHashMap<Integer, Integer> reserved_middle_segment_amounts = new LinkedHashMap<>() {{
+	public ValidatedMap<Integer, Integer> reserved_middle_segment_amounts = new ValidatedMap<>(new HashMap<>() {{
 		put(0, 172);
-	}};
+	}}, new ValidatedInt(), new ValidatedInt());
 
-	@ConfigEntry.Gui.PrefixText
+	//	@ConfigEntry.Gui.PrefixText
 	@Comment("horizontal_reserved_left_end_width")
 	public int horizontal_reserved_left_end_width = 5;
 	@Comment("horizontal_reserved_middle_segment_width")
@@ -121,7 +124,7 @@ public class ClientConfig implements ConfigData {
 	@Comment("horizontal_reserved_height")
 	public int horizontal_reserved_height = 5;
 
-	@ConfigEntry.Gui.PrefixText
+	//	@ConfigEntry.Gui.PrefixText
 	@Comment("vertical_reserved_width")
 	public int vertical_reserved_width = 5;
 	@Comment("vertical_reserved_top_end_height")
@@ -131,7 +134,7 @@ public class ClientConfig implements ConfigData {
 	@Comment("vertical_reserved_bottom_end_height")
 	public int vertical_reserved_bottom_end_height = 5;
 
-	@ConfigEntry.Gui.PrefixText
+	//	@ConfigEntry.Gui.PrefixText
 	@Comment("show_current_value_overlay")
 	public boolean show_current_value_overlay = false;
 
@@ -140,19 +143,19 @@ public class ClientConfig implements ConfigData {
 	@Comment("overlay_offset_y")
 	public int overlay_offset_y = 0;
 
-	@ConfigEntry.Gui.PrefixText
+	//	@ConfigEntry.Gui.PrefixText
 	@Comment("horizontal_overlay_width")
 	public int horizontal_overlay_width = 5;
 	@Comment("horizontal_overlay_height")
 	public int horizontal_overlay_height = 5;
 
-	@ConfigEntry.Gui.PrefixText
+	//	@ConfigEntry.Gui.PrefixText
 	@Comment("vertical_overlay_width")
 	public int vertical_overlay_width = 5;
 	@Comment("vertical_overlay_height")
 	public int vertical_overlay_height = 5;
 
-	@ConfigEntry.Gui.PrefixText
+	//	@ConfigEntry.Gui.PrefixText
 	@Comment("enable_smooth_animation")
 	public boolean enable_smooth_animation = true;
 	@Comment("animation_interval")
@@ -160,7 +163,7 @@ public class ClientConfig implements ConfigData {
 	@Comment("max_value_change_is_animated")
 	public boolean max_value_change_is_animated = false;
 
-	@ConfigEntry.Gui.PrefixText
+	//	@ConfigEntry.Gui.PrefixText
 	@Comment("show_number")
 	public boolean show_number = false;
 
@@ -174,7 +177,4 @@ public class ClientConfig implements ConfigData {
 
 	@Comment("number_color")
 	public int number_color = -6250336;
-
-	public ClientConfig() {
-	}
 }
