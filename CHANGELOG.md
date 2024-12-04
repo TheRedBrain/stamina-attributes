@@ -6,6 +6,7 @@
 - added "continuous_using_costs_stamina" item tag. Continuously using items in this tag costs stamina (contains bow, crossbow and shield by default)
 - HUD element overhaul, improves mod compatibility, increases customization options
 - server config can now be edited in game (Thanks to Fzzy Config)
+- generally improved config layout
 - removed dependency on Cloth Config
 - added dependency on Fzzy Config
 - added dependency on Resource Bar API
