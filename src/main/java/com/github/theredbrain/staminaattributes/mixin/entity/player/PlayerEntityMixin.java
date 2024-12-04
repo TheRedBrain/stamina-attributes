@@ -37,9 +37,9 @@ public abstract class PlayerEntityMixin extends LivingEntity implements StaminaU
 	public void staminaattributes$post_jump(CallbackInfo ci) {
 		if (!this.abilities.invulnerable) {
 			if (this.isSprinting()) {
-				this.staminaattributes$addStamina(-StaminaAttributes.SERVER_CONFIG.stamina_cost_sprint_jumping);
+				this.staminaattributes$addStamina(-StaminaAttributes.SERVER_CONFIG.actionCosts.stamina_cost_sprint_jumping);
 			} else {
-				this.staminaattributes$addStamina(-StaminaAttributes.SERVER_CONFIG.stamina_cost_jumping);
+				this.staminaattributes$addStamina(-StaminaAttributes.SERVER_CONFIG.actionCosts.stamina_cost_jumping);
 			}
 		}
 	}
