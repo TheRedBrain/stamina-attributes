@@ -1,3 +1,7 @@
+# 1.4.1
+
+- changed "natural stamina regeneration" gamerule to simply add 1 stamina regeneration. The previous implementation prevented stamina regeneration from ever becoming negative.
+
 # 1.4.0
 
 - added "generic.reserved_stamina" entity attribute
