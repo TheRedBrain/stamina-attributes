@@ -11,7 +11,7 @@ When stamina is reduced, regeneration is stopped for **_generic.stamina_regenera
 
 When stamina is <= 0, regeneration is stopped for **_generic.depleted_stamina_regeneration_delay_threshold_** ticks.
 
-**_generic.reserved_stamina_** describes the percentage amount of maximum stamina, that is currently not available.
+**_generic.reserved_stamina_** describes the percentage amount of maximum stamina that is currently not available.
 
 **_generic.item_use_stamina_cost_** is the amount of stamina that is reduced when using an item with a stamina cost.
 There are two ways to give an item a stamina cost:
