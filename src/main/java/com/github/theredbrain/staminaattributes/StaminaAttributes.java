@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 public class StaminaAttributes implements ModInitializer {
 	public static final String MOD_ID = "staminaattributes";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-	public static ServerConfig SERVER_CONFIG = ConfigApiJava.registerAndLoadConfig(ServerConfig::new);
+	public static ServerConfig SERVER_CONFIG;
 
 	public static EntityAttribute STAMINA_REGENERATION;
 	public static EntityAttribute MAX_STAMINA;
@@ -35,6 +35,7 @@ public class StaminaAttributes implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Initializing stamina!");
+		SERVER_CONFIG = ConfigApiJava.registerAndLoadConfig(ServerConfig::new);
 
 		UseItemCallback.EVENT.register((player, world, hand) -> {
 
