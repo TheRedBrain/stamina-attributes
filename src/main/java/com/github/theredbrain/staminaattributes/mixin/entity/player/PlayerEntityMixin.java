@@ -37,9 +37,9 @@ public abstract class PlayerEntityMixin extends LivingEntity implements StaminaU
 	public void staminaattributes$post_jump(CallbackInfo ci) {
 		if (!this.abilities.invulnerable) {
 			if (this.isSprinting()) {
-				this.staminaattributes$addStamina(-StaminaAttributes.SERVER_CONFIG.stamina_cost_sprint_jumping);
+				this.staminaattributes$addStamina(-StaminaAttributes.SERVER_CONFIG.actionCosts.stamina_cost_sprint_jumping);
 			} else {
-				this.staminaattributes$addStamina(-StaminaAttributes.SERVER_CONFIG.stamina_cost_jumping);
+				this.staminaattributes$addStamina(-StaminaAttributes.SERVER_CONFIG.actionCosts.stamina_cost_jumping);
 			}
 		}
 	}
@@ -47,49 +47,49 @@ public abstract class PlayerEntityMixin extends LivingEntity implements StaminaU
 	@Inject(method = "increaseTravelMotionStats", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;addExhaustion(F)V", ordinal = 0))
 	private void staminaattributes$increaseTravelMotionStats_swimming(CallbackInfo ci) {
 		if (!this.abilities.invulnerable) {
-			this.staminaattributes$addStamina(-StaminaAttributes.SERVER_CONFIG.stamina_cost_swimming);
+			this.staminaattributes$addStamina(-StaminaAttributes.SERVER_CONFIG.tickCosts.stamina_cost_swimming);
 		}
 	}
 
 	@Inject(method = "increaseTravelMotionStats", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;addExhaustion(F)V", ordinal = 1))
 	private void staminaattributes$increaseTravelMotionStats_walk_underwater(CallbackInfo ci) {
 		if (!this.abilities.invulnerable) {
-			this.staminaattributes$addStamina(-StaminaAttributes.SERVER_CONFIG.stamina_cost_walking_underwater);
+			this.staminaattributes$addStamina(-StaminaAttributes.SERVER_CONFIG.tickCosts.stamina_cost_walking_underwater);
 		}
 	}
 
 	@Inject(method = "increaseTravelMotionStats", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;addExhaustion(F)V", ordinal = 2))
 	private void staminaattributes$increaseTravelMotionStats_walk_in_water(CallbackInfo ci) {
 		if (!this.abilities.invulnerable) {
-			this.staminaattributes$addStamina(-StaminaAttributes.SERVER_CONFIG.stamina_cost_walking_in_water);
+			this.staminaattributes$addStamina(-StaminaAttributes.SERVER_CONFIG.tickCosts.stamina_cost_walking_in_water);
 		}
 	}
 
 	@Inject(method = "increaseTravelMotionStats", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;increaseStat(Lnet/minecraft/util/Identifier;I)V", ordinal = 3))
 	private void staminaattributes$increaseTravelMotionStats_climbing(CallbackInfo ci) {
 		if (!this.abilities.invulnerable) {
-			this.staminaattributes$addStamina(-StaminaAttributes.SERVER_CONFIG.stamina_cost_climbing);
+			this.staminaattributes$addStamina(-StaminaAttributes.SERVER_CONFIG.tickCosts.stamina_cost_climbing);
 		}
 	}
 
 	@Inject(method = "increaseTravelMotionStats", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;addExhaustion(F)V", ordinal = 3))
 	private void staminaattributes$increaseTravelMotionStats_sprinting(CallbackInfo ci) {
 		if (!this.abilities.invulnerable) {
-			this.staminaattributes$addStamina(-StaminaAttributes.SERVER_CONFIG.stamina_cost_sprinting);
+			this.staminaattributes$addStamina(-StaminaAttributes.SERVER_CONFIG.tickCosts.stamina_cost_sprinting);
 		}
 	}
 
 	@Inject(method = "increaseTravelMotionStats", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;addExhaustion(F)V", ordinal = 4))
 	private void staminaattributes$increaseTravelMotionStats_sneaking(CallbackInfo ci) {
 		if (!this.abilities.invulnerable) {
-			this.staminaattributes$addStamina(-StaminaAttributes.SERVER_CONFIG.stamina_cost_sneaking);
+			this.staminaattributes$addStamina(-StaminaAttributes.SERVER_CONFIG.tickCosts.stamina_cost_sneaking);
 		}
 	}
 
 	@Inject(method = "increaseTravelMotionStats", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;addExhaustion(F)V", ordinal = 5))
 	private void staminaattributes$increaseTravelMotionStats_walking(CallbackInfo ci) {
 		if (!this.abilities.invulnerable) {
-			this.staminaattributes$addStamina(-StaminaAttributes.SERVER_CONFIG.stamina_cost_walking);
+			this.staminaattributes$addStamina(-StaminaAttributes.SERVER_CONFIG.tickCosts.stamina_cost_walking);
 		}
 	}
 

@@ -8,96 +8,107 @@
 
 	"hud.message.staminaTooLow": "Your stamina is too low!",
 
-	"text.autoconfig.staminaattributes.title": "Stamina Attribute",
+	"staminaattributes.client": "Client Side Settings",
 
-	"text.autoconfig.staminaattributes.option.client.show_stamina_bar": "Shows the stamina bar",
-	"text.autoconfig.staminaattributes.option.client.show_full_stamina_bar": "Shows the stamina bar even if it's full",
-	"text.autoconfig.staminaattributes.option.client.dynamically_adjust_to_armor_bar": "Dynamically adjusts to the armor bar",
+	"staminaattributes.client.show_stamina_bar": "Shows the stamina bar",
 
-	"text.autoconfig.staminaattributes.option.client.is_centered": "Is centered",
+	"staminaattributes.client.show_full_stamina_bar": "Show full bar",
+	"staminaattributes.client.show_full_stamina_bar.desc": "Shows the stamina bar even if it's full",
 
-	"text.autoconfig.staminaattributes.option.client.offsets_x.@PrefixText": "X offset from origin\n\nThis config option can only be edited in the config file",
-	"text.autoconfig.staminaattributes.option.client.offsets_y.@PrefixText": "Y offset from origin\n\nThis config option can only be edited in the config file",
-	"text.autoconfig.staminaattributes.option.client.fill_direction": "Fill direction",
-	"text.autoconfig.staminaattributes.option.client.origin": "Origin",
+	"staminaattributes.client.positionSettings": "Position Settings",
 
-	"text.autoconfig.staminaattributes.option.client.background_middle_segment_amounts.@PrefixText": "Middle segment amounts\n\nThis config option can only be edited in the config file",
+	"staminaattributes.client.positionSettings.origin": "Origin",
 
-	"text.autoconfig.staminaattributes.option.client.horizontal_background_left_end_width.@PrefixText": "\nHorizontal background texture",
-	"text.autoconfig.staminaattributes.option.client.horizontal_background_left_end_width": "Left end width",
-	"text.autoconfig.staminaattributes.option.client.horizontal_background_middle_segment_width": "Middle segment width",
-	"text.autoconfig.staminaattributes.option.client.horizontal_background_right_end_width": "Right end width",
-	"text.autoconfig.staminaattributes.option.client.horizontal_background_height": "Height",
+	"staminaattributes.client.positionSettings.dynamically_adjust_to_armor_bar": "Adjusts to armor bar",
+	"staminaattributes.client.positionSettings.dynamically_adjust_to_armor_bar.desc": "When armor HUD is visible, the stamina bar is moved up",
 
-	"text.autoconfig.staminaattributes.option.client.vertical_background_width.@PrefixText": "\nVertical background texture",
-	"text.autoconfig.staminaattributes.option.client.vertical_background_width": "Width",
-	"text.autoconfig.staminaattributes.option.client.vertical_background_top_end_height": "Top end height",
-	"text.autoconfig.staminaattributes.option.client.vertical_background_middle_segment_height": "Middle segment height",
-	"text.autoconfig.staminaattributes.option.client.vertical_background_bottom_end_height": "Bottom end height",
+	"staminaattributes.client.positionSettings.is_centered": "Is centered",
 
-	"text.autoconfig.staminaattributes.option.client.progress_offset_x.@PrefixText": "\nProgress Texture",
-	"text.autoconfig.staminaattributes.option.client.progress_offset_x": "X offset from background",
-	"text.autoconfig.staminaattributes.option.client.progress_offset_y": "Y offset from background",
-	"text.autoconfig.staminaattributes.option.client.progress_middle_segment_amounts.@PrefixText": "Middle segment amount\n\nThis config option can only be edited in the config file",
+	"staminaattributes.client.positionSettings.offsets_x": "X Offset from Origin",
+	"staminaattributes.client.positionSettings.offsets_x.desc": "Only the highest reached threshold is used.",
+	"staminaattributes.client.positionSettings.offsets_y": "Y Offset from Origin",
+	"staminaattributes.client.positionSettings.offsets_y.desc": "Only the highest reached threshold is used.",
 
-	"text.autoconfig.staminaattributes.option.client.horizontal_progress_left_end_width.@PrefixText": "\nHorizontal progress texture",
-	"text.autoconfig.staminaattributes.option.client.horizontal_progress_left_end_width": "Left end width",
-	"text.autoconfig.staminaattributes.option.client.horizontal_progress_middle_segment_width": "Middle segment width",
-	"text.autoconfig.staminaattributes.option.client.horizontal_progress_right_end_width": "Right end width",
-	"text.autoconfig.staminaattributes.option.client.horizontal_progress_height": "Height",
+	"staminaattributes.client.fill_direction": "Fill direction",
 
-	"text.autoconfig.staminaattributes.option.client.vertical_progress_width.@PrefixText": "\nVertical progress texture",
-	"text.autoconfig.staminaattributes.option.client.vertical_progress_width": "Width",
-	"text.autoconfig.staminaattributes.option.client.vertical_progress_top_end_height": "Top end height",
-	"text.autoconfig.staminaattributes.option.client.vertical_progress_middle_segment_height": "Middle segment height",
-	"text.autoconfig.staminaattributes.option.client.vertical_progress_bottom_end_height": "Bottom end height",
+	"staminaattributes.client.textureSettings.backgroundTextureSettings": "Background",
+	"staminaattributes.client.textureSettings.progressTextureSettings": "Progress",
+	"staminaattributes.client.textureSettings.reservedTextureSettings": "Reserved",
 
-	"text.autoconfig.staminaattributes.option.client.reserved_offset_x.@PrefixText": "\nReserved Texture",
-	"text.autoconfig.staminaattributes.option.client.reserved_offset_x": "X offset from background",
-	"text.autoconfig.staminaattributes.option.client.reserved_offset_y": "Y offset from background",
-	"text.autoconfig.staminaattributes.option.client.reserved_middle_segment_amounts.@PrefixText": "Middle segment amount\n\nThis config option can only be edited in the config file",
+	"staminaattributes.client.texture_layer.offset_x": "X offset from background",
+	"staminaattributes.client.texture_layer.offset_y": "Y offset from background",
+	"staminaattributes.client.texture_layer.middle_segment_amounts": "Middle segment amounts",
+	"staminaattributes.client.texture_layer.middle_segment_amounts.desc": "Only the highest reached threshold is used.",
 
-	"text.autoconfig.staminaattributes.option.client.horizontal_reserved_left_end_width.@PrefixText": "\nHorizontal reserved texture",
-	"text.autoconfig.staminaattributes.option.client.horizontal_reserved_left_end_width": "Left end width",
-	"text.autoconfig.staminaattributes.option.client.horizontal_reserved_middle_segment_width": "Middle segment width",
-	"text.autoconfig.staminaattributes.option.client.horizontal_reserved_right_end_width": "Right end width",
-	"text.autoconfig.staminaattributes.option.client.horizontal_reserved_height": "Height",
+	"staminaattributes.client.texture_layer.horizontalTextureSettings": "Horizontal Textures",
+	"staminaattributes.client.texture_layer.horizontal_left_end_width": "Left End Width",
+	"staminaattributes.client.texture_layer.horizontal_middle_segment_width": "Middle Segment Width",
+	"staminaattributes.client.texture_layer.horizontal_right_end_width": "Right End Width",
+	"staminaattributes.client.texture_layer.horizontal_height": "Height",
 
-	"text.autoconfig.staminaattributes.option.client.vertical_reserved_width.@PrefixText": "\nVertical reserved texture",
-	"text.autoconfig.staminaattributes.option.client.vertical_reserved_width": "Width",
-	"text.autoconfig.staminaattributes.option.client.vertical_reserved_top_end_height": "Top end height",
-	"text.autoconfig.staminaattributes.option.client.vertical_reserved_middle_segment_height": "Middle segment height",
-	"text.autoconfig.staminaattributes.option.client.vertical_reserved_bottom_end_height": "Bottom end height",
+	"staminaattributes.client.texture_layer.verticalTextureSettings": "Vertical Textures",
+	"staminaattributes.client.texture_layer.vertical_width": "Width",
+	"staminaattributes.client.texture_layer.vertical_top_end_height": "Top End Height",
+	"staminaattributes.client.texture_layer.vertical_middle_segment_height": "Middle Segment Height",
+	"staminaattributes.client.texture_layer.vertical_bottom_end_height": "Bottom End Height",
 
-	"text.autoconfig.staminaattributes.option.client.show_current_value_overlay.@PrefixText": "\nCurrent value overlay",
-	"text.autoconfig.staminaattributes.option.client.show_current_value_overlay": "Show overlay",
+	"staminaattributes.client.show_current_value_overlay": "Show overlay",
+	"staminaattributes.client.show_current_value_overlay.desc": "Indicates the current value",
 
-	"text.autoconfig.staminaattributes.option.client.overlay_offset_x": "X offset from progress",
-	"text.autoconfig.staminaattributes.option.client.overlay_offset_y": "Y offset from progress",
+	"staminaattributes.client.textureSettings.overlayTextureSettings": "Overlay",
 
-	"text.autoconfig.staminaattributes.option.client.horizontal_overlay_width.@PrefixText": "\nHorizontal Overlay Texture",
-	"text.autoconfig.staminaattributes.option.client.horizontal_overlay_width": "Width",
-	"text.autoconfig.staminaattributes.option.client.horizontal_overlay_height": "Height",
+	"staminaattributes.client.textureSettings.overlayTextureSettings.offset_x": "X offset from progress",
+	"staminaattributes.client.textureSettings.overlayTextureSettings.offset_y": "Y offset from progress",
 
-	"text.autoconfig.staminaattributes.option.client.vertical_overlay_width.@PrefixText": "\nVertical Overlay Texture",
-	"text.autoconfig.staminaattributes.option.client.vertical_overlay_width": "Width",
-	"text.autoconfig.staminaattributes.option.client.vertical_overlay_height": "Height",
+	"staminaattributes.client.textureSettings.overlayTextureSettings.horizontal_width": "Horizontal Width",
+	"staminaattributes.client.textureSettings.overlayTextureSettings.horizontal_height": "Horizontal Height",
 
-	"text.autoconfig.staminaattributes.option.client.enable_smooth_animation.@PrefixText": "\nAnimation",
-	"text.autoconfig.staminaattributes.option.client.enable_smooth_animation": "Enable smooth animation",
-	"text.autoconfig.staminaattributes.option.client.animation_interval": "Animation interval",
+	"staminaattributes.client.textureSettings.overlayTextureSettings.vertical_width": "Vertical Width",
+	"staminaattributes.client.textureSettings.overlayTextureSettings.vertical_height": "Vertical Height",
 
-	"text.autoconfig.staminaattributes.option.client.max_value_change_is_animated": "Animate changes to the max value",
+	"staminaattributes.client.enable_smooth_animation": "Enable smooth animation",
 
-	"text.autoconfig.staminaattributes.option.client.show_number.@PrefixText": "\nNumber",
-	"text.autoconfig.staminaattributes.option.client.show_number": "Show number",
+	"staminaattributes.client.animationSettings": "Animation Settings",
 
-	"text.autoconfig.staminaattributes.option.client.show_max_value": "Show maximum value",
+	"staminaattributes.client.animationSettings.animation_interval": "Animation interval",
+	"staminaattributes.client.animationSettings.max_value_change_is_animated": "Animate max value changes",
 
-	"text.autoconfig.staminaattributes.option.client.number_offset_x": "X offset from origin",
-	"text.autoconfig.staminaattributes.option.client.number_offset_y": "Y offset from origin",
+	"staminaattributes.client.show_number": "Show number",
+	"staminaattributes.client.show_number.desc": "Shows the current stamina amount as a number",
 
-	"text.autoconfig.staminaattributes.option.client.number_color": "Number color",
+	"staminaattributes.client.numberSettings": "Number Settings",
+
+	"staminaattributes.client.numberSettings.show_max_value.desc": "Additionally shows the maximum value. When stamina is reserved, it shows the unreserved maximum and the real maximum (in brackets).",
+	"staminaattributes.client.numberSettings.show_max_value": "Show maximum value",
+
+	"staminaattributes.client.numberSettings.number_offset_x": "X offset from origin",
+	"staminaattributes.client.numberSettings.number_offset_y": "Y offset from origin",
+
+	"staminaattributes.client.numberSettings.number_color": "Number color",
+
+	"staminaattributes.server": "Server Side Settings",
+
+	"staminaattributes.server.item_use_cooldown_when_no_stamina": "Item Cooldown on missing stamina",
+	"staminaattributes.server.item_use_cooldown_when_no_stamina.desc": "When an item requires stamina to be used and stamina is below 0, the cooldown is applied (amount in ticks)",
+	"staminaattributes.server.jumping_requires_stamina": "Jumping requires stamina",
+	"staminaattributes.server.sprinting_requires_stamina": "Sprinting requires stamina",
+
+	"staminaattributes.server.tickCosts": "Tick Stamina Costs",
+	"staminaattributes.server.tickCosts.desc": "These values are subtracted from the players stamina each tick (20 times per second) while the action is performed",
+
+	"staminaattributes.server.tickCosts.stamina_cost_sprinting": "Sprinting",
+	"staminaattributes.server.tickCosts.stamina_cost_sneaking": "Sneaking",
+	"staminaattributes.server.tickCosts.stamina_cost_walking": "Walking",
+	"staminaattributes.server.tickCosts.stamina_cost_swimming": "Swimming",
+	"staminaattributes.server.tickCosts.stamina_cost_walking_underwater": "Walking under water",
+	"staminaattributes.server.tickCosts.stamina_cost_walking_in_water": "Walking in water",
+	"staminaattributes.server.tickCosts.stamina_cost_climbing": "Climbing",
+
+	"staminaattributes.server.actionCosts": "Action Stamina Costs",
+	"staminaattributes.server.actionCosts.desc": "These values are subtracted from the players stamina each time the action is performed",
+
+	"staminaattributes.server.actionCosts.stamina_cost_sprint_jumping": "Sprint Jumping",
+	"staminaattributes.server.actionCosts.stamina_cost_jumping": "Jumping",
 
 	"gamerule.naturalStaminaRegeneration": "Naturally regenerate stamina"
 }
