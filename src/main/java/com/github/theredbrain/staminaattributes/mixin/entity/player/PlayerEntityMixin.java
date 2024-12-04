@@ -46,6 +46,6 @@ public abstract class PlayerEntityMixin extends LivingEntity implements StaminaU
 
 	@Override
 	public float staminaattributes$getRegeneratedStamina() {
-		return Math.max(this.staminaattributes$getStaminaRegeneration(), (this.getServer() != null && this.getServer().getGameRules().getBoolean(GameRulesRegistry.NATURAL_STAMINA_REGENERATION) ? 1.0F : 0.0F));
+		return this.staminaattributes$getStaminaRegeneration() + (this.getServer() != null && this.getServer().getGameRules().getBoolean(GameRulesRegistry.NATURAL_STAMINA_REGENERATION) ? 1.0F : 0.0F);
 	}
 }
