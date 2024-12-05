@@ -66,11 +66,9 @@ public class ClientEventsRegistry {
 			PlayerEntity playerEntity = minecraftClient.player;
 			ClientConfig clientConfig = StaminaAttributesClient.CLIENT_CONFIG;
 
-			if (clientConfig.show_stamina_bar && playerEntity != null) {
+			if (playerEntity != null) {
 				double stamina = MathHelper.ceil(((StaminaUsingEntity) playerEntity).staminaattributes$getStamina());
 				double maxStamina = MathHelper.ceil(((StaminaUsingEntity) playerEntity).staminaattributes$getMaxStamina());
-
-				if (maxStamina > 0 && (stamina < maxStamina || clientConfig.show_full_stamina_bar)) {
 
 					ResourceBarAPIClient.drawResourceBar(
 							minecraftClient,
@@ -78,6 +76,7 @@ public class ClientEventsRegistry {
 							matrixStack,
 							StaminaAttributes.MOD_ID + ":stamina",
 							new double[]{-1, -1, 0, 0, 0, 0, 0, 0},
+							clientConfig.show_stamina_bar && maxStamina > 0 && (stamina < maxStamina || clientConfig.show_full_stamina_bar),
 							stamina,
 							maxStamina,
 							MathHelper.ceil(((StaminaUsingEntity) playerEntity).staminaattributes$getRegeneratedStamina()),
@@ -131,13 +130,12 @@ public class ClientEventsRegistry {
 							clientConfig.enable_smooth_animation,
 							clientConfig.animationSettings.animation_interval,
 							clientConfig.animationSettings.max_value_change_is_animated,
-							clientConfig.show_number,
+							clientConfig.show_number && maxStamina > 0 && (stamina < maxStamina || clientConfig.numberSettings.show_when_stamina_full),
 							clientConfig.numberSettings.show_max_value,
 							clientConfig.numberSettings.offset_x,
 							clientConfig.numberSettings.offset_y - ((clientConfig.positionSettings.dynamically_adjust_to_armor_bar && playerEntity.getArmor() > 0) ? 10 : 0),
 							clientConfig.numberSettings.color.toInt()
 					);
-				}
 			}
 		});
 	}
