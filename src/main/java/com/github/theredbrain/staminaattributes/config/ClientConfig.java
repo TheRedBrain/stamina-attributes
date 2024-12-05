@@ -151,6 +151,7 @@ public class ClientConfig extends Config {
 	}
 
 	public boolean show_number = false;
+	public boolean show_when_stamina_full = true;
 
 	public NumberSettings numberSettings = new NumberSettings();
 
