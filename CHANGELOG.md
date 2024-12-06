@@ -1,4 +1,4 @@
-# 1.4.1
+# 1.5.0
 
 - changed "natural stamina regeneration" gamerule to simply add 1 stamina regeneration. The previous implementation prevented stamina regeneration from ever becoming negative.
 - fixed "offset_from_origin" config values not working correctly

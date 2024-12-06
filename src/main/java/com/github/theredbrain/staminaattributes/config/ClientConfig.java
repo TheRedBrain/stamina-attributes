@@ -151,12 +151,12 @@ public class ClientConfig extends Config {
 	}
 
 	public boolean show_number = false;
-	public boolean show_when_stamina_full = true;
 
 	public NumberSettings numberSettings = new NumberSettings();
 
 	public static class NumberSettings extends ConfigSection {
 		public boolean show_max_value = false;
+		public boolean show_when_stamina_full = true;
 		public int offset_x = 0;
 		public int offset_y = -46;
 		public ValidatedColor color = new ValidatedColor(150, 150, 150);

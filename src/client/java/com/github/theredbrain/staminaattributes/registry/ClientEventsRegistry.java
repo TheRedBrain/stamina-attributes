@@ -5,6 +5,7 @@ import com.github.theredbrain.staminaattributes.StaminaAttributes;
 import com.github.theredbrain.staminaattributes.StaminaAttributesClient;
 import com.github.theredbrain.staminaattributes.config.ClientConfig;
 import com.github.theredbrain.staminaattributes.entity.StaminaUsingEntity;
+import me.fzzyhmstrs.fzzy_config.api.ConfigApi;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
@@ -12,6 +13,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
 public class ClientEventsRegistry {
+	private static final String RESOURCE_BAR_IDENTIFIER_STRING = StaminaAttributes.MOD_ID + ":stamina";
 
 	private static final Identifier[] STAMINA_TEXTURES = {
 			StaminaAttributes.identifier("textures/gui/sprites/hud/horizontal_stamina_background_left_end.png"),
@@ -73,7 +75,7 @@ public class ClientEventsRegistry {
 						minecraftClient,
 						minecraftClient.textRenderer,
 						matrixStack,
-						StaminaAttributes.MOD_ID + ":stamina",
+						RESOURCE_BAR_IDENTIFIER_STRING,
 						new double[]{-1, -1, 0, 0, 0, 0, 0, 0},
 						clientConfig.show_stamina_bar && maxStamina > 0 && (stamina < maxStamina || clientConfig.show_full_stamina_bar),
 						stamina,
@@ -129,14 +131,18 @@ public class ClientEventsRegistry {
 						clientConfig.enable_smooth_animation,
 						clientConfig.animationSettings.animation_interval,
 						clientConfig.animationSettings.max_value_change_is_animated,
-						clientConfig.show_number && maxStamina > 0 && (stamina < maxStamina || clientConfig.show_when_stamina_full),
+						clientConfig.show_number && maxStamina > 0 && (stamina < maxStamina || clientConfig.numberSettings.show_when_stamina_full),
 						clientConfig.numberSettings.show_max_value,
 						clientConfig.numberSettings.offset_x,
 						clientConfig.numberSettings.offset_y - ((clientConfig.positionSettings.dynamically_adjust_to_armor_bar && playerEntity.getArmor() > 0) ? 10 : 0),
 						clientConfig.numberSettings.color.toInt()
 				);
 			}
-		}
-	});
-}
+		});
+		ConfigApi.event().onUpdateClient((identifier, config) -> {
+			if (identifier.equals(Identifier.of(StaminaAttributes.MOD_ID, "client"))) {
+				ResourceBarAPIClient.clearCache(RESOURCE_BAR_IDENTIFIER_STRING, new double[]{-1, -1, 0, 0, 0, 0, 0, 0});
+			}
+		});
+	}
 }
