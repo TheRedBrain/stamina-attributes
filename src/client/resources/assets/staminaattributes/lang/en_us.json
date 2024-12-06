@@ -76,12 +76,12 @@
 	"staminaattributes.client.show_number": "Show number",
 	"staminaattributes.client.show_number.desc": "Shows the current stamina amount as a number",
 
-	"staminaattributes.client.show_when_stamina_full": "Show when stamina is full",
-
 	"staminaattributes.client.numberSettings": "Number Settings",
 
 	"staminaattributes.client.numberSettings.show_max_value.desc": "Additionally shows the maximum value. When stamina is reserved, it shows the unreserved maximum and the real maximum (in brackets).",
 	"staminaattributes.client.numberSettings.show_max_value": "Show maximum value",
+
+	"staminaattributes.client.numberSettings.show_when_stamina_full": "Show when stamina is full",
 
 	"staminaattributes.client.numberSettings.number_offset_x": "X offset from origin",
 	"staminaattributes.client.numberSettings.number_offset_y": "Y offset from origin",
