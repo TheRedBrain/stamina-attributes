@@ -1,9 +1,11 @@
 package com.github.theredbrain.staminaattributes.config;
 
 import com.github.theredbrain.staminaattributes.StaminaAttributes;
+import me.fzzyhmstrs.fzzy_config.annotations.ConvertFrom;
 import me.fzzyhmstrs.fzzy_config.config.Config;
 import me.fzzyhmstrs.fzzy_config.config.ConfigSection;
 
+@ConvertFrom(fileName = "server.json5", folder = "staminaattributes")
 public class ServerConfig extends Config {
 
 	public ServerConfig() {
