@@ -47,13 +47,13 @@ public class ClientEventsRegistry {
 								0
 						},
 						new Identifier[]{
-								Identifier.of("resourcebarapi_test", "textures/gui/sprites/hud/horizontal_stamina_background.png"),
-								Identifier.of("resourcebarapi_test", "textures/gui/sprites/hud/horizontal_stamina_progress_decrease_animation.png"),
-								Identifier.of("resourcebarapi_test", "textures/gui/sprites/hud/horizontal_stamina_progress_increase_animation.png"),
-								Identifier.of("resourcebarapi_test", "textures/gui/sprites/hud/horizontal_stamina_progress_increase_value.png"),
-								Identifier.of("resourcebarapi_test", "textures/gui/sprites/hud/horizontal_stamina_progress.png"),
-								Identifier.of("resourcebarapi_test", "textures/gui/sprites/hud/horizontal_stamina_reserved.png"),
-								Identifier.of("resourcebarapi_test", "textures/gui/sprites/hud/horizontal_stamina_overlay.png"),
+								Identifier.of("staminaattributes", "textures/gui/sprites/hud/horizontal_stamina_background.png"),
+								Identifier.of("staminaattributes", "textures/gui/sprites/hud/horizontal_stamina_progress_decrease_animation.png"),
+								Identifier.of("staminaattributes", "textures/gui/sprites/hud/horizontal_stamina_progress_increase_animation.png"),
+								Identifier.of("staminaattributes", "textures/gui/sprites/hud/horizontal_stamina_progress_increase_value.png"),
+								Identifier.of("staminaattributes", "textures/gui/sprites/hud/horizontal_stamina_progress.png"),
+								Identifier.of("staminaattributes", "textures/gui/sprites/hud/horizontal_stamina_reserved.png"),
+								Identifier.of("staminaattributes", "textures/gui/sprites/hud/horizontal_stamina_overlay.png"),
 								null
 						},
 						clientConfig.show_stamina_bar && maxStamina > 0 && (stamina < maxStamina || clientConfig.show_full_stamina_bar),
