@@ -31,40 +31,40 @@
 
 	"staminaattributes.client.fill_direction": "Fill direction",
 
-	"staminaattributes.client.textureSettings.backgroundTextureSettings": "Background",
-	"staminaattributes.client.textureSettings.progressTextureSettings": "Progress",
-	"staminaattributes.client.textureSettings.reservedTextureSettings": "Reserved",
+	"staminaattributes.client.textureSettings.backgroundTextureSettings": "Background Settings",
+	"staminaattributes.client.textureSettings.progressTextureSettings": "Progress Settings",
+	"staminaattributes.client.textureSettings.reservedTextureSettings": "Reserved Settings",
+
+	"staminaattributes.client.textureSettings.progressTextureSettings.progress_decrease_animation_texture_ids": "Progress Decrease Animation Texture Ids",
+	"staminaattributes.client.textureSettings.progressTextureSettings.progress_increase_animation_texture_ids": "Progress Increase Animation Texture Ids",
+	"staminaattributes.client.textureSettings.progressTextureSettings.progress_increase_value_texture_ids": "Progress Increase Value Texture Ids",
+	"staminaattributes.client.textureSettings.progressTextureSettings.progress_texture_ids": "Progress Texture Ids",
 
 	"staminaattributes.client.texture_layer.offset_x": "X offset from background",
 	"staminaattributes.client.texture_layer.offset_y": "Y offset from background",
-	"staminaattributes.client.texture_layer.middle_segment_amounts": "Middle segment amounts",
-	"staminaattributes.client.texture_layer.middle_segment_amounts.desc": "Only the highest reached threshold is used.",
 
-	"staminaattributes.client.texture_layer.horizontalTextureSettings": "Horizontal Textures",
-	"staminaattributes.client.texture_layer.horizontal_left_end_width": "Left End Width",
-	"staminaattributes.client.texture_layer.horizontal_middle_segment_width": "Middle Segment Width",
-	"staminaattributes.client.texture_layer.horizontal_right_end_width": "Right End Width",
-	"staminaattributes.client.texture_layer.horizontal_height": "Height",
-
-	"staminaattributes.client.texture_layer.verticalTextureSettings": "Vertical Textures",
-	"staminaattributes.client.texture_layer.vertical_width": "Width",
-	"staminaattributes.client.texture_layer.vertical_top_end_height": "Top End Height",
-	"staminaattributes.client.texture_layer.vertical_middle_segment_height": "Middle Segment Height",
-	"staminaattributes.client.texture_layer.vertical_bottom_end_height": "Bottom End Height",
+	"staminaattributes.client.texture_layer.texture_heights": "Texture Heights",
+	"staminaattributes.client.texture_layer.texture_heights.desc": "Only the highest reached threshold is used.",
+	"staminaattributes.client.texture_layer.texture_widths": "Texture Widths",
+	"staminaattributes.client.texture_layer.texture_widths.desc": "Only the highest reached threshold is used.",
+	"staminaattributes.client.texture_layer.texture_ids": "Texture Identifiers",
+	"staminaattributes.client.texture_layer.texture_ids.desc": "Only the highest reached threshold is used.",
 
 	"staminaattributes.client.show_current_value_overlay": "Show overlay",
 	"staminaattributes.client.show_current_value_overlay.desc": "Indicates the current value",
 
-	"staminaattributes.client.textureSettings.overlayTextureSettings": "Overlay",
+	"staminaattributes.client.textureSettings.overlayTextureSettings": "Overlay Settings",
 
 	"staminaattributes.client.textureSettings.overlayTextureSettings.offset_x": "X offset from progress",
 	"staminaattributes.client.textureSettings.overlayTextureSettings.offset_y": "Y offset from progress",
 
-	"staminaattributes.client.textureSettings.overlayTextureSettings.horizontal_width": "Horizontal Width",
-	"staminaattributes.client.textureSettings.overlayTextureSettings.horizontal_height": "Horizontal Height",
+	"staminaattributes.client.show_icon": "Show icon",
+	"staminaattributes.client.show_icon.desc": "An additional HUD element",
 
-	"staminaattributes.client.textureSettings.overlayTextureSettings.vertical_width": "Vertical Width",
-	"staminaattributes.client.textureSettings.overlayTextureSettings.vertical_height": "Vertical Height",
+	"staminaattributes.client.iconTextureSettings": "Icon Settings",
+
+	"staminaattributes.client.iconTextureSettings.offset_x": "X offset from origin",
+	"staminaattributes.client.iconTextureSettings.offset_y": "Y offset from origin",
 
 	"staminaattributes.client.enable_smooth_animation": "Enable smooth animation",
 
