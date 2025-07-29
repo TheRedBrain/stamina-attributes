@@ -54,7 +54,7 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 
 	@Inject(method = "initDataTracker", at = @At("RETURN"))
 	protected void staminaattributes$initDataTracker(DataTracker.Builder builder, CallbackInfo ci) {
-		builder.add(STAMINA, 0.0F);
+		builder.add(STAMINA, 10.0F);
 
 	}
 
