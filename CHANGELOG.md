@@ -1,3 +1,10 @@
+# 2.7.0
+
+- added alternative stamina bar consisting of icons, similar to vanillas resource bars (this first iteration does not yet support multiple icon types per bar, e.g. reserved stamina)
+- fixed an issue where the stamina bar was empty when joining a world for the first time/respawning
+- fixed an issue where the stamina bar was visible in creative mode
+- fixed an issue where the stamina bar was visible even when the HUD was hidden (pressing F1)
+
 # 2.6.0
 
 HUD rendering overhaul
