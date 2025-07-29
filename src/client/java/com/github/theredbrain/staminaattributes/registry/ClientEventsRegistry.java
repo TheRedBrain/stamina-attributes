@@ -20,7 +20,7 @@ public class ClientEventsRegistry {
 			MinecraftClient minecraftClient = MinecraftClient.getInstance();
 			PlayerEntity playerEntity = minecraftClient.player;
 			ClientConfig clientConfig = StaminaAttributesClient.CLIENT_CONFIG;
-			if (playerEntity != null) {
+			if (playerEntity != null && !minecraftClient.options.hudHidden) {
 				double stamina = MathHelper.ceil(((StaminaUsingEntity) playerEntity).staminaattributes$getStamina());
 				double maxStamina = MathHelper.ceil(((StaminaUsingEntity) playerEntity).staminaattributes$getMaxStamina());
 
