@@ -59,10 +59,9 @@ There are two ways to give an item a stamina cost:
 
 ## Customization
 
-When the gamerule "naturalStaminaRegeneration" is true, players have 1 additional stamina regeneration.
+When the game rule "naturalStaminaRegeneration" is true, players have 1 additional stamina regeneration.
 
-The client config allows customizing the HUD element. The details are explained
-in [this wiki article](https://github.com/TheRedBrain/overhauled-damage/wiki/Resource-Bar-Customization).
+The client config allows customizing the HUD element.
 
 The server config controls the integration with game mechanics, like stamina costs for various actions like jumping.
 
