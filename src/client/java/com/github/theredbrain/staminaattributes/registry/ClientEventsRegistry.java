@@ -59,8 +59,8 @@ public class ClientEventsRegistry {
 								clientConfig.iconBarSettings.offset_x.get(),
 								clientConfig.iconBarSettings.offset_y.get() + air_offset + armor_offset,
 								clientConfig.fill_direction,
-								true,
-								10
+								clientConfig.iconBarSettings.reverse_stack_direction.get(),
+								clientConfig.iconBarSettings.max_icon_amount_per_bar.get()
 						);
 					} else if (clientConfig.stamina_bar_display == ResourceBarAPI.ResourceBarDisplay.SMOOTH && (stamina < maxStamina || clientConfig.show_full_stamina_bar)) {
 						ResourceBarAPIClient.drawSmoothResourceBar(

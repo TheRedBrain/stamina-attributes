@@ -8,6 +8,7 @@ import me.fzzyhmstrs.fzzy_config.config.Config;
 import me.fzzyhmstrs.fzzy_config.config.ConfigSection;
 import me.fzzyhmstrs.fzzy_config.validation.collection.ValidatedMap;
 import me.fzzyhmstrs.fzzy_config.validation.minecraft.ValidatedIdentifier;
+import me.fzzyhmstrs.fzzy_config.validation.misc.ValidatedBoolean;
 import me.fzzyhmstrs.fzzy_config.validation.misc.ValidatedColor;
 import me.fzzyhmstrs.fzzy_config.validation.number.ValidatedInt;
 import net.minecraft.util.Identifier;
@@ -34,6 +35,8 @@ public class ClientConfig extends Config {
 	public static class IconBarSettings extends ConfigSection {
 		public ValidatedInt offset_x = new ValidatedInt(91);
 		public ValidatedInt offset_y = new ValidatedInt(-39);
+		public ValidatedInt max_icon_amount_per_bar = new ValidatedInt(10);
+		public ValidatedBoolean reverse_stack_direction = new ValidatedBoolean(true);
 	}
 
 	public SmoothBarSettings smoothBarSettings = new SmoothBarSettings();

@@ -42,7 +42,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements StaminaU
 
 	@Inject(method = "tick", at = @At("TAIL"))
 	public void staminaattributes$tick(CallbackInfo ci) {
-		if (this.getServer() != null && this.getServer().getGameRules().getBoolean(GameRulesRegistry.NATURAL_STAMINA_REGENERATION)) {
+		if (this.getServer() != null && this.getWorld().getGameRules().getBoolean(GameRulesRegistry.NATURAL_STAMINA_REGENERATION)) {
 			this.getAttributes().addTemporaryModifiers(getNaturalStaminaRegenerationModifier());
 		} else {
 			this.getAttributes().removeModifiers(getNaturalStaminaRegenerationModifier());
