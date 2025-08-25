@@ -112,5 +112,6 @@
 	"staminaattributes.server.actionCosts.stamina_cost_sprint_jumping": "Sprint Jumping",
 	"staminaattributes.server.actionCosts.stamina_cost_jumping": "Jumping",
 
-	"gamerule.naturalStaminaRegeneration": "Naturally regenerate stamina"
+	"gamerule.naturalStaminaRegeneration": "Naturally regenerate stamina",
+	"gamerule.naturalMaximumStamina": "Naturally available maximum stamina"
 }
