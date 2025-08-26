@@ -19,6 +19,24 @@ public interface StaminaUsingEntity {
 
 	float staminaattributes$getItemUseStaminaCost();
 
+	float staminaattributes$getSprintingTickStaminaCost();
+
+	float staminaattributes$getSneakingTickStaminaCost();
+
+	float staminaattributes$getWalkingTickStaminaCost();
+
+	float staminaattributes$getSwimmingTickStaminaCost();
+
+	float staminaattributes$getWalkingUnderwaterTickStaminaCost();
+
+	float staminaattributes$getWalkingInWaterTickStaminaCost();
+
+	float staminaattributes$getClimbingTickStaminaCost();
+
+	float staminaattributes$getJumpingActionStaminaCost();
+
+	float staminaattributes$getSprintJumpingActionStaminaCost();
+
 	void staminaattributes$addStamina(float amount);
 
 	float staminaattributes$getStamina();

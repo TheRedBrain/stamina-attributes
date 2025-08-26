@@ -68,6 +68,15 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 				.add(StaminaAttributes.STAMINA_TICK_THRESHOLD)
 				.add(StaminaAttributes.RESERVED_STAMINA)
 				.add(StaminaAttributes.ITEM_USE_STAMINA_COST)
+				.add(StaminaAttributes.SPRINTING_TICK_STAMINA_COST)
+				.add(StaminaAttributes.SNEAKING_TICK_STAMINA_COST)
+				.add(StaminaAttributes.WALKING_TICK_STAMINA_COST)
+				.add(StaminaAttributes.SWIMMING_TICK_STAMINA_COST)
+				.add(StaminaAttributes.WALKING_UNDERWATER_TICK_STAMINA_COST)
+				.add(StaminaAttributes.WALKING_IN_WATER_TICK_STAMINA_COST)
+				.add(StaminaAttributes.CLIMBING_TICK_STAMINA_COST)
+				.add(StaminaAttributes.JUMPING_ACTION_STAMINA_COST)
+				.add(StaminaAttributes.SPRINT_JUMPING_ACTION_STAMINA_COST)
 		;
 	}
 
@@ -180,6 +189,51 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 	@Override
 	public float staminaattributes$getItemUseStaminaCost() {
 		return (float) this.getAttributeValue(StaminaAttributes.ITEM_USE_STAMINA_COST);
+	}
+
+	@Override
+	public float staminaattributes$getSprintingTickStaminaCost() {
+		return (float) this.getAttributeValue(StaminaAttributes.SPRINTING_TICK_STAMINA_COST);
+	}
+
+	@Override
+	public float staminaattributes$getSneakingTickStaminaCost() {
+		return (float) this.getAttributeValue(StaminaAttributes.SNEAKING_TICK_STAMINA_COST);
+	}
+
+	@Override
+	public float staminaattributes$getWalkingTickStaminaCost() {
+		return (float) this.getAttributeValue(StaminaAttributes.WALKING_TICK_STAMINA_COST);
+	}
+
+	@Override
+	public float staminaattributes$getSwimmingTickStaminaCost() {
+		return (float) this.getAttributeValue(StaminaAttributes.SWIMMING_TICK_STAMINA_COST);
+	}
+
+	@Override
+	public float staminaattributes$getWalkingUnderwaterTickStaminaCost() {
+		return (float) this.getAttributeValue(StaminaAttributes.WALKING_UNDERWATER_TICK_STAMINA_COST);
+	}
+
+	@Override
+	public float staminaattributes$getWalkingInWaterTickStaminaCost() {
+		return (float) this.getAttributeValue(StaminaAttributes.WALKING_IN_WATER_TICK_STAMINA_COST);
+	}
+
+	@Override
+	public float staminaattributes$getClimbingTickStaminaCost() {
+		return (float) this.getAttributeValue(StaminaAttributes.CLIMBING_TICK_STAMINA_COST);
+	}
+
+	@Override
+	public float staminaattributes$getJumpingActionStaminaCost() {
+		return (float) this.getAttributeValue(StaminaAttributes.JUMPING_ACTION_STAMINA_COST);
+	}
+
+	@Override
+	public float staminaattributes$getSprintJumpingActionStaminaCost() {
+		return (float) this.getAttributeValue(StaminaAttributes.SPRINT_JUMPING_ACTION_STAMINA_COST);
 	}
 
 	@Override
