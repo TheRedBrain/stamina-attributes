@@ -2,6 +2,7 @@ package com.github.theredbrain.staminaattributes;
 
 import com.github.theredbrain.staminaattributes.config.ServerConfig;
 import com.github.theredbrain.staminaattributes.registry.GameRulesRegistry;
+import com.github.theredbrain.staminaattributes.registry.ServerEventsRegistry;
 import me.fzzyhmstrs.fzzy_config.api.ConfigApiJava;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.entity.attribute.EntityAttribute;
@@ -43,19 +44,8 @@ public class StaminaAttributes implements ModInitializer {
 		LOGGER.info("Initializing stamina!");
 		SERVER_CONFIG = ConfigApiJava.registerAndLoadConfig(ServerConfig::new);
 
-		UseItemCallback.EVENT.register((player, world, hand) -> {
-			ItemStack itemStack = player.getStackInHand(hand);
-			if (itemStack.isIn(StaminaAttributes.USING_COSTS_STAMINA)) {
-				if (((StaminaUsingEntity) player).staminaattributes$getStamina() <= 0 && ((StaminaUsingEntity) player).staminaattributes$getItemUseStaminaCost() > 0) {
-					player.getItemCooldownManager().set(itemStack.getItem(), SERVER_CONFIG.item_use_cooldown_when_no_stamina);
-					return TypedActionResult.fail(itemStack);
-				}
-				((StaminaUsingEntity) player).staminaattributes$addStamina(-((StaminaUsingEntity) player).staminaattributes$getItemUseStaminaCost());
-			}
-			return TypedActionResult.pass(itemStack);
-		});
-
 		GameRulesRegistry.init();
+		ServerEventsRegistry.init();
 	}
 
 	public static Identifier identifier(String path) {
