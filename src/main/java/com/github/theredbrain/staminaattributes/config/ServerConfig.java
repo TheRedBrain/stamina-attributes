@@ -4,6 +4,7 @@ import com.github.theredbrain.staminaattributes.StaminaAttributes;
 import me.fzzyhmstrs.fzzy_config.annotations.ConvertFrom;
 import me.fzzyhmstrs.fzzy_config.config.Config;
 import me.fzzyhmstrs.fzzy_config.config.ConfigSection;
+import me.fzzyhmstrs.fzzy_config.validation.misc.ValidatedBoolean;
 
 @ConvertFrom(fileName = "server.json5", folder = "staminaattributes")
 public class ServerConfig extends Config {
@@ -15,6 +16,8 @@ public class ServerConfig extends Config {
 	public int item_use_cooldown_when_no_stamina = 20;
 	public boolean jumping_requires_stamina = true;
 	public boolean sprinting_requires_stamina = true;
+
+	public ValidatedBoolean swimming_requires_stamina = new ValidatedBoolean(true);
 
 	public TickCostSection tickCosts = new TickCostSection();
 

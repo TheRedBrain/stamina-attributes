@@ -94,6 +94,7 @@
 	"staminaattributes.server.item_use_cooldown_when_no_stamina.desc": "When an item requires stamina to be used and stamina is below 0, the cooldown is applied (amount in ticks)",
 	"staminaattributes.server.jumping_requires_stamina": "Jumping requires stamina",
 	"staminaattributes.server.sprinting_requires_stamina": "Sprinting requires stamina",
+	"staminaattributes.server.swimming_requires_stamina": "Swimming requires stamina",
 
 	"staminaattributes.server.tickCosts": "Tick Stamina Costs",
 	"staminaattributes.server.tickCosts.desc": "These values are subtracted from the players stamina each tick (20 times per second) while the action is performed",

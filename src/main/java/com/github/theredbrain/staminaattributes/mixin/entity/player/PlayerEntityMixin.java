@@ -51,6 +51,11 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 		;
 	}
 
+	@WrapMethod(method = "shouldSwimInFluids")
+	public boolean staminaattributes$shouldSwimInFluids(Operation<Boolean> original) {
+		return original.call() && (this.isInCreativeMode() || !StaminaAttributes.SERVER_CONFIG.swimming_requires_stamina.get() || ((StaminaUsingEntity) this).staminaattributes$getStamina() > 0);
+	}
+
 	@Inject(method = "jump", at = @At("HEAD"), cancellable = true)
 	public void staminaattributes$pre_jump(CallbackInfo ci) {
 		if (!this.abilities.invulnerable && StaminaAttributes.SERVER_CONFIG.jumping_requires_stamina && ((StaminaUsingEntity) this).staminaattributes$getStamina() <= 0) {
