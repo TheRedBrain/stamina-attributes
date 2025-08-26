@@ -8,6 +8,7 @@ import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.player.PlayerAbilities;
@@ -21,6 +22,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
@@ -37,7 +39,16 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
 	@Inject(method = "tick", at = @At("TAIL"))
 	public void staminaattributes$tick(CallbackInfo ci) {
-		this.getAttributes().addTemporaryModifiers(getNaturalStaminaModifiers(this.getWorld()));
+		if (!this.getWorld().isClient()) {
+			this.getAttributes().addTemporaryModifiers(getNaturalStaminaModifiers(this.getWorld()));
+		}
+	}
+
+	@Inject(method = "createPlayerAttributes", at = @At("RETURN"))
+	private static void staminaattributes$createPlayerAttributes(CallbackInfoReturnable<DefaultAttributeContainer.Builder> cir) {
+		cir.getReturnValue()
+				.add(StaminaAttributes.MAX_STAMINA, 0.0)
+		;
 	}
 
 	@Inject(method = "jump", at = @At("HEAD"), cancellable = true)
