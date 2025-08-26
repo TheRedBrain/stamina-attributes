@@ -25,7 +25,7 @@ There are two ways to give an item a stamina cost:
 
 ### Default attribute values
 
-- **_generic.max_stamina_**: 10
+- **_generic.max_stamina_**: 10 (0 for players)
 - **_generic.stamina_regeneration_**: 0
 - **_generic.stamina_tick_threshold_**: 20
 - **_generic.stamina_regeneration_delay_threshold_**: 20
@@ -59,7 +59,7 @@ There are two ways to give an item a stamina cost:
 
 ## Customization
 
-When the game rule "naturalStaminaRegeneration" is true, players have 1 additional stamina regeneration.
+The server config has options to set the default value for each attribute. This only affects the attribute values for players, not other entities.
 
 The client config allows customizing the HUD element.
 

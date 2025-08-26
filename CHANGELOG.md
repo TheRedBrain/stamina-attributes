@@ -1,3 +1,10 @@
+# 2.8.0
+
+- added "swimming_requires_stamina" server config option
+- added entity attributes for each activity that can cost stamina (previously defined in the server config)
+- added server config options to define the default for each attribute (only affects players)
+- changed default value of all entity attributes to 0.0
+
 # 2.7.0
 
 - added alternative stamina bar consisting of icons, similar to vanillas resource bars (this first iteration does not yet support multiple icon types per bar, e.g. reserved stamina)
