@@ -8,9 +8,12 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerAbilities;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.registry.Registries;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.world.World;
@@ -23,8 +26,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Optional;
+
 @Mixin(PlayerEntity.class)
-public abstract class PlayerEntityMixin extends LivingEntity {
+public abstract class PlayerEntityMixin extends LivingEntity implements StaminaUsingEntity {
 
 	@Shadow
 	@Final
@@ -41,11 +46,24 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 	public void staminaattributes$tick(CallbackInfo ci) {
 		if (!this.getWorld().isClient()) {
 			this.getAttributes().addTemporaryModifiers(getNaturalStaminaModifiers());
+			if (StaminaAttributes.SERVER_CONFIG.players_can_exhaust) {
+				Optional<RegistryEntry.Reference<StatusEffect>> exhausted_status_effect = Registries.STATUS_EFFECT.getEntry(StaminaAttributes.SERVER_CONFIG.exhausted_status_effect_identifier.get());
+				if (exhausted_status_effect.isPresent()) {
+					if (this.staminaattributes$getStamina() <= 0) {
+						if (!this.hasStatusEffect(exhausted_status_effect.get())) {
+							this.addStatusEffect(new StatusEffectInstance(exhausted_status_effect.get(), -1, 0, false, false, true));
+						}
+					} else {
+						this.removeStatusEffect(exhausted_status_effect.get());
+					}
+				}
+			}
 		}
 	}
 
 	@Inject(method = "createPlayerAttributes", at = @At("RETURN"))
-	private static void staminaattributes$createPlayerAttributes(CallbackInfoReturnable<DefaultAttributeContainer.Builder> cir) {
+	private static void staminaattributes$createPlayerAttributes
+			(CallbackInfoReturnable<DefaultAttributeContainer.Builder> cir) {
 		cir.getReturnValue()
 				.add(StaminaAttributes.MAX_STAMINA, 0.0)
 		;
