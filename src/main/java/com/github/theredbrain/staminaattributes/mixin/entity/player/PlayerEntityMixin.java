@@ -3,8 +3,6 @@ package com.github.theredbrain.staminaattributes.mixin.entity.player;
 import com.github.theredbrain.staminaattributes.StaminaAttributes;
 import com.github.theredbrain.staminaattributes.entity.StaminaUsingEntity;
 import com.google.common.collect.HashMultimap;
-import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -12,7 +10,9 @@ import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.player.PlayerAbilities;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -51,11 +51,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 		;
 	}
 
-	@WrapMethod(method = "shouldSwimInFluids")
-	public boolean staminaattributes$shouldSwimInFluids(Operation<Boolean> original) {
-		return original.call() && (this.isInCreativeMode() || !StaminaAttributes.SERVER_CONFIG.swimming_requires_stamina || ((StaminaUsingEntity) this).staminaattributes$getStamina() > 0);
-	}
-
 	@Inject(method = "jump", at = @At("HEAD"), cancellable = true)
 	public void staminaattributes$pre_jump(CallbackInfo ci) {
 		if (!this.abilities.invulnerable && StaminaAttributes.SERVER_CONFIG.jumping_requires_stamina && ((StaminaUsingEntity) this).staminaattributes$getStamina() <= 0) {
@@ -71,6 +66,13 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 			} else {
 				((StaminaUsingEntity) this).staminaattributes$addStamina(-((StaminaUsingEntity) this).staminaattributes$getJumpingActionStaminaCost());
 			}
+		}
+	}
+
+	@Override
+	protected void swimUpward(TagKey<Fluid> fluid) {
+		if (this.abilities.invulnerable || !StaminaAttributes.SERVER_CONFIG.swimming_requires_stamina || ((StaminaUsingEntity) this).staminaattributes$getStamina() > 0) {
+			super.swimUpward(fluid);
 		}
 	}
 
