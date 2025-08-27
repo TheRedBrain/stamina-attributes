@@ -1,3 +1,9 @@
+# 2.9.0
+
+- added an "exhaust" mechanic, when stamina is lower than 0, a configurable status effect is applied
+  - the default is an effect implemented by 'Various Status Effects' which lowers movement speed
+- reworked "swimming_requires_stamina" option
+
 # 2.8.0
 
 - added "swimming_requires_stamina" server config option
