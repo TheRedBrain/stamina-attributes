@@ -62,10 +62,12 @@ public abstract class PlayerEntityMixin extends LivingEntity implements StaminaU
 	}
 
 	@Inject(method = "createPlayerAttributes", at = @At("RETURN"))
-	private static void staminaattributes$createPlayerAttributes
-			(CallbackInfoReturnable<DefaultAttributeContainer.Builder> cir) {
+	private static void staminaattributes$createPlayerAttributes(CallbackInfoReturnable<DefaultAttributeContainer.Builder> cir) {
 		cir.getReturnValue()
 				.add(StaminaAttributes.MAX_STAMINA, 0.0)
+				.add(StaminaAttributes.DEPLETED_STAMINA_REGENERATION_DELAY_THRESHOLD, 0.0)
+				.add(StaminaAttributes.STAMINA_REGENERATION_DELAY_THRESHOLD, 0.0)
+				.add(StaminaAttributes.STAMINA_TICK_THRESHOLD, 0.0)
 		;
 	}
 
