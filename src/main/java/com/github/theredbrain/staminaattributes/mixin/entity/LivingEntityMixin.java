@@ -85,6 +85,8 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 
 		if (nbt.contains("stamina", NbtElement.NUMBER_TYPE)) {
 			this.staminaattributes$setStamina(nbt.getFloat("stamina"));
+		} else {
+			this.staminaattributes$setStamina(this.staminaattributes$getUnreservedStamina());
 		}
 
 	}
