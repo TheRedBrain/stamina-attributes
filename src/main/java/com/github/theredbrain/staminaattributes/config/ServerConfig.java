@@ -36,8 +36,8 @@ public class ServerConfig extends Config {
 		public float natural_sprinting_tick_stamina_cost = 0.05F;
 		public float natural_sneaking_tick_stamina_cost = 0.05F;
 		public float natural_walking_tick_stamina_cost = 0.0F;
-		public float natural_swimming_tick_stamina_cost = 0.0F;
-		public float natural_walking_underwater_tick_stamina_cost = 0.0F;
+		public float natural_swimming_tick_stamina_cost = 0.05F;
+		public float natural_walking_underwater_tick_stamina_cost = 0.05F;
 		public float natural_walking_in_water_tick_stamina_cost = 0.05F;
 		public float natural_climbing_tick_stamina_cost = 0.05F;
 		public float natural_action_stamina_cost_sprint_jumping = 1.0F;
