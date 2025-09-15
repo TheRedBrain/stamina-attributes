@@ -31,11 +31,14 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 	@Shadow
 	public abstract double getAttributeValue(RegistryEntry<EntityAttribute> attribute);
 
-	@Shadow public abstract boolean isUsingItem();
+	@Shadow
+	public abstract boolean isUsingItem();
 
-	@Shadow public abstract void stopUsingItem();
+	@Shadow
+	public abstract void stopUsingItem();
 
-	@Shadow protected ItemStack activeItemStack;
+	@Shadow
+	protected ItemStack activeItemStack;
 	@Unique
 	private int staminaTickTimer = 0;
 	@Unique
@@ -44,6 +47,12 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 	private int staminaRegenerationDelayTimer = 0;
 	@Unique
 	private boolean delayStaminaRegeneration = false;
+	@Unique
+	private Float oldStamina = null;
+	@Unique
+	private boolean applyOldStamina = true;
+	@Unique
+	private boolean applyMaxStamina = false;
 
 	@Unique
 	private static final TrackedData<Float> STAMINA = DataTracker.registerData(LivingEntity.class, TrackedDataHandlerRegistry.FLOAT);
@@ -80,13 +89,24 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 		;
 	}
 
+	@Inject(method = "readCustomDataFromNbt", at = @At("HEAD"))
+	public void staminaattributes$readCustomDataFromNbt_head(NbtCompound nbt, CallbackInfo ci) {
+		float stamina;
+		if (nbt.contains("stamina", NbtElement.NUMBER_TYPE)) {
+			stamina = nbt.getFloat("stamina");
+		} else {
+			stamina = Float.MIN_VALUE;
+		}
+		if (stamina != Float.MIN_VALUE) {
+			this.oldStamina = stamina;
+		}
+	}
+
 	@Inject(method = "readCustomDataFromNbt", at = @At("TAIL"))
-	public void staminaattributes$readCustomDataFromNbt(NbtCompound nbt, CallbackInfo ci) {
+	public void staminaattributes$readCustomDataFromNbt_tail(NbtCompound nbt, CallbackInfo ci) {
 
 		if (nbt.contains("stamina", NbtElement.NUMBER_TYPE)) {
 			this.staminaattributes$setStamina(nbt.getFloat("stamina"));
-		} else {
-			this.staminaattributes$setStamina(this.staminaattributes$getUnreservedStamina());
 		}
 
 	}
@@ -139,8 +159,21 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 				}
 				this.stopUsingItem();
 			}
+			if (this.applyOldStamina) {
+				if (this.applyMaxStamina) {
+					this.oldStamina = this.staminaattributes$getUnreservedStamina();
+					this.applyMaxStamina = false;
+				}
+				if (this.oldStamina != null) {
+					this.staminaattributes$setStamina(this.oldStamina);
+					this.oldStamina = null;
+				}
+			} else {
+				this.applyOldStamina = true;
+			}
 		}
 	}
+
 	@Inject(method = "tickItemStackUsage", at = @At("HEAD"))
 	protected void staminaattributes$tickItemStackUsage(ItemStack stack, CallbackInfo ci) {
 		if (stack.isIn(StaminaAttributes.CONTINUOUS_USING_COSTS_STAMINA) && staminaattributes$getItemUseStaminaCost() > 0 && staminaattributes$getStamina() > 0) {
@@ -258,4 +291,13 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 		this.dataTracker.set(STAMINA, MathHelper.clamp(stamina, -100, this.staminaattributes$getUnreservedStamina()));
 	}
 
+	@Override
+	public void staminaattributes$setApplyOldStamina(boolean applyOldStamina) {
+		this.applyOldStamina = applyOldStamina;
+	}
+
+	@Override
+	public void staminaattributes$setApplyMaxStamina(boolean applyMaxStamina) {
+		this.applyMaxStamina = applyMaxStamina;
+	}
 }

@@ -42,4 +42,8 @@ public interface StaminaUsingEntity {
 	float staminaattributes$getStamina();
 
 	void staminaattributes$setStamina(float mana);
+
+	void staminaattributes$setApplyOldStamina(boolean applyOldStamina);
+
+	void staminaattributes$setApplyMaxStamina(boolean applyMaxStamina);
 }

@@ -12,9 +12,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ServerPlayerEntity.class)
-public abstract class ServerPLayerEntityMixin extends PlayerEntity implements StaminaUsingEntity {
+public abstract class ServerPlayerEntityMixin extends PlayerEntity implements StaminaUsingEntity {
 
-	public ServerPLayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
+	public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
 		super(world, pos, yaw, gameProfile);
 	}
 
@@ -65,6 +65,11 @@ public abstract class ServerPLayerEntityMixin extends PlayerEntity implements St
 		if (!this.getAbilities().invulnerable) {
 			this.staminaattributes$addStamina(-this.staminaattributes$getWalkingTickStaminaCost());
 		}
+	}
+
+	@Inject(method = "onSpawn", at = @At("TAIL"))
+	public void staminaattributes$onSpawn(CallbackInfo ci) {
+		this.staminaattributes$setApplyOldStamina(false);
 	}
 
 }
