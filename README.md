@@ -26,12 +26,21 @@ There are two ways to give an item a stamina cost:
 ### Default attribute values
 
 - **_generic.max_stamina_**: 10 (0 for players)
-- **_generic.stamina_regeneration_**: 0
+- **_generic.stamina_regeneration_**: 0 (1 for players)
 - **_generic.stamina_tick_threshold_**: 20
 - **_generic.stamina_regeneration_delay_threshold_**: 20
 - **_generic.depleted_stamina_regeneration_delay_threshold_**: 60
 - **_generic.reserved_stamina_**: 0
-- **_generic.item_use_stamina_cost_**: 0
+- **_generic.item_use_stamina_cost_**: 0 (0.05 for players)
+- **_generic.sprinting_tick_stamina_cost_**: 0 (0.05 for players)
+- **_generic.sneaking_tick_stamina_cost_**: 0 (0.05 for players)
+- **_generic.walking_tick_stamina_cost_**: 0
+- **_generic.swimming_tick_stamina_cost_**: 0 (0.05 for players)
+- **_generic.walking_underwater_tick_stamina_cost_**: 0 (0.05 for players)
+- **_generic.walking_in_water_tick_stamina_cost_**: 0 (0.05 for players)
+- **_generic.climbing_tick_stamina_cost_**: 0 (0.05 for players)
+- **_generic.jumping_action_stamina_cost_**: 0 (1 for players)
+- **_generic.sprint_jumping_action_stamina_cost_**: 0 (1 for players)
 
 ### Default item tags
 
@@ -62,8 +71,6 @@ There are two ways to give an item a stamina cost:
 The server config has options to set the default value for each attribute. This only affects the attribute values for players, not other entities.
 
 The client config allows customizing the HUD element.
-
-The server config controls the integration with game mechanics, like stamina costs for various actions like jumping.
 
 ## API
 
