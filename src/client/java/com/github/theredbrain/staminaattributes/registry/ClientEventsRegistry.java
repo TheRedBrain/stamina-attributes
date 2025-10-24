@@ -7,7 +7,8 @@ import com.github.theredbrain.staminaattributes.StaminaAttributesClient;
 import com.github.theredbrain.staminaattributes.config.ClientConfig;
 import com.github.theredbrain.staminaattributes.entity.StaminaUsingEntity;
 import me.fzzyhmstrs.fzzy_config.api.ConfigApi;
-import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.tag.FluidTags;
@@ -24,7 +25,7 @@ public class ClientEventsRegistry {
 	private static final Identifier ICON_STAMINA_HALF = StaminaAttributes.identifier("hud/icon_stamina_half");
 
 	public static void initializeClientEvents() {
-		HudRenderCallback.EVENT.register((matrixStack, delta) -> {
+		HudElementRegistry.attachElementAfter(VanillaHudElements.HEALTH_BAR, StaminaAttributes.identifier("stamina"), ((matrixStack, delta) -> {
 			MinecraftClient minecraftClient = MinecraftClient.getInstance();
 			PlayerEntity playerEntity = minecraftClient.player;
 			ClientConfig clientConfig = StaminaAttributesClient.CLIENT_CONFIG;
@@ -157,7 +158,7 @@ public class ClientEventsRegistry {
 					}
 				}
 			}
-		});
+		}));
 		ConfigApi.event().onUpdateClient((identifier, config) -> {
 			if (identifier.equals(Identifier.of(StaminaAttributes.MOD_ID, "client"))) {
 				ResourceBarAPIClient.clearCache(

@@ -1,3 +1,7 @@
+# 3.0.0
+
+- updated to 1.21.10
+
 # 2.9.2
 
 - fixed stamina bar being empty when joining a world for the first time

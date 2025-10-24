@@ -44,7 +44,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements StaminaU
 
 	@Inject(method = "tick", at = @At("TAIL"))
 	public void staminaattributes$tick(CallbackInfo ci) {
-		if (!this.getWorld().isClient()) {
+		if (!this.getEntityWorld().isClient()) {
 			this.getAttributes().addTemporaryModifiers(getNaturalStaminaModifiers());
 			if (StaminaAttributes.SERVER_CONFIG.players_can_exhaust) {
 				Optional<RegistryEntry.Reference<StatusEffect>> exhausted_status_effect = Registries.STATUS_EFFECT.getEntry(StaminaAttributes.SERVER_CONFIG.exhausted_status_effect_identifier.get());
@@ -71,21 +71,10 @@ public abstract class PlayerEntityMixin extends LivingEntity implements StaminaU
 		;
 	}
 
-	@Inject(method = "jump", at = @At("HEAD"), cancellable = true)
-	public void staminaattributes$pre_jump(CallbackInfo ci) {
-		if (!this.abilities.invulnerable && StaminaAttributes.SERVER_CONFIG.jumping_requires_stamina && ((StaminaUsingEntity) this).staminaattributes$getStamina() <= 0) {
-			ci.cancel();
-		}
-	}
-
-	@Inject(method = "jump", at = @At("RETURN"))
-	public void staminaattributes$post_jump(CallbackInfo ci) {
-		if (!this.abilities.invulnerable) {
-			if (this.isSprinting()) {
-				((StaminaUsingEntity) this).staminaattributes$addStamina(-((StaminaUsingEntity) this).staminaattributes$getSprintJumpingActionStaminaCost());
-			} else {
-				((StaminaUsingEntity) this).staminaattributes$addStamina(-((StaminaUsingEntity) this).staminaattributes$getJumpingActionStaminaCost());
-			}
+	@Override
+	public void jump() {
+		if (this.abilities.invulnerable || !StaminaAttributes.SERVER_CONFIG.jumping_requires_stamina || ((StaminaUsingEntity) this).staminaattributes$getStamina() > 0) {
+			super.jump();
 		}
 	}
 

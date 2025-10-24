@@ -4,7 +4,7 @@ import com.github.theredbrain.staminaattributes.StaminaAttributes;
 import com.github.theredbrain.staminaattributes.entity.StaminaUsingEntity;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.ActionResult;
 
 public class ServerEventsRegistry {
 
@@ -14,12 +14,12 @@ public class ServerEventsRegistry {
 			ItemStack itemStack = player.getStackInHand(hand);
 			if (itemStack.isIn(StaminaAttributes.USING_COSTS_STAMINA)) {
 				if (((StaminaUsingEntity) player).staminaattributes$getStamina() <= 0 && ((StaminaUsingEntity) player).staminaattributes$getItemUseStaminaCost() > 0) {
-					player.getItemCooldownManager().set(itemStack.getItem(), StaminaAttributes.SERVER_CONFIG.item_use_cooldown_when_no_stamina);
-					return TypedActionResult.fail(itemStack);
+					player.getItemCooldownManager().set(itemStack, StaminaAttributes.SERVER_CONFIG.item_use_cooldown_when_no_stamina);
+					return ActionResult.FAIL;
 				}
 				((StaminaUsingEntity) player).staminaattributes$addStamina(-((StaminaUsingEntity) player).staminaattributes$getItemUseStaminaCost());
 			}
-			return TypedActionResult.pass(itemStack);
+			return ActionResult.PASS;
 		});
 
 	}

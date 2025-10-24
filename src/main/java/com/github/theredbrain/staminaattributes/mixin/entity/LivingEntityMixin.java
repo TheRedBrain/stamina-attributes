@@ -15,6 +15,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -89,11 +91,11 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 		;
 	}
 
-	@Inject(method = "readCustomDataFromNbt", at = @At("HEAD"))
-	public void staminaattributes$readCustomDataFromNbt_head(NbtCompound nbt, CallbackInfo ci) {
+	@Inject(method = "readCustomData", at = @At("HEAD"))
+	public void staminaattributes$readCustomDataFromNbt_head(ReadView view, CallbackInfo ci) {
 		float stamina;
-		if (nbt.contains("stamina", NbtElement.NUMBER_TYPE)) {
-			stamina = nbt.getFloat("stamina");
+		if (view.contains("stamina")) {
+			stamina = view.getFloat("stamina", this.staminaattributes$getMaxStamina());
 		} else {
 			stamina = Float.MIN_VALUE;
 		}
@@ -102,25 +104,25 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 		}
 	}
 
-	@Inject(method = "readCustomDataFromNbt", at = @At("TAIL"))
-	public void staminaattributes$readCustomDataFromNbt_tail(NbtCompound nbt, CallbackInfo ci) {
+	@Inject(method = "readCustomData", at = @At("TAIL"))
+	public void staminaattributes$readCustomDataFromNbt_tail(ReadView view, CallbackInfo ci) {
 
-		if (nbt.contains("stamina", NbtElement.NUMBER_TYPE)) {
-			this.staminaattributes$setStamina(nbt.getFloat("stamina"));
+		if (view.contains("stamina")) {
+			this.staminaattributes$setStamina(view.getFloat("stamina", this.staminaattributes$getMaxStamina()));
 		}
 
 	}
 
-	@Inject(method = "writeCustomDataToNbt", at = @At("TAIL"))
-	public void staminaattributes$writeCustomDataToNbt(NbtCompound nbt, CallbackInfo ci) {
+	@Inject(method = "writeCustomData", at = @At("TAIL"))
+	public void staminaattributes$writeCustomDataToNbt(WriteView view, CallbackInfo ci) {
 
-		nbt.putFloat("stamina", this.staminaattributes$getStamina());
+		view.putFloat("stamina", this.staminaattributes$getStamina());
 
 	}
 
 	@Inject(method = "tick", at = @At("TAIL"))
 	public void staminaattributes$tick(CallbackInfo ci) {
-		if (!this.getWorld().isClient) {
+		if (!this.getEntityWorld().isClient()) {
 
 			this.staminaTickTimer++;
 
@@ -155,7 +157,7 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 
 			if (this.isUsingItem() && this.activeItemStack.isIn(StaminaAttributes.CONTINUOUS_USING_COSTS_STAMINA) && this.staminaattributes$getItemUseStaminaCost() > 0 && this.staminaattributes$getStamina() <= 0) {
 				if (((LivingEntity) (Object) this) instanceof PlayerEntity playerEntity) {
-					playerEntity.getItemCooldownManager().set(this.activeItemStack.getItem(), StaminaAttributes.SERVER_CONFIG.item_use_cooldown_when_no_stamina);
+					playerEntity.getItemCooldownManager().set(this.activeItemStack, StaminaAttributes.SERVER_CONFIG.item_use_cooldown_when_no_stamina);
 				}
 				this.stopUsingItem();
 			}

@@ -1,12 +1,14 @@
 package com.github.theredbrain.staminaattributes.mixin.server.network;
 
+import com.github.theredbrain.staminaattributes.StaminaAttributes;
 import com.github.theredbrain.staminaattributes.entity.StaminaUsingEntity;
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.ServerStatHandler;
 import net.minecraft.stat.Stats;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -17,11 +19,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ServerPlayerEntity.class)
 public abstract class ServerPlayerEntityMixin extends PlayerEntity implements StaminaUsingEntity {
 
-	@Shadow public abstract ServerStatHandler getStatHandler();
-
-	public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
-		super(world, pos, yaw, gameProfile);
+	public ServerPlayerEntityMixin(World world, GameProfile profile) {
+		super(world, profile);
 	}
+
+	@Shadow
+	public abstract ServerStatHandler getStatHandler();
 
 	@Inject(method = "increaseTravelMotionStats", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerPlayerEntity;addExhaustion(F)V", ordinal = 0))
 	private void staminaattributes$increaseTravelMotionStats_swimming(CallbackInfo ci) {
@@ -77,6 +80,24 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements St
 		this.staminaattributes$setApplyOldStamina(false);
 		if (this.getStatHandler().getStat(Stats.CUSTOM.getOrCreateStat(Stats.LEAVE_GAME)) <= 0) {
 			this.staminaattributes$setApplyMaxStamina(true);
+		}
+	}
+
+	@WrapMethod(method = "jump")
+	public void staminaattributes$wrap_jump(Operation<Void> original) {
+		if (this.getAbilities().invulnerable || !StaminaAttributes.SERVER_CONFIG.jumping_requires_stamina || ((StaminaUsingEntity) this).staminaattributes$getStamina() > 0) {
+			original.call();
+		}
+	}
+
+	@Inject(method = "jump", at = @At("RETURN"))
+	public void staminaattributes$post_jump(CallbackInfo ci) {
+		if (!this.getAbilities().invulnerable) {
+			if (this.isSprinting()) {
+				((StaminaUsingEntity) this).staminaattributes$addStamina(-((StaminaUsingEntity) this).staminaattributes$getSprintJumpingActionStaminaCost());
+			} else {
+				((StaminaUsingEntity) this).staminaattributes$addStamina(-((StaminaUsingEntity) this).staminaattributes$getJumpingActionStaminaCost());
+			}
 		}
 	}
 
