@@ -5,7 +5,6 @@ import me.fzzyhmstrs.fzzy_config.annotations.ConvertFrom;
 import me.fzzyhmstrs.fzzy_config.config.Config;
 import me.fzzyhmstrs.fzzy_config.config.ConfigSection;
 import me.fzzyhmstrs.fzzy_config.validation.minecraft.ValidatedIdentifier;
-import me.fzzyhmstrs.fzzy_config.validation.misc.ValidatedBoolean;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 
@@ -20,11 +19,11 @@ public class ServerConfig extends Config {
 	public boolean jumping_requires_stamina = true;
 	public boolean sprinting_requires_stamina = true;
 	public boolean swimming_requires_stamina = true;
-	public boolean enable_attacking_stamina_cost = true;
 	public boolean attacking_requires_stamina = true;
-	public boolean enable_attack_blocking_stamina_cost = true;
 	public boolean block_breaking_requires_stamina = true;
-	public boolean instant_breaking_blocks_costs_stamina = false;
+	public boolean breaking_zero_strength_blocks_costs_stamina = false;
+	public boolean enable_attacking_stamina_cost = true;
+	public boolean enable_attack_blocking_stamina_cost = true;
 	public boolean players_can_exhaust = true;
 	public ValidatedIdentifier exhausted_status_effect_identifier = ValidatedIdentifier.ofRegistry(Identifier.of("variousstatuseffects:exhausted"), Registries.STATUS_EFFECT);
 

@@ -27,7 +27,7 @@ public class ServerEventsRegistry {
 		PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, entity) -> {
 			ServerConfig serverConfig = StaminaAttributes.SERVER_CONFIG;
 			if (serverConfig.block_breaking_requires_stamina && !player.isCreative() && ((StaminaUsingEntity) player).staminaattributes$getBlockBreakingActionStaminaCost() > 0) {
-				if (state.getBlock().getHardness() > 0.0 || serverConfig.instant_breaking_blocks_costs_stamina) {
+				if (state.getBlock().getHardness() > 0.0 || serverConfig.breaking_zero_strength_blocks_costs_stamina) {
 					((StaminaUsingEntity) player).staminaattributes$addStamina(-((StaminaUsingEntity) player).staminaattributes$getBlockBreakingActionStaminaCost());
 				}
 			}
