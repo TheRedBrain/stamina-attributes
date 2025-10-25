@@ -41,6 +41,9 @@ There are two ways to give an item a stamina cost:
 - **_climbing_tick_stamina_cost_**: 0 (0.05 for players)
 - **_jumping_action_stamina_cost_**: 0 (1 for players)
 - **_sprint_jumping_action_stamina_cost_**: 0 (1 for players)
+- **_attack_blocking_action_stamina_cost_**: 0 (1 for players)
+- **_attacking_action_stamina_cost_**: 0 (1 for players)
+- **_block_breaking_action_stamina_cost_**: 0 (1 for players)
 
 ### Default item tags
 

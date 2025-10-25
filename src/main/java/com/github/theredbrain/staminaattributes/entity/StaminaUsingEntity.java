@@ -37,6 +37,12 @@ public interface StaminaUsingEntity {
 
 	float staminaattributes$getSprintJumpingActionStaminaCost();
 
+	float staminaattributes$getAttackBlockingActionStaminaCost();
+
+	float staminaattributes$getAttackingActionStaminaCost();
+
+	float staminaattributes$getBlockBreakingActionStaminaCost();
+
 	void staminaattributes$addStamina(float amount);
 
 	float staminaattributes$getStamina();

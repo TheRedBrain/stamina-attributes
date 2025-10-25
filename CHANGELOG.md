@@ -2,6 +2,18 @@
 
 - updated to 1.21.10
 
+## Additions
+
+- added entity attributes, that define stamina costs for various in game actions:
+  - "staminaattributes:attack_blocking_action_stamina_cost", applied when blocking an attack while using an item with the "blocks_attacks" component
+    "staminaattributes:attacking_action_stamina_cost", applied when attacking an entity
+    "staminaattributes:block_breaking_action_stamina_cost", applied when breaking a block
+- added several server config options for fine-tuning the new attributes
+
+## Changes
+
+- removed "generic." prefix from all entity attributes, following vanillas example
+
 # 2.9.2
 
 - fixed stamina bar being empty when joining a world for the first time

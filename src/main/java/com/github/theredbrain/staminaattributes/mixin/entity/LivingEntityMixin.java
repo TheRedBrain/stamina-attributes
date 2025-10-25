@@ -12,9 +12,8 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.MathHelper;
@@ -88,6 +87,9 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 				.add(StaminaAttributes.CLIMBING_TICK_STAMINA_COST)
 				.add(StaminaAttributes.JUMPING_ACTION_STAMINA_COST)
 				.add(StaminaAttributes.SPRINT_JUMPING_ACTION_STAMINA_COST)
+				.add(StaminaAttributes.ATTACK_BLOCKING_ACTION_STAMINA_COST)
+				.add(StaminaAttributes.ATTACKING_ACTION_STAMINA_COST)
+				.add(StaminaAttributes.BLOCK_BREAKING_ACTION_STAMINA_COST)
 		;
 	}
 
@@ -118,6 +120,13 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 
 		view.putFloat("stamina", this.staminaattributes$getStamina());
 
+	}
+
+	@Inject(method = "takeShieldHit", at = @At("TAIL"))
+	protected void staminaattributes$takeShieldHit(ServerWorld world, LivingEntity attacker, CallbackInfo ci) {
+		if (StaminaAttributes.SERVER_CONFIG.enable_attack_blocking_stamina_cost) {
+			this.staminaattributes$addStamina(-this.staminaattributes$getAttackBlockingActionStaminaCost());
+		}
 	}
 
 	@Inject(method = "tick", at = @At("TAIL"))
@@ -271,6 +280,21 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 	@Override
 	public float staminaattributes$getSprintJumpingActionStaminaCost() {
 		return (float) this.getAttributeValue(StaminaAttributes.SPRINT_JUMPING_ACTION_STAMINA_COST);
+	}
+
+	@Override
+	public float staminaattributes$getAttackBlockingActionStaminaCost() {
+		return (float) this.getAttributeValue(StaminaAttributes.ATTACK_BLOCKING_ACTION_STAMINA_COST);
+	}
+
+	@Override
+	public float staminaattributes$getAttackingActionStaminaCost() {
+		return (float) this.getAttributeValue(StaminaAttributes.ATTACKING_ACTION_STAMINA_COST);
+	}
+
+	@Override
+	public float staminaattributes$getBlockBreakingActionStaminaCost() {
+		return (float) this.getAttributeValue(StaminaAttributes.BLOCK_BREAKING_ACTION_STAMINA_COST);
 	}
 
 	@Override

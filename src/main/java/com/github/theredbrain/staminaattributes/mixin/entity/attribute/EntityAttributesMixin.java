@@ -26,5 +26,8 @@ public class EntityAttributesMixin {
 		StaminaAttributes.CLIMBING_TICK_STAMINA_COST = Registry.registerReference(Registries.ATTRIBUTE, StaminaAttributes.identifier("climbing_tick_stamina_cost"), new ClampedEntityAttribute("attribute.name.climbing_tick_stamina_cost", 0.0F, 0.0F, 1024.0F).setTracked(true));
 		StaminaAttributes.JUMPING_ACTION_STAMINA_COST = Registry.registerReference(Registries.ATTRIBUTE, StaminaAttributes.identifier("jumping_action_stamina_cost"), new ClampedEntityAttribute("attribute.name.jumping_action_stamina_cost", 0.0F, 0.0F, 1024.0F).setTracked(true));
 		StaminaAttributes.SPRINT_JUMPING_ACTION_STAMINA_COST = Registry.registerReference(Registries.ATTRIBUTE, StaminaAttributes.identifier("sprint_jumping_action_stamina_cost"), new ClampedEntityAttribute("attribute.name.sprint_jumping_action_stamina_cost", 0.0F, 0.0F, 1024.0F).setTracked(true));
+		StaminaAttributes.ATTACK_BLOCKING_ACTION_STAMINA_COST = Registry.registerReference(Registries.ATTRIBUTE, StaminaAttributes.identifier("attack_blocking_action_stamina_cost"), new ClampedEntityAttribute("attribute.name.attack_blocking_action_stamina_cost", 0.0F, 0.0F, 1024.0F).setTracked(true));
+		StaminaAttributes.ATTACKING_ACTION_STAMINA_COST = Registry.registerReference(Registries.ATTRIBUTE, StaminaAttributes.identifier("attacking_action_stamina_cost"), new ClampedEntityAttribute("attribute.name.attacking_action_stamina_cost", 0.0F, 0.0F, 1024.0F).setTracked(true));
+		StaminaAttributes.BLOCK_BREAKING_ACTION_STAMINA_COST = Registry.registerReference(Registries.ATTRIBUTE, StaminaAttributes.identifier("block_breaking_action_stamina_cost"), new ClampedEntityAttribute("attribute.name.block_breaking_action_stamina_cost", 0.0F, 0.0F, 1024.0F).setTracked(true));
 	}
 }

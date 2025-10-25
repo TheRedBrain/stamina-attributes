@@ -34,6 +34,9 @@ public class StaminaAttributes implements ModInitializer {
 	public static RegistryEntry<EntityAttribute> CLIMBING_TICK_STAMINA_COST;
 	public static RegistryEntry<EntityAttribute> JUMPING_ACTION_STAMINA_COST;
 	public static RegistryEntry<EntityAttribute> SPRINT_JUMPING_ACTION_STAMINA_COST;
+	public static RegistryEntry<EntityAttribute> ATTACK_BLOCKING_ACTION_STAMINA_COST;
+	public static RegistryEntry<EntityAttribute> ATTACKING_ACTION_STAMINA_COST;
+	public static RegistryEntry<EntityAttribute> BLOCK_BREAKING_ACTION_STAMINA_COST;
 
 	public static final TagKey<Item> USING_COSTS_STAMINA = TagKey.of(RegistryKeys.ITEM, identifier("using_costs_stamina"));
 	public static final TagKey<Item> CONTINUOUS_USING_COSTS_STAMINA = TagKey.of(RegistryKeys.ITEM, identifier("continuous_using_costs_stamina"));

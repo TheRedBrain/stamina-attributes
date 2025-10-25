@@ -20,6 +20,11 @@ public class ServerConfig extends Config {
 	public boolean jumping_requires_stamina = true;
 	public boolean sprinting_requires_stamina = true;
 	public boolean swimming_requires_stamina = true;
+	public boolean enable_attacking_stamina_cost = true;
+	public boolean attacking_requires_stamina = true;
+	public boolean enable_attack_blocking_stamina_cost = true;
+	public boolean block_breaking_requires_stamina = true;
+	public boolean instant_breaking_blocks_costs_stamina = false;
 	public boolean players_can_exhaust = true;
 	public ValidatedIdentifier exhausted_status_effect_identifier = ValidatedIdentifier.ofRegistry(Identifier.of("variousstatuseffects:exhausted"), Registries.STATUS_EFFECT);
 
@@ -42,5 +47,8 @@ public class ServerConfig extends Config {
 		public float natural_climbing_tick_stamina_cost = 0.05F;
 		public float natural_action_stamina_cost_sprint_jumping = 1.0F;
 		public float natural_action_stamina_cost_jumping = 1.0F;
+		public float natural_action_stamina_cost_attack_blocking = 1.0F;
+		public float natural_action_stamina_cost_attacking = 1.0F;
+		public float natural_action_stamina_cost_block_breaking = 1.0F;
 	}
 }
