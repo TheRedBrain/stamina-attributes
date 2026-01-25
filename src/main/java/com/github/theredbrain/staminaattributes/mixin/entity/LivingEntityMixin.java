@@ -63,7 +63,7 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 	}
 
 	@Inject(method = "defineSynchedData", at = @At("RETURN"))
-	protected void staminaattributes$initDataTracker(SynchedEntityData.Builder builder, CallbackInfo ci) {
+	protected void staminaattributes$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
 		builder.define(STAMINA, 10.0F);
 
 	}
@@ -94,7 +94,7 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 	}
 
 	@Inject(method = "readAdditionalSaveData", at = @At("HEAD"))
-	public void staminaattributes$readCustomDataFromNbt_head(ValueInput view, CallbackInfo ci) {
+	public void staminaattributes$readAdditionalSaveData_head(ValueInput view, CallbackInfo ci) {
 		float stamina;
 		if (view.contains("stamina")) {
 			stamina = view.getFloatOr("stamina", this.staminaattributes$getMaxStamina());
@@ -107,7 +107,7 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 	}
 
 	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-	public void staminaattributes$readCustomDataFromNbt_tail(ValueInput view, CallbackInfo ci) {
+	public void staminaattributes$readAdditionalSaveData_tail(ValueInput view, CallbackInfo ci) {
 
 		if (view.contains("stamina")) {
 			this.staminaattributes$setStamina(view.getFloatOr("stamina", this.staminaattributes$getMaxStamina()));
@@ -116,14 +116,14 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 	}
 
 	@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-	public void staminaattributes$writeCustomDataToNbt(ValueOutput view, CallbackInfo ci) {
+	public void staminaattributes$addAdditionalSaveData(ValueOutput view, CallbackInfo ci) {
 
 		view.putFloat("stamina", this.staminaattributes$getStamina());
 
 	}
 
 	@Inject(method = "blockUsingItem", at = @At("TAIL"))
-	protected void staminaattributes$takeShieldHit(ServerLevel world, LivingEntity attacker, CallbackInfo ci) {
+	protected void staminaattributes$blockUsingItem(ServerLevel world, LivingEntity attacker, CallbackInfo ci) {
 		if (StaminaAttributes.SERVER_CONFIG.enable_attack_blocking_stamina_cost) {
 			this.staminaattributes$addStamina(-this.staminaattributes$getAttackBlockingActionStaminaCost());
 		}
@@ -186,7 +186,7 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 	}
 
 	@Inject(method = "updateUsingItem", at = @At("HEAD"))
-	protected void staminaattributes$tickItemStackUsage(ItemStack stack, CallbackInfo ci) {
+	protected void staminaattributes$updateUsingItem(ItemStack stack, CallbackInfo ci) {
 		if (stack.is(StaminaAttributes.CONTINUOUS_USING_COSTS_STAMINA) && staminaattributes$getItemUseStaminaCost() > 0 && staminaattributes$getStamina() > 0) {
 			this.staminaattributes$addStamina(-staminaattributes$getItemUseStaminaCost());
 		}

@@ -49,7 +49,7 @@ public abstract class PlayerMixin extends LivingEntity implements StaminaUsingEn
 	}
 
 	@WrapMethod(method = "blockActionRestricted")
-	public boolean staminaattributes$wrap_isBlockBreakingRestricted(Level world, BlockPos pos, GameType gameMode, Operation<Boolean> original) {
+	public boolean staminaattributes$wrap_blockActionRestricted(Level world, BlockPos pos, GameType gameMode, Operation<Boolean> original) {
 		if (StaminaAttributes.SERVER_CONFIG.block_breaking_requires_stamina && this.staminaattributes$getStamina() <= 0) {
 			return true;
 		} else {
@@ -77,7 +77,7 @@ public abstract class PlayerMixin extends LivingEntity implements StaminaUsingEn
 	}
 
 	@Inject(method = "createAttributes", at = @At("RETURN"))
-	private static void staminaattributes$createPlayerAttributes(CallbackInfoReturnable<AttributeSupplier.Builder> cir) {
+	private static void staminaattributes$createAttributes(CallbackInfoReturnable<AttributeSupplier.Builder> cir) {
 		cir.getReturnValue()
 				.add(StaminaAttributes.MAX_STAMINA, 0.0)
 				.add(StaminaAttributes.DEPLETED_STAMINA_REGENERATION_DELAY_THRESHOLD, 0.0)

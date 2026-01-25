@@ -27,56 +27,56 @@ public abstract class ServerPlayerMixin extends Player implements StaminaUsingEn
 	public abstract ServerStatsCounter getStats();
 
 	@Inject(method = "checkMovementStatistics", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerPlayer;causeFoodExhaustion(F)V", ordinal = 0))
-	private void staminaattributes$increaseTravelMotionStats_swimming(CallbackInfo ci) {
+	private void staminaattributes$checkMovementStatistics_swimming(CallbackInfo ci) {
 		if (!this.getAbilities().invulnerable) {
 			this.staminaattributes$addStamina(-this.staminaattributes$getSwimmingTickStaminaCost());
 		}
 	}
 
 	@Inject(method = "checkMovementStatistics", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerPlayer;causeFoodExhaustion(F)V", ordinal = 1))
-	private void staminaattributes$increaseTravelMotionStats_walk_underwater(CallbackInfo ci) {
+	private void staminaattributes$checkMovementStatistics_walk_underwater(CallbackInfo ci) {
 		if (!this.getAbilities().invulnerable) {
 			this.staminaattributes$addStamina(-this.staminaattributes$getWalkingUnderwaterTickStaminaCost());
 		}
 	}
 
 	@Inject(method = "checkMovementStatistics", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerPlayer;causeFoodExhaustion(F)V", ordinal = 2))
-	private void staminaattributes$increaseTravelMotionStats_walk_in_water(CallbackInfo ci) {
+	private void staminaattributes$checkMovementStatistics_walk_in_water(CallbackInfo ci) {
 		if (!this.getAbilities().invulnerable) {
 			this.staminaattributes$addStamina(-this.staminaattributes$getWalkingInWaterTickStaminaCost());
 		}
 	}
 
 	@Inject(method = "checkMovementStatistics", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerPlayer;awardStat(Lnet/minecraft/resources/Identifier;I)V", ordinal = 3))
-	private void staminaattributes$increaseTravelMotionStats_climbing(CallbackInfo ci) {
+	private void staminaattributes$checkMovementStatistics_climbing(CallbackInfo ci) {
 		if (!this.getAbilities().invulnerable) {
 			this.staminaattributes$addStamina(-this.staminaattributes$getClimbingTickStaminaCost());
 		}
 	}
 
 	@Inject(method = "checkMovementStatistics", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerPlayer;causeFoodExhaustion(F)V", ordinal = 3))
-	private void staminaattributes$increaseTravelMotionStats_sprinting(CallbackInfo ci) {
+	private void staminaattributes$checkMovementStatistics_sprinting(CallbackInfo ci) {
 		if (!this.getAbilities().invulnerable) {
 			this.staminaattributes$addStamina(-this.staminaattributes$getSprintingTickStaminaCost());
 		}
 	}
 
 	@Inject(method = "checkMovementStatistics", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerPlayer;causeFoodExhaustion(F)V", ordinal = 4))
-	private void staminaattributes$increaseTravelMotionStats_sneaking(CallbackInfo ci) {
+	private void staminaattributes$checkMovementStatistics_sneaking(CallbackInfo ci) {
 		if (!this.getAbilities().invulnerable) {
 			this.staminaattributes$addStamina(-this.staminaattributes$getSneakingTickStaminaCost());
 		}
 	}
 
 	@Inject(method = "checkMovementStatistics", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerPlayer;causeFoodExhaustion(F)V", ordinal = 5))
-	private void staminaattributes$increaseTravelMotionStats_walking(CallbackInfo ci) {
+	private void staminaattributes$checkMovementStatistics_walking(CallbackInfo ci) {
 		if (!this.getAbilities().invulnerable) {
 			this.staminaattributes$addStamina(-this.staminaattributes$getWalkingTickStaminaCost());
 		}
 	}
 
 	@Inject(method = "initInventoryMenu", at = @At("TAIL"))
-	public void staminaattributes$onSpawn(CallbackInfo ci) {
+	public void staminaattributes$initInventoryMenu(CallbackInfo ci) {
 		this.staminaattributes$setApplyOldStamina(false);
 		if (this.getStats().getValue(Stats.CUSTOM.get(Stats.LEAVE_GAME)) <= 0) {
 			this.staminaattributes$setApplyMaxStamina(true);
@@ -84,14 +84,14 @@ public abstract class ServerPlayerMixin extends Player implements StaminaUsingEn
 	}
 
 	@WrapMethod(method = "jumpFromGround")
-	public void staminaattributes$wrap_jump(Operation<Void> original) {
+	public void staminaattributes$wrap_jumpFromGround(Operation<Void> original) {
 		if (this.getAbilities().invulnerable || !StaminaAttributes.SERVER_CONFIG.jumping_requires_stamina || ((StaminaUsingEntity) this).staminaattributes$getStamina() > 0) {
 			original.call();
 		}
 	}
 
 	@Inject(method = "jumpFromGround", at = @At("RETURN"))
-	public void staminaattributes$post_jump(CallbackInfo ci) {
+	public void staminaattributes$post_jumpFromGround(CallbackInfo ci) {
 		if (!this.getAbilities().invulnerable) {
 			if (this.isSprinting()) {
 				((StaminaUsingEntity) this).staminaattributes$addStamina(-((StaminaUsingEntity) this).staminaattributes$getSprintJumpingActionStaminaCost());
