@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.Mixin;
 public abstract class LocalPlayerMixin implements StaminaUsingEntity {
 
 	@WrapMethod(method = "canStartSprinting()Z")
-	private boolean staminaattributes$canSprint(Operation<Boolean> original) {
+	private boolean staminaattributes$canStartSprinting(Operation<Boolean> original) {
 		return original.call() && (!StaminaAttributes.SERVER_CONFIG.sprinting_requires_stamina || this.staminaattributes$getStamina() > 0);
 	}
 }

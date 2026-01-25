@@ -1,3 +1,8 @@
+# 3.1.0
+
+- updated to 1.21.11
+- migrated to Mojang Mappings
+
 # 3.0.0
 
 - updated to 1.21.10

@@ -20,7 +20,7 @@ There are two ways to give an item a stamina cost:
    when they are used once. When stamina is < 0 the use action is not performed. In that case the item gets a cooldown,
    configured in the server config.
 2. Items in the "staminaattributes:continuous_using_costs_stamina" item tag reduce stamina by *
-   *_item_use_stamina_cost_** every tick while they are used. When stamina is < 0, the usage is cancelled. In
+   *_item_use_stamina_cost_** every tick while they are used. When stamina is < 0, the usage is canceled. In
    that case the item gets a cooldown, configured in the server config.
 
 ### Default attribute values
