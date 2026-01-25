@@ -3,8 +3,8 @@
   "package": "com.github.theredbrain.staminaattributes.mixin.client",
   "compatibilityLevel": "JAVA_21",
   "client": [
-    "MinecraftClientMixin",
-    "network.ClientPlayerEntityMixin"
+    "MinecraftMixin",
+    "network.LocalPlayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -2,22 +2,22 @@ package com.github.theredbrain.staminaattributes.mixin.entity;
 
 import com.github.theredbrain.staminaattributes.StaminaAttributes;
 import com.github.theredbrain.staminaattributes.entity.StaminaUsingEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttribute;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
+import net.minecraft.core.Holder;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -30,16 +30,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class LivingEntityMixin extends Entity implements StaminaUsingEntity {
 
 	@Shadow
-	public abstract double getAttributeValue(RegistryEntry<EntityAttribute> attribute);
+	public abstract double getAttributeValue(Holder<Attribute> attribute);
 
 	@Shadow
 	public abstract boolean isUsingItem();
 
 	@Shadow
-	public abstract void stopUsingItem();
+	public abstract void releaseUsingItem();
 
 	@Shadow
-	protected ItemStack activeItemStack;
+	protected ItemStack useItem;
 	@Unique
 	private int staminaTickTimer = 0;
 	@Unique
@@ -56,20 +56,20 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 	private boolean applyMaxStamina = false;
 
 	@Unique
-	private static final TrackedData<Float> STAMINA = DataTracker.registerData(LivingEntity.class, TrackedDataHandlerRegistry.FLOAT);
+	private static final EntityDataAccessor<Float> STAMINA = SynchedEntityData.defineId(LivingEntity.class, EntityDataSerializers.FLOAT);
 
-	public LivingEntityMixin(EntityType<?> type, World world) {
+	public LivingEntityMixin(EntityType<?> type, Level world) {
 		super(type, world);
 	}
 
-	@Inject(method = "initDataTracker", at = @At("RETURN"))
-	protected void staminaattributes$initDataTracker(DataTracker.Builder builder, CallbackInfo ci) {
-		builder.add(STAMINA, 10.0F);
+	@Inject(method = "defineSynchedData", at = @At("RETURN"))
+	protected void staminaattributes$initDataTracker(SynchedEntityData.Builder builder, CallbackInfo ci) {
+		builder.define(STAMINA, 10.0F);
 
 	}
 
 	@Inject(method = "createLivingAttributes", at = @At("RETURN"))
-	private static void staminaattributes$createLivingAttributes(CallbackInfoReturnable<DefaultAttributeContainer.Builder> cir) {
+	private static void staminaattributes$createLivingAttributes(CallbackInfoReturnable<AttributeSupplier.Builder> cir) {
 		cir.getReturnValue()
 				.add(StaminaAttributes.STAMINA_REGENERATION)
 				.add(StaminaAttributes.MAX_STAMINA)
@@ -93,11 +93,11 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 		;
 	}
 
-	@Inject(method = "readCustomData", at = @At("HEAD"))
-	public void staminaattributes$readCustomDataFromNbt_head(ReadView view, CallbackInfo ci) {
+	@Inject(method = "readAdditionalSaveData", at = @At("HEAD"))
+	public void staminaattributes$readCustomDataFromNbt_head(ValueInput view, CallbackInfo ci) {
 		float stamina;
 		if (view.contains("stamina")) {
-			stamina = view.getFloat("stamina", this.staminaattributes$getMaxStamina());
+			stamina = view.getFloatOr("stamina", this.staminaattributes$getMaxStamina());
 		} else {
 			stamina = Float.MIN_VALUE;
 		}
@@ -106,24 +106,24 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 		}
 	}
 
-	@Inject(method = "readCustomData", at = @At("TAIL"))
-	public void staminaattributes$readCustomDataFromNbt_tail(ReadView view, CallbackInfo ci) {
+	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
+	public void staminaattributes$readCustomDataFromNbt_tail(ValueInput view, CallbackInfo ci) {
 
 		if (view.contains("stamina")) {
-			this.staminaattributes$setStamina(view.getFloat("stamina", this.staminaattributes$getMaxStamina()));
+			this.staminaattributes$setStamina(view.getFloatOr("stamina", this.staminaattributes$getMaxStamina()));
 		}
 
 	}
 
-	@Inject(method = "writeCustomData", at = @At("TAIL"))
-	public void staminaattributes$writeCustomDataToNbt(WriteView view, CallbackInfo ci) {
+	@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
+	public void staminaattributes$writeCustomDataToNbt(ValueOutput view, CallbackInfo ci) {
 
 		view.putFloat("stamina", this.staminaattributes$getStamina());
 
 	}
 
-	@Inject(method = "takeShieldHit", at = @At("TAIL"))
-	protected void staminaattributes$takeShieldHit(ServerWorld world, LivingEntity attacker, CallbackInfo ci) {
+	@Inject(method = "blockUsingItem", at = @At("TAIL"))
+	protected void staminaattributes$takeShieldHit(ServerLevel world, LivingEntity attacker, CallbackInfo ci) {
 		if (StaminaAttributes.SERVER_CONFIG.enable_attack_blocking_stamina_cost) {
 			this.staminaattributes$addStamina(-this.staminaattributes$getAttackBlockingActionStaminaCost());
 		}
@@ -131,7 +131,7 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 
 	@Inject(method = "tick", at = @At("TAIL"))
 	public void staminaattributes$tick(CallbackInfo ci) {
-		if (!this.getEntityWorld().isClient()) {
+		if (!this.level().isClientSide()) {
 
 			this.staminaTickTimer++;
 
@@ -164,11 +164,11 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 				this.staminaTickTimer = 0;
 			}
 
-			if (this.isUsingItem() && this.activeItemStack.isIn(StaminaAttributes.CONTINUOUS_USING_COSTS_STAMINA) && this.staminaattributes$getItemUseStaminaCost() > 0 && this.staminaattributes$getStamina() <= 0) {
-				if (((LivingEntity) (Object) this) instanceof PlayerEntity playerEntity) {
-					playerEntity.getItemCooldownManager().set(this.activeItemStack, StaminaAttributes.SERVER_CONFIG.item_use_cooldown_when_no_stamina);
+			if (this.isUsingItem() && this.useItem.is(StaminaAttributes.CONTINUOUS_USING_COSTS_STAMINA) && this.staminaattributes$getItemUseStaminaCost() > 0 && this.staminaattributes$getStamina() <= 0) {
+				if (((LivingEntity) (Object) this) instanceof Player playerEntity) {
+					playerEntity.getCooldowns().addCooldown(this.useItem, StaminaAttributes.SERVER_CONFIG.item_use_cooldown_when_no_stamina);
 				}
-				this.stopUsingItem();
+				this.releaseUsingItem();
 			}
 			if (this.applyOldStamina) {
 				if (this.applyMaxStamina) {
@@ -185,9 +185,9 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 		}
 	}
 
-	@Inject(method = "tickItemStackUsage", at = @At("HEAD"))
+	@Inject(method = "updateUsingItem", at = @At("HEAD"))
 	protected void staminaattributes$tickItemStackUsage(ItemStack stack, CallbackInfo ci) {
-		if (stack.isIn(StaminaAttributes.CONTINUOUS_USING_COSTS_STAMINA) && staminaattributes$getItemUseStaminaCost() > 0 && staminaattributes$getStamina() > 0) {
+		if (stack.is(StaminaAttributes.CONTINUOUS_USING_COSTS_STAMINA) && staminaattributes$getItemUseStaminaCost() > 0 && staminaattributes$getStamina() > 0) {
 			this.staminaattributes$addStamina(-staminaattributes$getItemUseStaminaCost());
 		}
 	}
@@ -309,12 +309,12 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 
 	@Override
 	public float staminaattributes$getStamina() {
-		return this.dataTracker.get(STAMINA);
+		return this.entityData.get(STAMINA);
 	}
 
 	@Override
 	public void staminaattributes$setStamina(float stamina) {
-		this.dataTracker.set(STAMINA, MathHelper.clamp(stamina, -100, this.staminaattributes$getUnreservedStamina()));
+		this.entityData.set(STAMINA, Mth.clamp(stamina, -100, this.staminaattributes$getUnreservedStamina()));
 	}
 
 	@Override

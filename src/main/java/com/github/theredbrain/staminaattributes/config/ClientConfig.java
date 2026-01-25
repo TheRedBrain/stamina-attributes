@@ -11,8 +11,7 @@ import me.fzzyhmstrs.fzzy_config.validation.minecraft.ValidatedIdentifier;
 import me.fzzyhmstrs.fzzy_config.validation.misc.ValidatedBoolean;
 import me.fzzyhmstrs.fzzy_config.validation.misc.ValidatedColor;
 import me.fzzyhmstrs.fzzy_config.validation.number.ValidatedInt;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.resources.Identifier;
 import java.util.HashMap;
 
 @ConvertFrom(fileName = "client.json5", folder = "staminaattributes")
@@ -72,7 +71,7 @@ public class ClientConfig extends Config {
 				}}, new ValidatedInt(), new ValidatedInt());
 
 				public ValidatedMap<Integer, Identifier> texture_ids = new ValidatedMap<>(new HashMap<>() {{
-					put(0, Identifier.of("staminaattributes", "textures/gui/sprites/hud/horizontal_stamina_background.png"));
+					put(0, Identifier.fromNamespaceAndPath("staminaattributes", "textures/gui/sprites/hud/horizontal_stamina_background.png"));
 				}}, new ValidatedInt(), new ValidatedIdentifier());
 
 			}
@@ -93,22 +92,22 @@ public class ClientConfig extends Config {
 
 				@Translation(prefix = "staminaattributes.client.texture_layer", negate = true)
 				public ValidatedMap<Integer, Identifier> progress_decrease_animation_texture_ids = new ValidatedMap<>(new HashMap<>() {{
-					put(0, Identifier.of("staminaattributes", "textures/gui/sprites/hud/horizontal_stamina_progress_decrease_animation.png"));
+					put(0, Identifier.fromNamespaceAndPath("staminaattributes", "textures/gui/sprites/hud/horizontal_stamina_progress_decrease_animation.png"));
 				}}, new ValidatedInt(), new ValidatedIdentifier());
 
 				@Translation(prefix = "staminaattributes.client.texture_layer", negate = true)
 				public ValidatedMap<Integer, Identifier> progress_increase_animation_texture_ids = new ValidatedMap<>(new HashMap<>() {{
-					put(0, Identifier.of("staminaattributes", "textures/gui/sprites/hud/horizontal_stamina_progress_increase_animation.png"));
+					put(0, Identifier.fromNamespaceAndPath("staminaattributes", "textures/gui/sprites/hud/horizontal_stamina_progress_increase_animation.png"));
 				}}, new ValidatedInt(), new ValidatedIdentifier());
 
 				@Translation(prefix = "staminaattributes.client.texture_layer", negate = true)
 				public ValidatedMap<Integer, Identifier> progress_increase_value_texture_ids = new ValidatedMap<>(new HashMap<>() {{
-					put(0, Identifier.of("staminaattributes", "textures/gui/sprites/hud/horizontal_stamina_progress_increase_value.png"));
+					put(0, Identifier.fromNamespaceAndPath("staminaattributes", "textures/gui/sprites/hud/horizontal_stamina_progress_increase_value.png"));
 				}}, new ValidatedInt(), new ValidatedIdentifier());
 
 				@Translation(prefix = "staminaattributes.client.texture_layer", negate = true)
 				public ValidatedMap<Integer, Identifier> progress_texture_ids = new ValidatedMap<>(new HashMap<>() {{
-					put(0, Identifier.of("staminaattributes", "textures/gui/sprites/hud/horizontal_stamina_progress.png"));
+					put(0, Identifier.fromNamespaceAndPath("staminaattributes", "textures/gui/sprites/hud/horizontal_stamina_progress.png"));
 				}}, new ValidatedInt(), new ValidatedIdentifier());
 
 			}
@@ -128,7 +127,7 @@ public class ClientConfig extends Config {
 				}}, new ValidatedInt(), new ValidatedInt());
 
 				public ValidatedMap<Integer, Identifier> texture_ids = new ValidatedMap<>(new HashMap<>() {{
-					put(0, Identifier.of("staminaattributes", "textures/gui/sprites/hud/horizontal_stamina_reserved.png"));
+					put(0, Identifier.fromNamespaceAndPath("staminaattributes", "textures/gui/sprites/hud/horizontal_stamina_reserved.png"));
 				}}, new ValidatedInt(), new ValidatedIdentifier());
 
 			}
@@ -150,7 +149,7 @@ public class ClientConfig extends Config {
 				}}, new ValidatedInt(), new ValidatedInt());
 
 				public ValidatedMap<Integer, Identifier> texture_ids = new ValidatedMap<>(new HashMap<>() {{
-					put(0, Identifier.of("staminaattributes", "textures/gui/sprites/hud/horizontal_stamina_overlay.png"));
+					put(0, Identifier.fromNamespaceAndPath("staminaattributes", "textures/gui/sprites/hud/horizontal_stamina_overlay.png"));
 				}}, new ValidatedInt(), new ValidatedIdentifier());
 
 			}

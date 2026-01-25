@@ -6,14 +6,14 @@ import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.player.LocalPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Environment(EnvType.CLIENT)
-@Mixin(ClientPlayerEntity.class)
-public abstract class ClientPlayerEntityMixin implements StaminaUsingEntity {
+@Mixin(LocalPlayer.class)
+public abstract class LocalPlayerMixin implements StaminaUsingEntity {
 
-	@WrapMethod(method = "canSprint()Z")
+	@WrapMethod(method = "canStartSprinting()Z")
 	private boolean staminaattributes$canSprint(Operation<Boolean> original) {
 		return original.call() && (!StaminaAttributes.SERVER_CONFIG.sprinting_requires_stamina || this.staminaattributes$getStamina() > 0);
 	}

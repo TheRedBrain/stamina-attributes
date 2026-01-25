@@ -9,11 +9,11 @@ import com.github.theredbrain.staminaattributes.entity.StaminaUsingEntity;
 import me.fzzyhmstrs.fzzy_config.api.ConfigApi;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.registry.tag.FluidTags;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.resources.Identifier;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.util.Mth;
 import org.apache.commons.lang3.tuple.MutablePair;
 
 import java.util.ArrayList;
@@ -26,26 +26,26 @@ public class ClientEventsRegistry {
 
 	public static void initializeClientEvents() {
 		HudElementRegistry.attachElementAfter(VanillaHudElements.HEALTH_BAR, StaminaAttributes.identifier("stamina"), ((matrixStack, delta) -> {
-			MinecraftClient minecraftClient = MinecraftClient.getInstance();
-			PlayerEntity playerEntity = minecraftClient.player;
+			Minecraft minecraft = Minecraft.getInstance();
+			LocalPlayer localPlayer = minecraft.player;
 			ClientConfig clientConfig = StaminaAttributesClient.CLIENT_CONFIG;
-			if (playerEntity != null && !minecraftClient.options.hudHidden) {
-				double stamina = MathHelper.ceil(((StaminaUsingEntity) playerEntity).staminaattributes$getStamina());
-				double maxStamina = MathHelper.ceil(((StaminaUsingEntity) playerEntity).staminaattributes$getMaxStamina());
-				double unreservedStamina = MathHelper.ceil(((StaminaUsingEntity) playerEntity).staminaattributes$getUnreservedStamina());
+			if (localPlayer != null && !minecraft.options.hideGui) {
+				double stamina = Mth.ceil(((StaminaUsingEntity) localPlayer).staminaattributes$getStamina());
+				double maxStamina = Mth.ceil(((StaminaUsingEntity) localPlayer).staminaattributes$getMaxStamina());
+				double unreservedStamina = Mth.ceil(((StaminaUsingEntity) localPlayer).staminaattributes$getUnreservedStamina());
 
-				if (!playerEntity.isCreative() && maxStamina > 0) {
+				if (!localPlayer.isCreative() && maxStamina > 0) {
 
-					int u = playerEntity.getMaxAir();
-					int v = Math.min(playerEntity.getAir(), u);
-					int air_offset = clientConfig.dynamically_adjust_to_air_bar && playerEntity.isSubmergedIn(FluidTags.WATER) || v < u ? -10 : 0;
-					int armor_offset = clientConfig.dynamically_adjust_to_armor_bar && playerEntity.getArmor() > 0 ? -10 : 0;
+					int u = localPlayer.getMaxAirSupply();
+					int v = Math.min(localPlayer.getAirSupply(), u);
+					int air_offset = clientConfig.dynamically_adjust_to_air_bar && localPlayer.isEyeInFluid(FluidTags.WATER) || v < u ? -10 : 0;
+					int armor_offset = clientConfig.dynamically_adjust_to_armor_bar && localPlayer.getArmorValue() > 0 ? -10 : 0;
 
 					MutablePair<Integer, Integer> originPos = ResourceBarAPIClient.getOriginPos(matrixStack, clientConfig.origin);
 
 					if (clientConfig.stamina_bar_display == ResourceBarAPI.ResourceBarDisplay.ICON && (stamina < maxStamina || clientConfig.show_full_stamina_bar)) {
 						ResourceBarAPIClient.drawIconResourceBar(
-								minecraftClient,
+								minecraft,
 								matrixStack,
 								RESOURCE_BAR_IDENTIFIER_STRING,
 								stamina,
@@ -65,7 +65,7 @@ public class ClientEventsRegistry {
 						);
 					} else if (clientConfig.stamina_bar_display == ResourceBarAPI.ResourceBarDisplay.SMOOTH && (stamina < maxStamina || clientConfig.show_full_stamina_bar)) {
 						ResourceBarAPIClient.drawSmoothResourceBar(
-								minecraftClient,
+								minecraft,
 								matrixStack,
 								RESOURCE_BAR_IDENTIFIER_STRING,
 								new double[]{
@@ -86,18 +86,18 @@ public class ClientEventsRegistry {
 										0
 								},
 								new Identifier[]{
-										Identifier.of("staminaattributes", "textures/gui/sprites/hud/horizontal_stamina_background.png"),
-										Identifier.of("staminaattributes", "textures/gui/sprites/hud/horizontal_stamina_progress_decrease_animation.png"),
-										Identifier.of("staminaattributes", "textures/gui/sprites/hud/horizontal_stamina_progress_increase_animation.png"),
-										Identifier.of("staminaattributes", "textures/gui/sprites/hud/horizontal_stamina_progress_increase_value.png"),
-										Identifier.of("staminaattributes", "textures/gui/sprites/hud/horizontal_stamina_progress.png"),
-										Identifier.of("staminaattributes", "textures/gui/sprites/hud/horizontal_stamina_reserved.png"),
-										Identifier.of("staminaattributes", "textures/gui/sprites/hud/horizontal_stamina_overlay.png"),
+										StaminaAttributes.identifier("textures/gui/sprites/hud/horizontal_stamina_background.png"),
+										StaminaAttributes.identifier("textures/gui/sprites/hud/horizontal_stamina_progress_decrease_animation.png"),
+										StaminaAttributes.identifier("textures/gui/sprites/hud/horizontal_stamina_progress_increase_animation.png"),
+										StaminaAttributes.identifier("textures/gui/sprites/hud/horizontal_stamina_progress_increase_value.png"),
+										StaminaAttributes.identifier("textures/gui/sprites/hud/horizontal_stamina_progress.png"),
+										StaminaAttributes.identifier("textures/gui/sprites/hud/horizontal_stamina_reserved.png"),
+										StaminaAttributes.identifier("textures/gui/sprites/hud/horizontal_stamina_overlay.png"),
 										null
 								},
 								stamina,
 								maxStamina,
-								MathHelper.ceil(((StaminaUsingEntity) playerEntity).staminaattributes$getRegeneratedStamina()),
+								Mth.ceil(((StaminaUsingEntity) localPlayer).staminaattributes$getRegeneratedStamina()),
 								unreservedStamina,
 								originPos.getLeft(),
 								originPos.getRight(),
@@ -141,8 +141,8 @@ public class ClientEventsRegistry {
 					}
 					if (clientConfig.numberSettings.show_number && (stamina < maxStamina || clientConfig.numberSettings.show_when_stamina_full)) {
 						ResourceBarAPIClient.drawResourceNumber(
-								minecraftClient,
-								minecraftClient.textRenderer,
+								minecraft,
+								minecraft.font,
 								matrixStack,
 								RESOURCE_BAR_IDENTIFIER_STRING,
 								stamina,
@@ -160,7 +160,7 @@ public class ClientEventsRegistry {
 			}
 		}));
 		ConfigApi.event().onUpdateClient((identifier, config) -> {
-			if (identifier.equals(Identifier.of(StaminaAttributes.MOD_ID, "client"))) {
+			if (identifier.equals(Identifier.fromNamespaceAndPath(StaminaAttributes.MOD_ID, "client"))) {
 				ResourceBarAPIClient.clearCache(
 						RESOURCE_BAR_IDENTIFIER_STRING,
 						new double[]{
@@ -181,13 +181,13 @@ public class ClientEventsRegistry {
 								0
 						},
 						new Identifier[]{
-								Identifier.of("staminaattributes", "textures/gui/sprites/hud/horizontal_stamina_background.png"),
-								Identifier.of("staminaattributes", "textures/gui/sprites/hud/horizontal_stamina_progress_decrease_animation.png"),
-								Identifier.of("staminaattributes", "textures/gui/sprites/hud/horizontal_stamina_progress_increase_animation.png"),
-								Identifier.of("staminaattributes", "textures/gui/sprites/hud/horizontal_stamina_progress_increase_value.png"),
-								Identifier.of("staminaattributes", "textures/gui/sprites/hud/horizontal_stamina_progress.png"),
-								Identifier.of("staminaattributes", "textures/gui/sprites/hud/horizontal_stamina_reserved.png"),
-								Identifier.of("staminaattributes", "textures/gui/sprites/hud/horizontal_stamina_overlay.png"),
+								StaminaAttributes.identifier("textures/gui/sprites/hud/horizontal_stamina_background.png"),
+								StaminaAttributes.identifier("textures/gui/sprites/hud/horizontal_stamina_progress_decrease_animation.png"),
+								StaminaAttributes.identifier("textures/gui/sprites/hud/horizontal_stamina_progress_increase_animation.png"),
+								StaminaAttributes.identifier("textures/gui/sprites/hud/horizontal_stamina_progress_increase_value.png"),
+								StaminaAttributes.identifier("textures/gui/sprites/hud/horizontal_stamina_progress.png"),
+								StaminaAttributes.identifier("textures/gui/sprites/hud/horizontal_stamina_reserved.png"),
+								StaminaAttributes.identifier("textures/gui/sprites/hud/horizontal_stamina_overlay.png"),
 								null
 						}
 				);

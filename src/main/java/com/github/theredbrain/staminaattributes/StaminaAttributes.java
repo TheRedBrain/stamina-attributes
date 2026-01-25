@@ -4,12 +4,12 @@ import com.github.theredbrain.staminaattributes.config.ServerConfig;
 import com.github.theredbrain.staminaattributes.registry.ServerEventsRegistry;
 import me.fzzyhmstrs.fzzy_config.api.ConfigApiJava;
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.entity.attribute.EntityAttribute;
-import net.minecraft.item.Item;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.item.Item;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,28 +18,28 @@ public class StaminaAttributes implements ModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static ServerConfig SERVER_CONFIG;
 
-	public static RegistryEntry<EntityAttribute> STAMINA_REGENERATION;
-	public static RegistryEntry<EntityAttribute> MAX_STAMINA;
-	public static RegistryEntry<EntityAttribute> DEPLETED_STAMINA_REGENERATION_DELAY_THRESHOLD;
-	public static RegistryEntry<EntityAttribute> STAMINA_REGENERATION_DELAY_THRESHOLD;
-	public static RegistryEntry<EntityAttribute> STAMINA_TICK_THRESHOLD;
-	public static RegistryEntry<EntityAttribute> RESERVED_STAMINA;
-	public static RegistryEntry<EntityAttribute> ITEM_USE_STAMINA_COST;
-	public static RegistryEntry<EntityAttribute> SPRINTING_TICK_STAMINA_COST;
-	public static RegistryEntry<EntityAttribute> SNEAKING_TICK_STAMINA_COST;
-	public static RegistryEntry<EntityAttribute> WALKING_TICK_STAMINA_COST;
-	public static RegistryEntry<EntityAttribute> SWIMMING_TICK_STAMINA_COST;
-	public static RegistryEntry<EntityAttribute> WALKING_UNDERWATER_TICK_STAMINA_COST;
-	public static RegistryEntry<EntityAttribute> WALKING_IN_WATER_TICK_STAMINA_COST;
-	public static RegistryEntry<EntityAttribute> CLIMBING_TICK_STAMINA_COST;
-	public static RegistryEntry<EntityAttribute> JUMPING_ACTION_STAMINA_COST;
-	public static RegistryEntry<EntityAttribute> SPRINT_JUMPING_ACTION_STAMINA_COST;
-	public static RegistryEntry<EntityAttribute> ATTACK_BLOCKING_ACTION_STAMINA_COST;
-	public static RegistryEntry<EntityAttribute> ATTACKING_ACTION_STAMINA_COST;
-	public static RegistryEntry<EntityAttribute> BLOCK_BREAKING_ACTION_STAMINA_COST;
+	public static Holder<Attribute> STAMINA_REGENERATION;
+	public static Holder<Attribute> MAX_STAMINA;
+	public static Holder<Attribute> DEPLETED_STAMINA_REGENERATION_DELAY_THRESHOLD;
+	public static Holder<Attribute> STAMINA_REGENERATION_DELAY_THRESHOLD;
+	public static Holder<Attribute> STAMINA_TICK_THRESHOLD;
+	public static Holder<Attribute> RESERVED_STAMINA;
+	public static Holder<Attribute> ITEM_USE_STAMINA_COST;
+	public static Holder<Attribute> SPRINTING_TICK_STAMINA_COST;
+	public static Holder<Attribute> SNEAKING_TICK_STAMINA_COST;
+	public static Holder<Attribute> WALKING_TICK_STAMINA_COST;
+	public static Holder<Attribute> SWIMMING_TICK_STAMINA_COST;
+	public static Holder<Attribute> WALKING_UNDERWATER_TICK_STAMINA_COST;
+	public static Holder<Attribute> WALKING_IN_WATER_TICK_STAMINA_COST;
+	public static Holder<Attribute> CLIMBING_TICK_STAMINA_COST;
+	public static Holder<Attribute> JUMPING_ACTION_STAMINA_COST;
+	public static Holder<Attribute> SPRINT_JUMPING_ACTION_STAMINA_COST;
+	public static Holder<Attribute> ATTACK_BLOCKING_ACTION_STAMINA_COST;
+	public static Holder<Attribute> ATTACKING_ACTION_STAMINA_COST;
+	public static Holder<Attribute> BLOCK_BREAKING_ACTION_STAMINA_COST;
 
-	public static final TagKey<Item> USING_COSTS_STAMINA = TagKey.of(RegistryKeys.ITEM, identifier("using_costs_stamina"));
-	public static final TagKey<Item> CONTINUOUS_USING_COSTS_STAMINA = TagKey.of(RegistryKeys.ITEM, identifier("continuous_using_costs_stamina"));
+	public static final TagKey<Item> USING_COSTS_STAMINA = TagKey.create(Registries.ITEM, identifier("using_costs_stamina"));
+	public static final TagKey<Item> CONTINUOUS_USING_COSTS_STAMINA = TagKey.create(Registries.ITEM, identifier("continuous_using_costs_stamina"));
 
 	@Override
 	public void onInitialize() {
@@ -50,7 +50,7 @@ public class StaminaAttributes implements ModInitializer {
 	}
 
 	public static Identifier identifier(String path) {
-		return Identifier.of(MOD_ID, path);
+		return Identifier.fromNamespaceAndPath(MOD_ID, path);
 	}
 
 }

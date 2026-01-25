@@ -5,8 +5,8 @@ import me.fzzyhmstrs.fzzy_config.annotations.ConvertFrom;
 import me.fzzyhmstrs.fzzy_config.config.Config;
 import me.fzzyhmstrs.fzzy_config.config.ConfigSection;
 import me.fzzyhmstrs.fzzy_config.validation.minecraft.ValidatedIdentifier;
-import net.minecraft.registry.Registries;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
 
 @ConvertFrom(fileName = "server.json5", folder = "staminaattributes")
 public class ServerConfig extends Config {
@@ -25,7 +25,7 @@ public class ServerConfig extends Config {
 	public boolean enable_attacking_stamina_cost = true;
 	public boolean enable_attack_blocking_stamina_cost = true;
 	public boolean players_can_exhaust = true;
-	public ValidatedIdentifier exhausted_status_effect_identifier = ValidatedIdentifier.ofRegistry(Identifier.of("variousstatuseffects:exhausted"), Registries.STATUS_EFFECT);
+	public ValidatedIdentifier exhausted_status_effect_identifier = ValidatedIdentifier.ofRegistry(Identifier.parse("variousstatuseffects:exhausted"), BuiltInRegistries.MOB_EFFECT);
 
 	public NaturalPlayerAttributeValuesSection naturalPlayerAttributeValues = new NaturalPlayerAttributeValuesSection();
 
