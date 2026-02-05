@@ -1,3 +1,8 @@
+# 3.2.0
+
+## Additions
+- added "staminaattributes:add_stamina" enchantment effect
+
 # 3.1.0
 
 - updated to 1.21.11

@@ -1,6 +1,7 @@
 package com.github.theredbrain.staminaattributes;
 
 import com.github.theredbrain.staminaattributes.config.ServerConfig;
+import com.github.theredbrain.staminaattributes.registry.EnchantmentEntityEffectRegistry;
 import com.github.theredbrain.staminaattributes.registry.ServerEventsRegistry;
 import me.fzzyhmstrs.fzzy_config.api.ConfigApiJava;
 import net.fabricmc.api.ModInitializer;
@@ -46,6 +47,7 @@ public class StaminaAttributes implements ModInitializer {
 		LOGGER.info("Initializing stamina!");
 		SERVER_CONFIG = ConfigApiJava.registerAndLoadConfig(ServerConfig::new);
 
+		EnchantmentEntityEffectRegistry.init();
 		ServerEventsRegistry.init();
 	}
 
