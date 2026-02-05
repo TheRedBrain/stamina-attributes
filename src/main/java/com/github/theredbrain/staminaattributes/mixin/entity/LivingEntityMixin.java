@@ -1,6 +1,8 @@
 package com.github.theredbrain.staminaattributes.mixin.entity;
 
 import com.github.theredbrain.staminaattributes.StaminaAttributes;
+import com.github.theredbrain.staminaattributes.entity.DataAttachmentHelper;
+import com.github.theredbrain.staminaattributes.entity.LivingEntityHelper;
 import com.github.theredbrain.staminaattributes.entity.StaminaUsingEntity;
 import net.minecraft.core.Holder;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -55,17 +57,8 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 	@Unique
 	private boolean applyMaxStamina = false;
 
-	@Unique
-	private static final EntityDataAccessor<Float> STAMINA = SynchedEntityData.defineId(LivingEntity.class, EntityDataSerializers.FLOAT);
-
 	public LivingEntityMixin(EntityType<?> type, Level world) {
 		super(type, world);
-	}
-
-	@Inject(method = "defineSynchedData", at = @At("RETURN"))
-	protected void staminaattributes$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
-		builder.define(STAMINA, 10.0F);
-
 	}
 
 	@Inject(method = "createLivingAttributes", at = @At("RETURN"))
@@ -309,12 +302,12 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 
 	@Override
 	public float staminaattributes$getStamina() {
-		return this.entityData.get(STAMINA);
+		return DataAttachmentHelper.getStamina((LivingEntity) (Object) this);
 	}
 
 	@Override
 	public void staminaattributes$setStamina(float stamina) {
-		this.entityData.set(STAMINA, Mth.clamp(stamina, -100, this.staminaattributes$getUnreservedStamina()));
+		DataAttachmentHelper.setStamina((LivingEntity) (Object) this, (float) Mth.clamp(stamina, -100.0, this.staminaattributes$getUnreservedStamina()));
 	}
 
 	@Override

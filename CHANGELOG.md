@@ -3,6 +3,10 @@
 ## Additions
 - added "staminaattributes:add_stamina" enchantment effect
 
+## Technical
+
+- replace synced data with a data attachment, following the best practice for custom entity data
+
 # 3.1.0
 
 - updated to 1.21.11
