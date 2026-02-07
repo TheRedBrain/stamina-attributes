@@ -5,9 +5,6 @@ import com.github.theredbrain.staminaattributes.entity.DataAttachmentHelper;
 import com.github.theredbrain.staminaattributes.entity.LivingEntityHelper;
 import com.github.theredbrain.staminaattributes.entity.StaminaUsingEntity;
 import net.minecraft.core.Holder;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
@@ -15,11 +12,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -34,14 +28,6 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 	@Shadow
 	public abstract double getAttributeValue(Holder<Attribute> attribute);
 
-	@Shadow
-	public abstract boolean isUsingItem();
-
-	@Shadow
-	public abstract void releaseUsingItem();
-
-	@Shadow
-	protected ItemStack useItem;
 	@Unique
 	private int staminaTickTimer = 0;
 	@Unique
@@ -51,11 +37,11 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 	@Unique
 	private boolean delayStaminaRegeneration = false;
 	@Unique
-	private Float oldStamina = null;
+	private boolean delayStaminaTick = false;
 	@Unique
-	private boolean applyOldStamina = true;
+	private boolean delayMaxValueApplication = false;
 	@Unique
-	private boolean applyMaxStamina = false;
+	private boolean delayedMaxValueApplication = false;
 
 	public LivingEntityMixin(EntityType<?> type, Level world) {
 		super(type, world);
@@ -86,35 +72,6 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 		;
 	}
 
-	@Inject(method = "readAdditionalSaveData", at = @At("HEAD"))
-	public void staminaattributes$readAdditionalSaveData_head(ValueInput view, CallbackInfo ci) {
-		float stamina;
-		if (view.contains("stamina")) {
-			stamina = view.getFloatOr("stamina", this.staminaattributes$getMaxStamina());
-		} else {
-			stamina = Float.MIN_VALUE;
-		}
-		if (stamina != Float.MIN_VALUE) {
-			this.oldStamina = stamina;
-		}
-	}
-
-	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-	public void staminaattributes$readAdditionalSaveData_tail(ValueInput view, CallbackInfo ci) {
-
-		if (view.contains("stamina")) {
-			this.staminaattributes$setStamina(view.getFloatOr("stamina", this.staminaattributes$getMaxStamina()));
-		}
-
-	}
-
-	@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-	public void staminaattributes$addAdditionalSaveData(ValueOutput view, CallbackInfo ci) {
-
-		view.putFloat("stamina", this.staminaattributes$getStamina());
-
-	}
-
 	@Inject(method = "blockUsingItem", at = @At("TAIL"))
 	protected void staminaattributes$blockUsingItem(ServerLevel world, LivingEntity attacker, CallbackInfo ci) {
 		if (StaminaAttributes.SERVER_CONFIG.enable_attack_blocking_stamina_cost) {
@@ -124,58 +81,7 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 
 	@Inject(method = "tick", at = @At("TAIL"))
 	public void staminaattributes$tick(CallbackInfo ci) {
-		if (!this.level().isClientSide()) {
-
-			this.staminaTickTimer++;
-
-			if (this.staminaattributes$getStamina() <= 0 && this.delayStaminaRegeneration) {
-				this.depletedStaminaRegenerationDelayTimer = 0;
-				this.staminaRegenerationDelayTimer = this.staminaattributes$getStaminaRegenerationDelayThreshold();
-				this.delayStaminaRegeneration = false;
-			}
-			if (this.staminaattributes$getStamina() > 0 && !this.delayStaminaRegeneration) {
-				this.delayStaminaRegeneration = true;
-			}
-			if (this.depletedStaminaRegenerationDelayTimer <= this.staminaattributes$getDepletedStaminaRegenerationDelayThreshold()) {
-				this.depletedStaminaRegenerationDelayTimer++;
-			}
-			if (this.staminaRegenerationDelayTimer <= this.staminaattributes$getStaminaRegenerationDelayThreshold()) {
-				this.staminaRegenerationDelayTimer++;
-			}
-
-			if (
-					this.staminaTickTimer > this.staminaattributes$getStaminaTickThreshold()
-							&& this.depletedStaminaRegenerationDelayTimer > this.staminaattributes$getDepletedStaminaRegenerationDelayThreshold()
-							&& this.staminaRegenerationDelayTimer > this.staminaattributes$getStaminaRegenerationDelayThreshold()
-			) {
-				if (this.staminaattributes$getStamina() < this.staminaattributes$getUnreservedStamina()) {
-					this.staminaattributes$addStamina(this.staminaattributes$getRegeneratedStamina());
-				}
-				if (this.staminaattributes$getStamina() > this.staminaattributes$getUnreservedStamina() || this.staminaattributes$getRegeneratedStamina() < 0) {
-					this.staminaattributes$setStamina(this.staminaattributes$getUnreservedStamina());
-				}
-				this.staminaTickTimer = 0;
-			}
-
-			if (this.isUsingItem() && this.useItem.is(StaminaAttributes.CONTINUOUS_USING_COSTS_STAMINA) && this.staminaattributes$getItemUseStaminaCost() > 0 && this.staminaattributes$getStamina() <= 0) {
-				if (((LivingEntity) (Object) this) instanceof Player playerEntity) {
-					playerEntity.getCooldowns().addCooldown(this.useItem, StaminaAttributes.SERVER_CONFIG.item_use_cooldown_when_no_stamina);
-				}
-				this.releaseUsingItem();
-			}
-			if (this.applyOldStamina) {
-				if (this.applyMaxStamina) {
-					this.oldStamina = this.staminaattributes$getUnreservedStamina();
-					this.applyMaxStamina = false;
-				}
-				if (this.oldStamina != null) {
-					this.staminaattributes$setStamina(this.oldStamina);
-					this.oldStamina = null;
-				}
-			} else {
-				this.applyOldStamina = true;
-			}
-		}
+		LivingEntityHelper.tick(((LivingEntity) (Object) this));
 	}
 
 	@Inject(method = "updateUsingItem", at = @At("HEAD"))
@@ -183,6 +89,38 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 		if (stack.is(StaminaAttributes.CONTINUOUS_USING_COSTS_STAMINA) && staminaattributes$getItemUseStaminaCost() > 0 && staminaattributes$getStamina() > 0) {
 			this.staminaattributes$addStamina(-staminaattributes$getItemUseStaminaCost());
 		}
+	}
+
+	public int staminaattributes$getStaminaTickTimer() {
+		return this.staminaTickTimer;
+	}
+
+	public void staminaattributes$setStaminaTickTimer(int staminaTickTimer) {
+		this.staminaTickTimer = staminaTickTimer;
+	}
+
+	public int staminaattributes$getDepletedStaminaRegenerationDelayTimer() {
+		return this.depletedStaminaRegenerationDelayTimer;
+	}
+
+	public void staminaattributes$setDepletedStaminaRegenerationDelayTimer(int depletedStaminaRegenerationDelayTimer) {
+		this.depletedStaminaRegenerationDelayTimer = depletedStaminaRegenerationDelayTimer;
+	}
+
+	public int staminaattributes$getStaminaRegenerationDelayTimer() {
+		return this.staminaRegenerationDelayTimer;
+	}
+
+	public void staminaattributes$setStaminaRegenerationDelayTimer(int staminaRegenerationDelayTimer) {
+		this.staminaRegenerationDelayTimer = staminaRegenerationDelayTimer;
+	}
+
+	public boolean staminaattributes$delayStaminaRegeneration() {
+		return this.delayStaminaRegeneration;
+	}
+
+	public void staminaattributes$setDelayStaminaRegeneration(boolean delayStaminaRegeneration) {
+		this.delayStaminaRegeneration = delayStaminaRegeneration;
 	}
 
 	@Override
@@ -292,31 +230,57 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 
 	@Override
 	public void staminaattributes$addStamina(float amount) {
-		float f = this.staminaattributes$getStamina();
-		this.staminaattributes$setStamina(f + amount);
+//		StaminaAttributes.LOGGER.info("### add stamina ###");
+		float stamina = this.staminaattributes$getStamina();
+//		StaminaAttributes.LOGGER.info("stamina: " + stamina);
+//		StaminaAttributes.LOGGER.info("amount: " + amount);
+		this.staminaattributes$setStamina(stamina + amount);
+//		this.staminaattributes$setStamina(this.staminaattributes$getStamina() + amount);
 		if (amount < 0) {
-			this.staminaRegenerationDelayTimer = 0;
+			this.staminaRegenerationDelayTimer = this.staminaattributes$getStaminaRegenerationDelayThreshold();
 			this.staminaTickTimer = 0;
 		}
 	}
 
 	@Override
 	public float staminaattributes$getStamina() {
-		return DataAttachmentHelper.getStamina((LivingEntity) (Object) this);
+		float stamina = DataAttachmentHelper.getStamina((LivingEntity) (Object) this);
+		return stamina;
 	}
 
 	@Override
 	public void staminaattributes$setStamina(float stamina) {
+		StaminaAttributes.info("### add stamina ###");
 		DataAttachmentHelper.setStamina((LivingEntity) (Object) this, (float) Mth.clamp(stamina, -100.0, this.staminaattributes$getUnreservedStamina()));
 	}
 
 	@Override
-	public void staminaattributes$setApplyOldStamina(boolean applyOldStamina) {
-		this.applyOldStamina = applyOldStamina;
+	public boolean staminaattributes$delayStaminaTick() {
+		return this.delayStaminaTick;
 	}
 
 	@Override
-	public void staminaattributes$setApplyMaxStamina(boolean applyMaxStamina) {
-		this.applyMaxStamina = applyMaxStamina;
+	public void staminaattributes$setDelayStaminaTick(boolean delayStaminaTick) {
+		this.delayStaminaTick = delayStaminaTick;
+	}
+
+	@Override
+	public boolean staminaattributes$delayMaxValueApplication() {
+		return this.delayMaxValueApplication;
+	}
+
+	@Override
+	public void staminaattributes$setDelayMaxValueApplication(boolean delayMaxValueApplication) {
+		this.delayMaxValueApplication = delayMaxValueApplication;
+	}
+
+	@Override
+	public boolean staminaattributes$delayedMaxValueApplication() {
+		return this.delayedMaxValueApplication;
+	}
+
+	@Override
+	public void staminaattributes$setDelayedMaxValueApplication(boolean delayedMaxValueApplication) {
+		this.delayedMaxValueApplication = delayedMaxValueApplication;
 	}
 }

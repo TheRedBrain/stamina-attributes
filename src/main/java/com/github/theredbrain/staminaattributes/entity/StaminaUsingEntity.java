@@ -1,6 +1,23 @@
 package com.github.theredbrain.staminaattributes.entity;
 
 public interface StaminaUsingEntity {
+	
+	int staminaattributes$getStaminaTickTimer();
+
+	void staminaattributes$setStaminaTickTimer(int staminaTickTimer);
+
+	int staminaattributes$getDepletedStaminaRegenerationDelayTimer();
+
+	void staminaattributes$setDepletedStaminaRegenerationDelayTimer(int depletedStaminaRegenerationDelayTimer);
+
+	int staminaattributes$getStaminaRegenerationDelayTimer();
+
+	void staminaattributes$setStaminaRegenerationDelayTimer(int staminaRegenerationDelayTimer);
+
+	boolean staminaattributes$delayStaminaRegeneration();
+
+	void staminaattributes$setDelayStaminaRegeneration(boolean delayStaminaRegeneration);
+
 	int staminaattributes$getDepletedStaminaRegenerationDelayThreshold();
 
 	int staminaattributes$getStaminaRegenerationDelayThreshold();
@@ -47,9 +64,17 @@ public interface StaminaUsingEntity {
 
 	float staminaattributes$getStamina();
 
-	void staminaattributes$setStamina(float mana);
+	void staminaattributes$setStamina(float stamina);
 
-	void staminaattributes$setApplyOldStamina(boolean applyOldStamina);
+	boolean staminaattributes$delayStaminaTick();
 
-	void staminaattributes$setApplyMaxStamina(boolean applyMaxStamina);
+	void staminaattributes$setDelayStaminaTick(boolean delayStaminaTick);
+
+	boolean staminaattributes$delayMaxValueApplication();
+
+	void staminaattributes$setDelayMaxValueApplication(boolean delayMaxValueApplication);
+
+	boolean staminaattributes$delayedMaxValueApplication();
+
+	void staminaattributes$setDelayedMaxValueApplication(boolean delayedMaxValueApplication);
 }

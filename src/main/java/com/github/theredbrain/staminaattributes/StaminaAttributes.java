@@ -53,6 +53,10 @@ public class StaminaAttributes implements ModInitializer {
 		ServerEventsRegistry.init();
 	}
 
+	public static void info(String message) {
+		LOGGER.info(message);
+	}
+
 	public static Identifier identifier(String path) {
 		return Identifier.fromNamespaceAndPath(MOD_ID, path);
 	}

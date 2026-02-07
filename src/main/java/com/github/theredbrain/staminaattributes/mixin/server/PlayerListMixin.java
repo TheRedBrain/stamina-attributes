@@ -1,7 +1,6 @@
 package com.github.theredbrain.staminaattributes.mixin.server;
 
 import com.github.theredbrain.staminaattributes.entity.StaminaUsingEntity;
-import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.PlayerList;
 import net.minecraft.world.entity.Entity;
@@ -13,9 +12,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(PlayerList.class)
 public class PlayerListMixin {
 
-	@Inject(method = "respawn", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerPlayer;initInventoryMenu()V"))
-	protected void staminaattributes$respawn(ServerPlayer player, boolean alive, Entity.RemovalReason removalReason, CallbackInfoReturnable<ServerPlayer> cir, @Local(ordinal = 1) ServerPlayer serverPlayerEntity) {
-		((StaminaUsingEntity) serverPlayerEntity).staminaattributes$setApplyMaxStamina(true);
+	@Inject(method = "respawn", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerPlayer;setHealth(F)V"))
+	protected void staminaattributes$respawn(ServerPlayer serverPlayer, boolean bl, Entity.RemovalReason removalReason, CallbackInfoReturnable<ServerPlayer> cir) {
+		((StaminaUsingEntity) serverPlayer).staminaattributes$setDelayStaminaTick(true);
+		((StaminaUsingEntity) serverPlayer).staminaattributes$setDelayMaxValueApplication(true);
 	}
 
 }

@@ -77,15 +77,15 @@ public abstract class ServerPlayerMixin extends Player implements StaminaUsingEn
 
 	@Inject(method = "initInventoryMenu", at = @At("TAIL"))
 	public void staminaattributes$initInventoryMenu(CallbackInfo ci) {
-		this.staminaattributes$setApplyOldStamina(false);
+		this.staminaattributes$setDelayStaminaTick(true);
 		if (this.getStats().getValue(Stats.CUSTOM.get(Stats.LEAVE_GAME)) <= 0) {
-			this.staminaattributes$setApplyMaxStamina(true);
+			this.staminaattributes$setDelayMaxValueApplication(true);
 		}
 	}
 
 	@WrapMethod(method = "jumpFromGround")
 	public void staminaattributes$wrap_jumpFromGround(Operation<Void> original) {
-		if (this.getAbilities().invulnerable || !StaminaAttributes.SERVER_CONFIG.jumping_requires_stamina || ((StaminaUsingEntity) this).staminaattributes$getStamina() > 0) {
+		if (this.getAbilities().invulnerable || !StaminaAttributes.SERVER_CONFIG.jumping_requires_stamina || this.staminaattributes$getStamina() > 0) {
 			original.call();
 		}
 	}
@@ -94,9 +94,9 @@ public abstract class ServerPlayerMixin extends Player implements StaminaUsingEn
 	public void staminaattributes$post_jumpFromGround(CallbackInfo ci) {
 		if (!this.getAbilities().invulnerable) {
 			if (this.isSprinting()) {
-				((StaminaUsingEntity) this).staminaattributes$addStamina(-((StaminaUsingEntity) this).staminaattributes$getSprintJumpingActionStaminaCost());
+				this.staminaattributes$addStamina(-this.staminaattributes$getSprintJumpingActionStaminaCost());
 			} else {
-				((StaminaUsingEntity) this).staminaattributes$addStamina(-((StaminaUsingEntity) this).staminaattributes$getJumpingActionStaminaCost());
+				this.staminaattributes$addStamina(-this.staminaattributes$getJumpingActionStaminaCost());
 			}
 		}
 	}

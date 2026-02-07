@@ -1,0 +1,34 @@
+package com.github.theredbrain.staminaattributes.entity;
+
+import com.github.theredbrain.staminaattributes.StaminaAttributes;
+import com.google.common.collect.HashMultimap;
+import net.minecraft.core.Holder;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+
+public class PlayerHelper {
+
+	public static HashMultimap<Holder<Attribute>, AttributeModifier> getNaturalStaminaModifiers() {
+		HashMultimap<Holder<Attribute>, AttributeModifier> hashMultimap = HashMultimap.create();
+		hashMultimap.put(StaminaAttributes.STAMINA_REGENERATION, new AttributeModifier(StaminaAttributes.identifier("natural_stamina_regeneration_modifier"), StaminaAttributes.SERVER_CONFIG.naturalPlayerAttributeValues.natural_stamina_regeneration, AttributeModifier.Operation.ADD_VALUE));
+		hashMultimap.put(StaminaAttributes.MAX_STAMINA, new AttributeModifier(StaminaAttributes.identifier("natural_max_stamina_modifier"), StaminaAttributes.SERVER_CONFIG.naturalPlayerAttributeValues.natural_max_stamina, AttributeModifier.Operation.ADD_VALUE));
+		hashMultimap.put(StaminaAttributes.DEPLETED_STAMINA_REGENERATION_DELAY_THRESHOLD, new AttributeModifier(StaminaAttributes.identifier("natural_depleted_stamina_regeneration_delay_threshold_modifier"), StaminaAttributes.SERVER_CONFIG.naturalPlayerAttributeValues.natural_depleted_stamina_regeneration_delay_threshold, AttributeModifier.Operation.ADD_VALUE));
+		hashMultimap.put(StaminaAttributes.STAMINA_REGENERATION_DELAY_THRESHOLD, new AttributeModifier(StaminaAttributes.identifier("natural_stamina_regeneration_delay_threshold_modifier"), StaminaAttributes.SERVER_CONFIG.naturalPlayerAttributeValues.natural_stamina_regeneration_delay_threshold, AttributeModifier.Operation.ADD_VALUE));
+		hashMultimap.put(StaminaAttributes.STAMINA_TICK_THRESHOLD, new AttributeModifier(StaminaAttributes.identifier("natural_stamina_tick_threshold_modifier"), StaminaAttributes.SERVER_CONFIG.naturalPlayerAttributeValues.natural_stamina_tick_threshold, AttributeModifier.Operation.ADD_VALUE));
+		hashMultimap.put(StaminaAttributes.RESERVED_STAMINA, new AttributeModifier(StaminaAttributes.identifier("natural_reserved_stamina_modifier"), StaminaAttributes.SERVER_CONFIG.naturalPlayerAttributeValues.natural_reserved_stamina, AttributeModifier.Operation.ADD_VALUE));
+		hashMultimap.put(StaminaAttributes.ITEM_USE_STAMINA_COST, new AttributeModifier(StaminaAttributes.identifier("natural_item_use_stamina_cost_modifier"), StaminaAttributes.SERVER_CONFIG.naturalPlayerAttributeValues.natural_item_use_stamina_cost, AttributeModifier.Operation.ADD_VALUE));
+		hashMultimap.put(StaminaAttributes.SPRINTING_TICK_STAMINA_COST, new AttributeModifier(StaminaAttributes.identifier("natural_sprinting_tick_stamina_cost_modifier"), StaminaAttributes.SERVER_CONFIG.naturalPlayerAttributeValues.natural_sprinting_tick_stamina_cost, AttributeModifier.Operation.ADD_VALUE));
+		hashMultimap.put(StaminaAttributes.SNEAKING_TICK_STAMINA_COST, new AttributeModifier(StaminaAttributes.identifier("natural_sneaking_tick_stamina_cost_modifier"), StaminaAttributes.SERVER_CONFIG.naturalPlayerAttributeValues.natural_sneaking_tick_stamina_cost, AttributeModifier.Operation.ADD_VALUE));
+		hashMultimap.put(StaminaAttributes.WALKING_TICK_STAMINA_COST, new AttributeModifier(StaminaAttributes.identifier("natural_walking_tick_stamina_cost_modifier"), StaminaAttributes.SERVER_CONFIG.naturalPlayerAttributeValues.natural_walking_tick_stamina_cost, AttributeModifier.Operation.ADD_VALUE));
+		hashMultimap.put(StaminaAttributes.SWIMMING_TICK_STAMINA_COST, new AttributeModifier(StaminaAttributes.identifier("natural_swimming_tick_stamina_cost_modifier"), StaminaAttributes.SERVER_CONFIG.naturalPlayerAttributeValues.natural_swimming_tick_stamina_cost, AttributeModifier.Operation.ADD_VALUE));
+		hashMultimap.put(StaminaAttributes.WALKING_UNDERWATER_TICK_STAMINA_COST, new AttributeModifier(StaminaAttributes.identifier("natural_walking_underwater_tick_stamina_cost_modifier"), StaminaAttributes.SERVER_CONFIG.naturalPlayerAttributeValues.natural_walking_underwater_tick_stamina_cost, AttributeModifier.Operation.ADD_VALUE));
+		hashMultimap.put(StaminaAttributes.WALKING_IN_WATER_TICK_STAMINA_COST, new AttributeModifier(StaminaAttributes.identifier("natural_walking_in_water_tick_stamina_cost_modifier"), StaminaAttributes.SERVER_CONFIG.naturalPlayerAttributeValues.natural_walking_in_water_tick_stamina_cost, AttributeModifier.Operation.ADD_VALUE));
+		hashMultimap.put(StaminaAttributes.CLIMBING_TICK_STAMINA_COST, new AttributeModifier(StaminaAttributes.identifier("natural_climbing_tick_stamina_cost_modifier"), StaminaAttributes.SERVER_CONFIG.naturalPlayerAttributeValues.natural_climbing_tick_stamina_cost, AttributeModifier.Operation.ADD_VALUE));
+		hashMultimap.put(StaminaAttributes.SPRINT_JUMPING_ACTION_STAMINA_COST, new AttributeModifier(StaminaAttributes.identifier("natural_action_stamina_cost_sprint_jumping_modifier"), StaminaAttributes.SERVER_CONFIG.naturalPlayerAttributeValues.natural_action_stamina_cost_sprint_jumping, AttributeModifier.Operation.ADD_VALUE));
+		hashMultimap.put(StaminaAttributes.JUMPING_ACTION_STAMINA_COST, new AttributeModifier(StaminaAttributes.identifier("natural_action_stamina_cost_jumping_modifier"), StaminaAttributes.SERVER_CONFIG.naturalPlayerAttributeValues.natural_action_stamina_cost_jumping, AttributeModifier.Operation.ADD_VALUE));
+		hashMultimap.put(StaminaAttributes.ATTACK_BLOCKING_ACTION_STAMINA_COST, new AttributeModifier(StaminaAttributes.identifier("natural_action_stamina_cost_attack_blocking_modifier"), StaminaAttributes.SERVER_CONFIG.naturalPlayerAttributeValues.natural_action_stamina_cost_attack_blocking, AttributeModifier.Operation.ADD_VALUE));
+		hashMultimap.put(StaminaAttributes.ATTACKING_ACTION_STAMINA_COST, new AttributeModifier(StaminaAttributes.identifier("natural_action_stamina_cost_attacking_modifier"), StaminaAttributes.SERVER_CONFIG.naturalPlayerAttributeValues.natural_action_stamina_cost_attacking, AttributeModifier.Operation.ADD_VALUE));
+		hashMultimap.put(StaminaAttributes.BLOCK_BREAKING_ACTION_STAMINA_COST, new AttributeModifier(StaminaAttributes.identifier("natural_action_stamina_cost_block_breaking_modifier"), StaminaAttributes.SERVER_CONFIG.naturalPlayerAttributeValues.natural_action_stamina_cost_block_breaking, AttributeModifier.Operation.ADD_VALUE));
+		return hashMultimap;
+	}
+}
