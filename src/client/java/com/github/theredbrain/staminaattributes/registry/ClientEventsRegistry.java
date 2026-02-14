@@ -6,6 +6,7 @@ import com.github.theredbrain.staminaattributes.StaminaAttributes;
 import com.github.theredbrain.staminaattributes.StaminaAttributesClient;
 import com.github.theredbrain.staminaattributes.config.ClientConfig;
 import com.github.theredbrain.staminaattributes.entity.StaminaUsingEntity;
+import com.github.theredbrain.staminaattributes.gui.hud.DuckGuiMixin;
 import me.fzzyhmstrs.fzzy_config.api.ConfigApi;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
@@ -14,47 +15,82 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
+import net.minecraft.util.Util;
 import org.apache.commons.lang3.tuple.MutablePair;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ClientEventsRegistry {
 	private static final String RESOURCE_BAR_IDENTIFIER_STRING = StaminaAttributes.MOD_ID + ":stamina";
 	private static final Identifier ICON_STAMINA_CONTAINER = StaminaAttributes.identifier("hud/icon_stamina_container");
 	private static final Identifier ICON_STAMINA_FULL = StaminaAttributes.identifier("hud/icon_stamina_full");
 	private static final Identifier ICON_STAMINA_HALF = StaminaAttributes.identifier("hud/icon_stamina_half");
+	private static final Identifier ICON_STAMINA_CONTAINER_BLINKING = StaminaAttributes.identifier("hud/icon_stamina_container_blinking");
+	private static final Identifier ICON_STAMINA_FULL_BLINKING = StaminaAttributes.identifier("hud/icon_stamina_full_blinking");
+	private static final Identifier ICON_STAMINA_HALF_BLINKING = StaminaAttributes.identifier("hud/icon_stamina_half_blinking");
 
 	public static void initializeClientEvents() {
-		HudElementRegistry.attachElementAfter(VanillaHudElements.HEALTH_BAR, StaminaAttributes.identifier("stamina"), ((matrixStack, delta) -> {
+		HudElementRegistry.attachElementAfter(VanillaHudElements.HEALTH_BAR, StaminaAttributes.identifier("stamina"), ((guiGraphics, delta) -> {
 			Minecraft minecraft = Minecraft.getInstance();
 			LocalPlayer localPlayer = minecraft.player;
 			ClientConfig clientConfig = StaminaAttributesClient.CLIENT_CONFIG;
 			if (localPlayer != null && !minecraft.options.hideGui) {
-				double stamina = Mth.ceil(((StaminaUsingEntity) localPlayer).staminaattributes$getStamina());
-				double maxStamina = Mth.ceil(((StaminaUsingEntity) localPlayer).staminaattributes$getMaxStamina());
+				int stamina = Mth.ceil(((StaminaUsingEntity) localPlayer).staminaattributes$getStamina());
+
+
+				DuckGuiMixin gui = ((DuckGuiMixin) minecraft.gui);
+
+				boolean shouldBlink = false;
+				int currentDisplayStamina = stamina;
+
+				if (clientConfig.iconBarSettings.enable_icon_blinking.get()) {
+					shouldBlink = gui.staminaattributes$getStaminaIconBlinkTime() > gui.staminaattributes$getTickCount() && (gui.staminaattributes$getStaminaIconBlinkTime() - gui.staminaattributes$getTickCount()) / 3L % 2L == 1L;
+					long l = Util.getMillis();
+					if (stamina < gui.staminaattributes$getLastStamina()) {
+						gui.staminaattributes$setLastStaminaTime(l);
+						gui.staminaattributes$setStaminaIconBlinkTime(gui.staminaattributes$getTickCount() + 10);
+					} else if (stamina > gui.staminaattributes$getLastStamina()) {
+						gui.staminaattributes$setLastStaminaTime(l);
+						gui.staminaattributes$setStaminaIconBlinkTime(gui.staminaattributes$getTickCount() + 5);
+					}
+
+					if (l - gui.staminaattributes$getLastStaminaTime() > 100L) {
+						gui.staminaattributes$setDisplayStamina(stamina);
+						gui.staminaattributes$setLastStaminaTime(l);
+					}
+
+					gui.staminaattributes$setLastStamina(stamina);
+					currentDisplayStamina = gui.staminaattributes$getDisplayStamina();
+				}
+
+
+				double maxStamina = Math.max(Mth.ceil(((StaminaUsingEntity) localPlayer).staminaattributes$getMaxStamina()), Math.max(currentDisplayStamina, stamina));
 				double unreservedStamina = Mth.ceil(((StaminaUsingEntity) localPlayer).staminaattributes$getUnreservedStamina());
 
 				if (!localPlayer.isCreative() && maxStamina > 0) {
 
-					int u = localPlayer.getMaxAirSupply();
-					int v = Math.min(localPlayer.getAirSupply(), u);
-					int air_offset = clientConfig.dynamically_adjust_to_air_bar && localPlayer.isEyeInFluid(FluidTags.WATER) || v < u ? -10 : 0;
+					int maxAirSupply = localPlayer.getMaxAirSupply();
+					int currentAirSupply = Math.min(localPlayer.getAirSupply(), maxAirSupply);
+					int air_offset = clientConfig.dynamically_adjust_to_air_bar && localPlayer.isEyeInFluid(FluidTags.WATER) || currentAirSupply < maxAirSupply ? -10 : 0;
 					int armor_offset = clientConfig.dynamically_adjust_to_armor_bar && localPlayer.getArmorValue() > 0 ? -10 : 0;
 
-					MutablePair<Integer, Integer> originPos = ResourceBarAPIClient.getOriginPos(matrixStack, clientConfig.origin);
+					MutablePair<Integer, Integer> originPos = ResourceBarAPIClient.getOriginPos(guiGraphics, clientConfig.origin);
 
 					if (clientConfig.stamina_bar_display == ResourceBarAPI.ResourceBarDisplay.ICON && (stamina < maxStamina || clientConfig.show_full_stamina_bar)) {
+
+						List<ResourceBarAPI.ResourceBarIconType> list = new ArrayList<>();
+						list.add(new ResourceBarAPI.ResourceBarIconType(
+								currentDisplayStamina,
+								unreservedStamina,
+								shouldBlink ? ICON_STAMINA_CONTAINER_BLINKING : ICON_STAMINA_CONTAINER,
+								shouldBlink ? ICON_STAMINA_FULL_BLINKING : ICON_STAMINA_FULL,
+								shouldBlink ? ICON_STAMINA_HALF_BLINKING : ICON_STAMINA_HALF,
+								ResourceBarAPI.ContinuationType.NEW_ICON
+						));
 						ResourceBarAPIClient.drawIconResourceBar(
-								minecraft,
-								matrixStack,
-								RESOURCE_BAR_IDENTIFIER_STRING,
-								stamina,
-								maxStamina,
-								ICON_STAMINA_CONTAINER,
-								ICON_STAMINA_FULL,
-								ICON_STAMINA_HALF,
-								new ArrayList<>(),// TODO reserved stamina
-								new ArrayList<>(),
+								guiGraphics,
+								list,
 								originPos.getLeft(),
 								originPos.getRight(),
 								clientConfig.iconBarSettings.offset_x.get(),
@@ -66,7 +102,7 @@ public class ClientEventsRegistry {
 					} else if (clientConfig.stamina_bar_display == ResourceBarAPI.ResourceBarDisplay.SMOOTH && (stamina < maxStamina || clientConfig.show_full_stamina_bar)) {
 						ResourceBarAPIClient.drawSmoothResourceBar(
 								minecraft,
-								matrixStack,
+								guiGraphics,
 								RESOURCE_BAR_IDENTIFIER_STRING,
 								new double[]{
 										-1,
@@ -95,7 +131,7 @@ public class ClientEventsRegistry {
 										StaminaAttributes.identifier("textures/gui/sprites/hud/horizontal_stamina_overlay.png"),
 										null
 								},
-								stamina,
+								currentDisplayStamina,
 								maxStamina,
 								Mth.ceil(((StaminaUsingEntity) localPlayer).staminaattributes$getRegeneratedStamina()),
 								unreservedStamina,
@@ -143,7 +179,7 @@ public class ClientEventsRegistry {
 						ResourceBarAPIClient.drawResourceNumber(
 								minecraft,
 								minecraft.font,
-								matrixStack,
+								guiGraphics,
 								RESOURCE_BAR_IDENTIFIER_STRING,
 								stamina,
 								maxStamina,

@@ -1,12 +1,13 @@
 {
-  "required": true,
-  "package": "com.github.theredbrain.staminaattributes.mixin.client",
-  "compatibilityLevel": "JAVA_21",
-  "client": [
-    "MinecraftMixin",
-    "network.LocalPlayerMixin"
-  ],
-  "injectors": {
-    "defaultRequire": 1
+	"required": true,
+	"package": "com.github.theredbrain.staminaattributes.mixin.client",
+	"compatibilityLevel": "JAVA_21",
+	"client": [
+		"MinecraftMixin",
+		"gui.hud.GuiMixin",
+		"network.LocalPlayerMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
 	}
 }

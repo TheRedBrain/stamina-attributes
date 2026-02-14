@@ -1,7 +1,9 @@
 # 3.2.0
 
 ## Additions
+
 - added "staminaattributes:add_stamina" enchantment effect
+- the stamina icon bar now blinks when stamina changes, similar to the vanilla health bar. This can be disabled in the client config.
 
 ## Technical
 
