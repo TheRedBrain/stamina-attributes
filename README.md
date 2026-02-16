@@ -23,27 +23,70 @@ There are two ways to give an item a stamina cost:
    *_item_use_stamina_cost_** every tick while they are used. When stamina is < 0, the usage is canceled. In
    that case the item gets a cooldown, configured in the server config.
 
+The different **_tick_stamina_cost_** attributes describe the stamina cost for the corresponding activity. This cost is
+applied every tick (20x per second). This includes the following activities:
+
+- sprinting
+- sneaking
+- walking
+- swimming
+- walking underwater
+- walking in water
+- climbing
+
+The different **_action_stamina_cost_** attributes describe the stamina cost for the corresponding actions. This cost is
+applied once every time the action is performed. This includes the following actions:
+
+- jumping
+- sprint jumping
+- attack blocking
+- attacking
+- block breaking
+
+Several activities and actions can be configured to require stamina. If stamina is 0 or lower, they can't be performed.
+This includes:
+
+- jumping
+- sprinting
+- swimming
+- attacking
+- block breaking
+- attacking
+- attack blocking
+
+Blocks that can be broken instantly by hand (blocks with a "destroyTime" of 0) can be excluded from the stamina
+requirement.
+
+### Exhaustion
+
+If a player has 0 or less stamina, they are exhausted, which means that a status effect is applied. This status effect
+is defined in the server config.
+
+This feature can be enabled in the server config, but it's disabled by default.
+
 ### Default attribute values
 
-- **_max_stamina_**: 10 (0 for players)
-- **_stamina_regeneration_**: 0 (1 for players)
-- **_stamina_tick_threshold_**: 20
-- **_stamina_regeneration_delay_threshold_**: 20
-- **_depleted_stamina_regeneration_delay_threshold_**: 60
-- **_reserved_stamina_**: 0
-- **_item_use_stamina_cost_**: 0 (0.05 for players)
-- **_sprinting_tick_stamina_cost_**: 0 (0.05 for players)
-- **_sneaking_tick_stamina_cost_**: 0 (0.05 for players)
-- **_walking_tick_stamina_cost_**: 0
-- **_swimming_tick_stamina_cost_**: 0 (0.05 for players)
-- **_walking_underwater_tick_stamina_cost_**: 0 (0.05 for players)
-- **_walking_in_water_tick_stamina_cost_**: 0 (0.05 for players)
-- **_climbing_tick_stamina_cost_**: 0 (0.05 for players)
-- **_jumping_action_stamina_cost_**: 0 (1 for players)
-- **_sprint_jumping_action_stamina_cost_**: 0 (1 for players)
-- **_attack_blocking_action_stamina_cost_**: 0 (1 for players)
-- **_attacking_action_stamina_cost_**: 0 (1 for players)
-- **_block_breaking_action_stamina_cost_**: 0 (1 for players)
+- **_staminaattributes:max_stamina_**: 10 (10 for players)
+- **_staminaattributes:stamina_regeneration_**: 0 (1 for players)
+- **_staminaattributes:stamina_tick_threshold_**: 20
+- **_staminaattributes:stamina_regeneration_delay_threshold_**: 20
+- **_staminaattributes:depleted_stamina_regeneration_delay_threshold_**: 60
+- **_staminaattributes:reserved_stamina_**: 0
+- **_staminaattributes:item_use_stamina_cost_**: 0 (0.05 for players)
+- **_staminaattributes:sprinting_tick_stamina_cost_**: 0 (0.05 for players)
+- **_staminaattributes:sneaking_tick_stamina_cost_**: 0 (0.05 for players)
+- **_staminaattributes:walking_tick_stamina_cost_**: 0
+- **_staminaattributes:swimming_tick_stamina_cost_**: 0 (0.05 for players)
+- **_staminaattributes:walking_underwater_tick_stamina_cost_**: 0 (0.05 for players)
+- **_staminaattributes:walking_in_water_tick_stamina_cost_**: 0 (0.05 for players)
+- **_staminaattributes:climbing_tick_stamina_cost_**: 0 (0.05 for players)
+- **_staminaattributes:jumping_action_stamina_cost_**: 0 (1 for players)
+- **_staminaattributes:sprint_jumping_action_stamina_cost_**: 0 (1 for players)
+- **_staminaattributes:attack_blocking_action_stamina_cost_**: 0 (1 for players)
+- **_staminaattributes:attacking_action_stamina_cost_**: 0 (1 for players)
+- **_staminaattributes:block_breaking_action_stamina_cost_**: 0 (1 for players)
+
+All default values for players can be set in the server config.
 
 ### Default item tags
 
@@ -51,9 +94,9 @@ There are two ways to give an item a stamina cost:
 
 ```json
 {
-   "values": [
-      "minecraft:snowball"
-   ]
+	"values": [
+		"minecraft:snowball"
+	]
 }
 ```
 
@@ -61,20 +104,83 @@ There are two ways to give an item a stamina cost:
 
 ```json
 {
-   "values": [
-      "minecraft:bow",
-      "minecraft:crossbow",
-      "minecraft:shield"
-   ]
+	"values": [
+		"minecraft:bow",
+		"minecraft:crossbow",
+		"minecraft:shield"
+	]
 }
 ```
 
 ## Customization
 
-The server config has options to set the default value for each attribute. This only affects the attribute values for players, not other entities.
-
 The client config allows customizing the HUD element.
 
-## API
+## Using the stamina system
+
+### Java
 
 Casting a "LivingEntity" to the "StaminaUsingEntity" interface gives access to all relevant methods.
+
+### Data packs
+
+Stamina Attributes implements several data driven methods to interact with the current stamina value of an entity.
+
+- the "staminaattributes:add_stamina" enchantment effect allows adding a defined amount to the current stamina
+- the "staminaattributes:stamina_using_entity" entity sub predicate passes when the current stamina of an entity matches
+  the defined range
+
+#### Example
+
+This enchantment reduces stamina of the attacker by 2, as long as the attacker has at least 5 stamina:
+
+```json
+{
+	"anvil_cost": 1,
+	"description": {
+		"translate": "enchantment.staminaattributes.test"
+	},
+	"effects": {
+		"minecraft:post_attack": [
+			{
+				"affected": "attacker",
+				"effect": {
+					"type": "staminaattributes:add_stamina",
+					"amount": {
+						"type": "minecraft:linear",
+						"base": -2.0,
+						"per_level_above_first": -2.0
+					}
+				},
+				"enchanted": "attacker",
+				"requirements": {
+					"condition": "minecraft:entity_properties",
+					"entity": "direct_attacker",
+					"predicate": {
+						"type_specific": {
+							"type": "staminaattributes:stamina_using_entity",
+							"stamina_amount": {
+								"min": 5.0
+							}
+						}
+					}
+				}
+			}
+		]
+	},
+	"max_cost": {
+		"base": 25,
+		"per_level_above_first": 8
+	},
+	"max_level": 1,
+	"min_cost": {
+		"base": 5,
+		"per_level_above_first": 8
+	},
+	"slots": [
+		"hand"
+	],
+	"supported_items": "#minecraft:swords",
+	"weight": 5
+}
+```
