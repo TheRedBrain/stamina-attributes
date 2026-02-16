@@ -21,11 +21,11 @@ public class ServerConfig extends Config {
 	public boolean swimming_requires_stamina = true;
 	public boolean attacking_requires_stamina = true;
 	public boolean block_breaking_requires_stamina = true;
-	public boolean breaking_zero_strength_blocks_costs_stamina = false;
+	public boolean breaking_zero_destroy_time_blocks_costs_stamina = false;
 	public boolean enable_attacking_stamina_cost = true;
 	public boolean enable_attack_blocking_stamina_cost = true;
-	public boolean players_can_exhaust = true;
-	public ValidatedIdentifier exhausted_status_effect_identifier = ValidatedIdentifier.ofRegistry(Identifier.parse("variousstatuseffects:exhausted"), BuiltInRegistries.MOB_EFFECT);
+	public boolean players_can_exhaust = false;
+	public ValidatedIdentifier exhausted_status_effect_identifier = ValidatedIdentifier.ofRegistry(Identifier.parse("minecraft:slowness"), BuiltInRegistries.MOB_EFFECT);
 
 	public NaturalPlayerAttributeValuesSection naturalPlayerAttributeValues = new NaturalPlayerAttributeValuesSection();
 
