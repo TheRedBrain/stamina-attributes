@@ -9,12 +9,16 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.enchantment.effects.EnchantmentEntityEffect;
 
 public class EnchantmentEntityEffectRegistry {
-	public static MapCodec<AddStaminaEnchantmentEntityEffect> ADD_STAMINA = register(StaminaAttributes.identifier("add_stamina"), AddStaminaEnchantmentEntityEffect.CODEC);
+
+	public static void init() {
+	}
 
 	private static <T extends EnchantmentEntityEffect> MapCodec<T> register(Identifier id, MapCodec<T> codec) {
 		return Registry.register(BuiltInRegistries.ENCHANTMENT_ENTITY_EFFECT_TYPE, id, codec);
 	}
 
-	public static void init() {
+	static {
+		StaminaAttributes.ADD_STAMINA = register(StaminaAttributes.identifier("add_stamina"), AddStaminaEnchantmentEntityEffect.CODEC);
 	}
+
 }

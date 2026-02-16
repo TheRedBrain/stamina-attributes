@@ -1,9 +1,13 @@
 package com.github.theredbrain.staminaattributes;
 
+import com.github.theredbrain.staminaattributes.advancements.criterion.StaminaUsingEntityPredicate;
 import com.github.theredbrain.staminaattributes.config.ServerConfig;
 import com.github.theredbrain.staminaattributes.registry.DataAttachmentRegistry;
 import com.github.theredbrain.staminaattributes.registry.EnchantmentEntityEffectRegistry;
+import com.github.theredbrain.staminaattributes.registry.EntitySubPredicateTypeRegistry;
 import com.github.theredbrain.staminaattributes.registry.ServerEventsRegistry;
+import com.github.theredbrain.staminaattributes.world.item.enchantment.AddStaminaEnchantmentEntityEffect;
+import com.mojang.serialization.MapCodec;
 import me.fzzyhmstrs.fzzy_config.api.ConfigApiJava;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.core.Holder;
@@ -43,6 +47,10 @@ public class StaminaAttributes implements ModInitializer {
 	public static final TagKey<Item> USING_COSTS_STAMINA = TagKey.create(Registries.ITEM, identifier("using_costs_stamina"));
 	public static final TagKey<Item> CONTINUOUS_USING_COSTS_STAMINA = TagKey.create(Registries.ITEM, identifier("continuous_using_costs_stamina"));
 
+	public static MapCodec<StaminaUsingEntityPredicate> STAMINA_USING_ENTITY_PREDICATE;
+
+	public static MapCodec<AddStaminaEnchantmentEntityEffect> ADD_STAMINA;
+
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Initializing stamina!");
@@ -50,6 +58,7 @@ public class StaminaAttributes implements ModInitializer {
 
 		DataAttachmentRegistry.init();
 		EnchantmentEntityEffectRegistry.init();
+		EntitySubPredicateTypeRegistry.init();
 		ServerEventsRegistry.init();
 	}
 
