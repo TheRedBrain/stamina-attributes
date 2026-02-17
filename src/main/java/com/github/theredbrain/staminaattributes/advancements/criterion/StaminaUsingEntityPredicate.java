@@ -1,6 +1,5 @@
 package com.github.theredbrain.staminaattributes.advancements.criterion;
 
-import com.github.theredbrain.staminaattributes.StaminaAttributes;
 import com.github.theredbrain.staminaattributes.entity.StaminaUsingEntity;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -25,15 +24,8 @@ public record StaminaUsingEntityPredicate(MinMaxBounds.Ints stamina_amount) impl
 
 	@Override
 	public boolean matches(Entity entity, ServerLevel serverLevel, @Nullable Vec3 vec3) {
-		StaminaAttributes.info("######## stamina_using_entity predicate ########");
 		if (entity instanceof StaminaUsingEntity staminaUsingEntity) {
-			StaminaAttributes.info("entity instanceof StaminaUsingEntity");
-			int currentStamina = Mth.ceil(staminaUsingEntity.staminaattributes$getStamina());
-			StaminaAttributes.info("currentStamina: " + currentStamina);
-			StaminaAttributes.info("stamina_amount: " + this.stamina_amount.toString());
-			boolean bl = this.stamina_amount.matches(currentStamina);
-			StaminaAttributes.info("currentStamina matches stamina_amount: " + bl);
-			return bl;
+			return this.stamina_amount.matches(Mth.ceil(staminaUsingEntity.staminaattributes$getStamina()));
 		}
 		return false;
 	}
