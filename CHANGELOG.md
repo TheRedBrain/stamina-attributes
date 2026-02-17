@@ -5,6 +5,7 @@
 - added "staminaattributes:add_stamina" enchantment effect
 - added "staminaattributes:stamina_using_entity" entity sub predicate
 - the stamina icon bar now blinks when stamina changes, similar to the vanilla health bar. This can be disabled in the client config.
+- the stamina icon bar now displays reserved stamina
 
 ## Changes
 

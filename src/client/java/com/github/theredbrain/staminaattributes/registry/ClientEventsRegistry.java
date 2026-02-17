@@ -29,6 +29,9 @@ public class ClientEventsRegistry {
 	private static final Identifier ICON_STAMINA_CONTAINER_BLINKING = StaminaAttributes.identifier("hud/icon_stamina_container_blinking");
 	private static final Identifier ICON_STAMINA_FULL_BLINKING = StaminaAttributes.identifier("hud/icon_stamina_full_blinking");
 	private static final Identifier ICON_STAMINA_HALF_BLINKING = StaminaAttributes.identifier("hud/icon_stamina_half_blinking");
+	private static final Identifier ICON_STAMINA_CONTAINER_RESERVED = StaminaAttributes.identifier("hud/icon_stamina_container_reserved");
+	private static final Identifier ICON_STAMINA_FULL_RESERVED = StaminaAttributes.identifier("hud/icon_stamina_full_reserved");
+	private static final Identifier ICON_STAMINA_HALF_RESERVED = StaminaAttributes.identifier("hud/icon_stamina_half_reserved");
 
 	public static void initializeClientEvents() {
 		HudElementRegistry.attachElementAfter(VanillaHudElements.HEALTH_BAR, StaminaAttributes.identifier("stamina"), ((guiGraphics, delta) -> {
@@ -37,7 +40,6 @@ public class ClientEventsRegistry {
 			ClientConfig clientConfig = StaminaAttributesClient.CLIENT_CONFIG;
 			if (localPlayer != null && !minecraft.options.hideGui) {
 				int stamina = Mth.ceil(((StaminaUsingEntity) localPlayer).staminaattributes$getStamina());
-
 
 				DuckGuiMixin gui = ((DuckGuiMixin) minecraft.gui);
 
@@ -64,7 +66,6 @@ public class ClientEventsRegistry {
 					currentDisplayStamina = gui.staminaattributes$getDisplayStamina();
 				}
 
-
 				double maxStamina = Math.max(Mth.ceil(((StaminaUsingEntity) localPlayer).staminaattributes$getMaxStamina()), Math.max(currentDisplayStamina, stamina));
 				double unreservedStamina = Mth.ceil(((StaminaUsingEntity) localPlayer).staminaattributes$getUnreservedStamina());
 
@@ -86,6 +87,14 @@ public class ClientEventsRegistry {
 								shouldBlink ? ICON_STAMINA_CONTAINER_BLINKING : ICON_STAMINA_CONTAINER,
 								shouldBlink ? ICON_STAMINA_FULL_BLINKING : ICON_STAMINA_FULL,
 								shouldBlink ? ICON_STAMINA_HALF_BLINKING : ICON_STAMINA_HALF,
+								ResourceBarAPI.ContinuationType.NEW_ICON
+						));
+						list.add(new ResourceBarAPI.ResourceBarIconType(
+								maxStamina - unreservedStamina,
+								maxStamina - unreservedStamina,
+								ICON_STAMINA_CONTAINER_RESERVED,
+								ICON_STAMINA_FULL_RESERVED,
+								ICON_STAMINA_HALF_RESERVED,
 								ResourceBarAPI.ContinuationType.NEW_ICON
 						));
 						ResourceBarAPIClient.drawIconResourceBar(
