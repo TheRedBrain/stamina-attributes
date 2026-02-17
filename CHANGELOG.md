@@ -10,6 +10,7 @@
 ## Changes
 
 - changed default exhaustion effect to "minecraft:slowness"
+- slightly increased the default stamina regeneration delay for players
 
 ## Technical
 
