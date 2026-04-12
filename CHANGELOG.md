@@ -1,3 +1,21 @@
+# 3.3.0
+
+## Changes
+
+- added "jumping_in_water_requires_stamina" server config option, which controls whether the player can jump/ascend in water while stamina is below zero
+
+## Changes
+
+- the "block_breaking_requires_stamina" feature now stops a block breaking process when the player runs out of stamina
+
+## Fixes
+
+- fixed an issue where players could not attack when stamina was below zero, even if the "attacking_requires_stamina" server config option as set to false
+- fixed an issue where sprinting/swimming would not stop when stamina falls below zero, while stamina is required for the action
+- fixed an issue where swimming could not be started while sprinting is not possible due to low stamina
+- fixed an issue where respawning would no longer reset stamina after re-joining a world
+- fixed log spam
+
 # 3.2.0
 
 ## Additions
