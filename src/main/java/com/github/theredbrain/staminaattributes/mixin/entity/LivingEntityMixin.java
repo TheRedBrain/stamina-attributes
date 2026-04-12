@@ -230,12 +230,8 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 
 	@Override
 	public void staminaattributes$addStamina(float amount) {
-//		StaminaAttributes.LOGGER.info("### add stamina ###");
 		float stamina = this.staminaattributes$getStamina();
-//		StaminaAttributes.LOGGER.info("stamina: " + stamina);
-//		StaminaAttributes.LOGGER.info("amount: " + amount);
 		this.staminaattributes$setStamina(stamina + amount);
-//		this.staminaattributes$setStamina(this.staminaattributes$getStamina() + amount);
 		if (amount < 0) {
 			this.staminaRegenerationDelayTimer = this.staminaattributes$getStaminaRegenerationDelayThreshold();
 			this.staminaTickTimer = 0;
@@ -244,13 +240,11 @@ public abstract class LivingEntityMixin extends Entity implements StaminaUsingEn
 
 	@Override
 	public float staminaattributes$getStamina() {
-		float stamina = DataAttachmentHelper.getStamina((LivingEntity) (Object) this);
-		return stamina;
+		return DataAttachmentHelper.getStamina((LivingEntity) (Object) this);
 	}
 
 	@Override
 	public void staminaattributes$setStamina(float stamina) {
-		StaminaAttributes.info("### add stamina ###");
 		DataAttachmentHelper.setStamina((LivingEntity) (Object) this, (float) Mth.clamp(stamina, -100.0, this.staminaattributes$getUnreservedStamina()));
 	}
 
