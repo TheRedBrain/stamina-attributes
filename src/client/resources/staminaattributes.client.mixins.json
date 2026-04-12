@@ -5,6 +5,7 @@
 	"client": [
 		"MinecraftMixin",
 		"gui.hud.GuiMixin",
+		"multiplayer.MultiPlayerGameModeMixin",
 		"network.LocalPlayerMixin"
 	],
 	"injectors": {
