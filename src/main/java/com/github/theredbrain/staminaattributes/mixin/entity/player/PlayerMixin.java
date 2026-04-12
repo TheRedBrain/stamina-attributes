@@ -97,14 +97,14 @@ public abstract class PlayerMixin extends LivingEntity implements StaminaUsingEn
 
 	@Override
 	public void jumpFromGround() {
-		if (this.abilities.invulnerable || !StaminaAttributes.SERVER_CONFIG.jumping_requires_stamina || ((StaminaUsingEntity) this).staminaattributes$getStamina() > 0) {
+		if (this.abilities.invulnerable || !StaminaAttributes.SERVER_CONFIG.jumping_requires_stamina || ((StaminaUsingEntity) this).staminaattributes$getJumpingActionStaminaCost() <= 0 || ((StaminaUsingEntity) this).staminaattributes$getStamina() > 0) {
 			super.jumpFromGround();
 		}
 	}
 
 	@Override
 	protected void jumpInLiquid(TagKey<Fluid> fluid) {
-		if (this.abilities.invulnerable || !StaminaAttributes.SERVER_CONFIG.swimming_requires_stamina || ((StaminaUsingEntity) this).staminaattributes$getStamina() > 0) {
+		if (this.abilities.invulnerable || !StaminaAttributes.SERVER_CONFIG.jumping_in_water_requires_stamina || (!this.isUnderWater() && ((StaminaUsingEntity) this).staminaattributes$getWalkingInWaterTickStaminaCost() <= 0) || (this.isUnderWater() && ((StaminaUsingEntity) this).staminaattributes$getWalkingUnderwaterTickStaminaCost() <= 0) || ((StaminaUsingEntity) this).staminaattributes$getStamina() > 0) {
 			super.jumpInLiquid(fluid);
 		}
 	}

@@ -19,6 +19,7 @@ public class ServerConfig extends Config {
 	public boolean jumping_requires_stamina = true;
 	public boolean sprinting_requires_stamina = true;
 	public boolean swimming_requires_stamina = true;
+	public boolean jumping_in_water_requires_stamina = true;
 	public boolean attacking_requires_stamina = true;
 	public boolean block_breaking_requires_stamina = true;
 	public boolean breaking_zero_destroy_time_blocks_costs_stamina = false;
