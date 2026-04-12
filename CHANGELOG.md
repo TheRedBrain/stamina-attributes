@@ -1,6 +1,6 @@
 # 3.3.0
 
-## Changes
+## Additions
 
 - added "jumping_in_water_requires_stamina" server config option, which controls whether the player can jump/ascend in water while stamina is below zero
 
