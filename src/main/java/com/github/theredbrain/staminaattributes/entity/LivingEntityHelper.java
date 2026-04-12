@@ -8,21 +8,21 @@ public class LivingEntityHelper {
 
 	public static void tick(LivingEntity livingEntity) {
 
-		if (((StaminaUsingEntity) livingEntity).staminaattributes$delayStaminaTick()) {
-			((StaminaUsingEntity) livingEntity).staminaattributes$setDelayStaminaTick(false);
-			return;
-		}
-		if (((StaminaUsingEntity) livingEntity).staminaattributes$delayedMaxValueApplication()) {
-			((StaminaUsingEntity) livingEntity).staminaattributes$setStamina(((StaminaUsingEntity) livingEntity).staminaattributes$getUnreservedStamina());
-			((StaminaUsingEntity) livingEntity).staminaattributes$setDelayedMaxValueApplication(false);
-			return;
-		}
-		if (((StaminaUsingEntity) livingEntity).staminaattributes$delayMaxValueApplication()) {
-			((StaminaUsingEntity) livingEntity).staminaattributes$setDelayedMaxValueApplication(true);
-			((StaminaUsingEntity) livingEntity).staminaattributes$setDelayMaxValueApplication(false);
-			return;
-		}
 		if (!livingEntity.level().isClientSide()) {
+			if (((StaminaUsingEntity) livingEntity).staminaattributes$delayStaminaTick()) {
+				((StaminaUsingEntity) livingEntity).staminaattributes$setDelayStaminaTick(false);
+				return;
+			}
+			if (((StaminaUsingEntity) livingEntity).staminaattributes$delayMaxValueApplication()) {
+				((StaminaUsingEntity) livingEntity).staminaattributes$setDelayedMaxValueApplication(true);
+				((StaminaUsingEntity) livingEntity).staminaattributes$setDelayMaxValueApplication(false);
+				return;
+			}
+			if (((StaminaUsingEntity) livingEntity).staminaattributes$delayedMaxValueApplication()) {
+				((StaminaUsingEntity) livingEntity).staminaattributes$setStamina(((StaminaUsingEntity) livingEntity).staminaattributes$getUnreservedStamina());
+				((StaminaUsingEntity) livingEntity).staminaattributes$setDelayedMaxValueApplication(false);
+				return;
+			}
 
 			int staminaTickTimer = ((StaminaUsingEntity) livingEntity).staminaattributes$getStaminaTickTimer();
 			int depletedStaminaRegenerationDelayTimer = ((StaminaUsingEntity) livingEntity).staminaattributes$getDepletedStaminaRegenerationDelayTimer();
