@@ -85,7 +85,7 @@ public abstract class PlayerMixin extends LivingEntity implements StaminaUsingEn
 
 	@WrapOperation(method = "attack", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;cannotAttack(Lnet/minecraft/world/entity/Entity;)Z"))
 	public boolean staminaattributes$attack_cancelAttack(Player instance, Entity entity, Operation<Boolean> original) {
-		return original.call(instance, entity) || (StaminaAttributes.SERVER_CONFIG.enable_attacking_stamina_cost && this.staminaattributes$getStamina() < 0);
+		return original.call(instance, entity) || (StaminaAttributes.SERVER_CONFIG.enable_attacking_stamina_cost && StaminaAttributes.SERVER_CONFIG.attacking_requires_stamina && this.staminaattributes$getStamina() < 0);
 	}
 
 	@Inject(method = "attack", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;causeFoodExhaustion(F)V"))

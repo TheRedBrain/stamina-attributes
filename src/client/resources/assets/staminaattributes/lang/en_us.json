@@ -105,15 +105,18 @@
 
 	"staminaattributes.server.item_use_cooldown_when_no_stamina": "Item Cooldown on missing stamina",
 	"staminaattributes.server.item_use_cooldown_when_no_stamina.desc": "When an item requires stamina to be used and stamina is below 0, the cooldown is applied (amount in ticks)",
-	"staminaattributes.server.jumping_requires_stamina": "Jumping requires stamina",
-	"staminaattributes.server.sprinting_requires_stamina": "Sprinting requires stamina",
-	"staminaattributes.server.swimming_requires_stamina": "Swimming requires stamina",
-	"staminaattributes.server.attacking_requires_stamina": "Attacking requires stamina",
-	"staminaattributes.server.block_breaking_requires_stamina": "Block breaking requires stamina",
+
+	"staminaattributes.server.jumping_requires_stamina": "Jumping requires stamina of at least 1",
+	"staminaattributes.server.sprinting_requires_stamina": "Sprinting requires stamina of at least 1",
+	"staminaattributes.server.swimming_requires_stamina": "Swimming requires stamina of at least 1",
+	"staminaattributes.server.attacking_requires_stamina": "Attacking requires stamina of at least 1",
+	"staminaattributes.server.block_breaking_requires_stamina": "Block breaking requires stamina of at least 1",
+
 	"staminaattributes.server.breaking_zero_strength_blocks_costs_stamina": "Instant breaking blocks costs stamina",
 	"staminaattributes.server.breaking_zero_strength_blocks_costs_stamina.desc": "This only applies to blocks with a 'strength' of zero, like grass or flowers.",
-	"staminaattributes.server.enable_attacking_stamina_cost": "Block breaking requires stamina",
-	"staminaattributes.server.enable_attack_blocking_stamina_cost": "Attack blocking requires stamina",
+	"staminaattributes.server.enable_attacking_stamina_cost": "Enable stamina cost for block breaking",
+	"staminaattributes.server.enable_attack_blocking_stamina_cost": "Enable stamina cost for blocking attacks",
+
 	"staminaattributes.server.players_can_exhaust": "Players can exhaust",
 	"staminaattributes.server.players_can_exhaust.desc": "When stamina is equal to or lower zero, a status effect is applied.",
 	"staminaattributes.server.exhausted_status_effect_identifier": "Exhaust status effect identifier",

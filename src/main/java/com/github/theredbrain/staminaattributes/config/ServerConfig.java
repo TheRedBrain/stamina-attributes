@@ -22,7 +22,9 @@ public class ServerConfig extends Config {
 	public boolean attacking_requires_stamina = true;
 	public boolean block_breaking_requires_stamina = true;
 	public boolean breaking_zero_destroy_time_blocks_costs_stamina = false;
+	// is toggleable for compatibility with Better Combat Extension
 	public boolean enable_attacking_stamina_cost = true;
+	// is toggleable for compatibility with Overhauled Damage
 	public boolean enable_attack_blocking_stamina_cost = true;
 	public boolean players_can_exhaust = false;
 	public ValidatedIdentifier exhausted_status_effect_identifier = ValidatedIdentifier.ofRegistry(Identifier.parse("minecraft:slowness"), BuiltInRegistries.MOB_EFFECT);
