@@ -30,7 +30,7 @@ public class MultiPlayerGameModeMixin {
 		ServerConfig serverConfig = StaminaAttributes.SERVER_CONFIG;
 		boolean bl = (serverConfig.block_breaking_requires_stamina && this.minecraft.player != null && ((StaminaUsingEntity) this.minecraft.player).staminaattributes$getBlockBreakingActionStaminaCost() > 0 && ((StaminaUsingEntity) this.minecraft.player).staminaattributes$getStamina() <= 0);
 		if (bl && this.minecraft.level != null) {
-			this.minecraft.player.displayClientMessage(Component.translatable("hud.message.staminaTooLow"), true);
+			this.minecraft.player.sendOverlayMessage(Component.translatable("hud.message.staminaTooLow"));
 			this.minecraft.level.destroyBlockProgress(this.minecraft.player.getId(), this.destroyBlockPos, -1);
 		}
 		return original.call(instance) || bl;

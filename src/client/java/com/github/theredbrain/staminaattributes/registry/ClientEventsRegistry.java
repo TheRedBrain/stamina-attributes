@@ -34,7 +34,7 @@ public class ClientEventsRegistry {
 	private static final Identifier ICON_STAMINA_HALF_RESERVED = StaminaAttributes.identifier("hud/icon_stamina_half_reserved");
 
 	public static void initializeClientEvents() {
-		HudElementRegistry.attachElementAfter(VanillaHudElements.HEALTH_BAR, StaminaAttributes.identifier("stamina"), ((guiGraphics, delta) -> {
+		HudElementRegistry.attachElementAfter(VanillaHudElements.HEALTH_BAR, StaminaAttributes.identifier("stamina"), ((guiGraphicsExtractor, deltaTracker) -> {
 			Minecraft minecraft = Minecraft.getInstance();
 			LocalPlayer localPlayer = minecraft.player;
 			ClientConfig clientConfig = StaminaAttributesClient.CLIENT_CONFIG;
@@ -76,7 +76,7 @@ public class ClientEventsRegistry {
 					int air_offset = clientConfig.dynamically_adjust_to_air_bar && localPlayer.isEyeInFluid(FluidTags.WATER) || currentAirSupply < maxAirSupply ? -10 : 0;
 					int armor_offset = clientConfig.dynamically_adjust_to_armor_bar && localPlayer.getArmorValue() > 0 ? -10 : 0;
 
-					MutablePair<Integer, Integer> originPos = ResourceBarAPIClient.getOriginPos(guiGraphics, clientConfig.origin);
+					MutablePair<Integer, Integer> originPos = ResourceBarAPIClient.getOriginPos(guiGraphicsExtractor, clientConfig.origin);
 
 					if (clientConfig.stamina_bar_display == ResourceBarAPI.ResourceBarDisplay.ICON && (stamina < maxStamina || clientConfig.show_full_stamina_bar)) {
 
@@ -98,7 +98,7 @@ public class ClientEventsRegistry {
 								ResourceBarAPI.ContinuationType.NEW_ICON
 						));
 						ResourceBarAPIClient.drawIconResourceBar(
-								guiGraphics,
+								guiGraphicsExtractor,
 								list,
 								originPos.getLeft(),
 								originPos.getRight(),
@@ -111,7 +111,7 @@ public class ClientEventsRegistry {
 					} else if (clientConfig.stamina_bar_display == ResourceBarAPI.ResourceBarDisplay.SMOOTH && (stamina < maxStamina || clientConfig.show_full_stamina_bar)) {
 						ResourceBarAPIClient.drawSmoothResourceBar(
 								minecraft,
-								guiGraphics,
+								guiGraphicsExtractor,
 								RESOURCE_BAR_IDENTIFIER_STRING,
 								new double[]{
 										-1,
@@ -188,7 +188,7 @@ public class ClientEventsRegistry {
 						ResourceBarAPIClient.drawResourceNumber(
 								minecraft,
 								minecraft.font,
-								guiGraphics,
+								guiGraphicsExtractor,
 								RESOURCE_BAR_IDENTIFIER_STRING,
 								stamina,
 								maxStamina,

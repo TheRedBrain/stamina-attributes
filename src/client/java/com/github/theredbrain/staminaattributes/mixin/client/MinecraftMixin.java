@@ -35,7 +35,7 @@ public class MinecraftMixin {
 			original.call(instance, player, target);
 			this.attackSwingAllowed = true;
 		} else {
-			player.displayClientMessage(Component.translatable("hud.message.staminaTooLow"), true);
+			player.sendOverlayMessage(Component.translatable("hud.message.staminaTooLow"));
 			this.attackSwingAllowed = false;
 		}
 	}
@@ -46,7 +46,7 @@ public class MinecraftMixin {
 			this.attackSwingAllowed = true;
 		} else {
 			if (this.player != null) {
-				this.player.displayClientMessage(Component.translatable("hud.message.staminaTooLow"), true);
+				this.player.sendOverlayMessage(Component.translatable("hud.message.staminaTooLow"));
 			}
 			this.attackSwingAllowed = false;
 		}
