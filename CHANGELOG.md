@@ -1,6 +1,7 @@
 # 4.0.0
 
 - updated to 26.1.x
+- fixed exhaust status effect not getting removed in rare cases
 
 # 3.3.0
 

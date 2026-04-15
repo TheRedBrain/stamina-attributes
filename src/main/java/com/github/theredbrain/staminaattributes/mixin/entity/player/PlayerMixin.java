@@ -62,8 +62,8 @@ public abstract class PlayerMixin extends LivingEntity implements StaminaUsingEn
 				Optional<Holder.Reference<MobEffect>> exhausted_status_effect = BuiltInRegistries.MOB_EFFECT.get(StaminaAttributes.SERVER_CONFIG.exhausted_status_effect_identifier.get());
 				if (exhausted_status_effect.isPresent()) {
 					if (this.staminaattributes$getStamina() <= 0) {
-						if (!this.hasEffect(exhausted_status_effect.get())) {
-							this.addEffect(new MobEffectInstance(exhausted_status_effect.get(), -1, 0, false, false, true));
+						if (!this.hasEffect(exhausted_status_effect.get()) || this.level().getGameTime() % 80L == 0L) {
+							this.addEffect(new MobEffectInstance(exhausted_status_effect.get(), 100, 0, false, false, true));
 						}
 					} else {
 						this.removeEffect(exhausted_status_effect.get());
