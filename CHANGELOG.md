@@ -1,6 +1,13 @@
 # 4.0.0
 
 - updated to 26.1.x
+
+## Additions
+
+- now shows an overlay message if the jumping action is prevented from insufficient stamina
+
+## Fixes
+
 - fixed exhaust status effect not getting removed in rare cases
 
 # 3.3.0

@@ -9,6 +9,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -40,6 +41,9 @@ public abstract class PlayerMixin extends LivingEntity implements StaminaUsingEn
 
 	@Shadow
 	public abstract boolean hasInfiniteMaterials();
+
+	@Shadow
+	public abstract void sendOverlayMessage(Component message);
 
 	protected PlayerMixin(EntityType<? extends LivingEntity> entityType, Level world) {
 		super(entityType, world);
@@ -99,6 +103,8 @@ public abstract class PlayerMixin extends LivingEntity implements StaminaUsingEn
 	public void jumpFromGround() {
 		if (this.abilities.invulnerable || !StaminaAttributes.SERVER_CONFIG.jumping_requires_stamina || ((StaminaUsingEntity) this).staminaattributes$getJumpingActionStaminaCost() <= 0 || ((StaminaUsingEntity) this).staminaattributes$getStamina() > 0) {
 			super.jumpFromGround();
+		} else {
+			this.sendOverlayMessage(Component.translatable("hud.message.staminaTooLow"));
 		}
 	}
 
