@@ -10,18 +10,15 @@ public class LivingEntityHelper {
 
 		if (!livingEntity.level().isClientSide()) {
 			if (((StaminaUsingEntity) livingEntity).staminaattributes$delayStaminaTick()) {
-				StaminaAttributes.info("delayStaminaTick");
 				((StaminaUsingEntity) livingEntity).staminaattributes$setDelayStaminaTick(false);
 				return;
 			}
 			if (((StaminaUsingEntity) livingEntity).staminaattributes$delayMaxValueApplication()) {
-				StaminaAttributes.info("delayMaxValueApplication");
 				((StaminaUsingEntity) livingEntity).staminaattributes$setDelayedMaxValueApplication(true);
 				((StaminaUsingEntity) livingEntity).staminaattributes$setDelayMaxValueApplication(false);
 				return;
 			}
 			if (((StaminaUsingEntity) livingEntity).staminaattributes$delayedMaxValueApplication()) {
-				StaminaAttributes.info("delayedMaxValueApplication");
 				((StaminaUsingEntity) livingEntity).staminaattributes$setStamina(((StaminaUsingEntity) livingEntity).staminaattributes$getUnreservedStamina());
 				((StaminaUsingEntity) livingEntity).staminaattributes$setDelayedMaxValueApplication(false);
 				return;
