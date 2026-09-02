@@ -1,15 +1,15 @@
-package com.github.theredbrain.staminaattributes.mixin.client.gui.hud;
+package com.github.theredbrain.staminaattributes.mixin.client.gui;
 
 import com.github.theredbrain.staminaattributes.gui.hud.DuckGuiMixin;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.Hud;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 
 @Environment(EnvType.CLIENT)
-@Mixin(Gui.class)
+@Mixin(Hud.class)
 public class GuiMixin implements DuckGuiMixin {
 
 	@Shadow

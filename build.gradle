@@ -57,8 +57,9 @@ dependencies {
     }
 
     // Resource Bar API
-    implementation "maven.modrinth:resource-bar-api:${project.resource_bar_api_version}"
-//    implementation(files("libs/resource-bar-api-${project.resource_bar_api_version}.jar"))
+    // FIXME
+//    implementation "maven.modrinth:resource-bar-api:${project.resource_bar_api_version}"
+      implementation(files("libs/resource-bar-api-${project.resource_bar_api_version}.jar"))
 
 }
 
