@@ -4,7 +4,7 @@
 	"compatibilityLevel": "JAVA_25",
 	"client": [
 		"MinecraftMixin",
-		"gui.hud.GuiMixin",
+		"gui.GuiMixin",
 		"multiplayer.MultiPlayerGameModeMixin",
 		"network.LocalPlayerMixin"
 	],

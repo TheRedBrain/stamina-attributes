@@ -7,6 +7,7 @@ import com.github.theredbrain.staminaattributes.registry.EnchantmentEntityEffect
 import com.github.theredbrain.staminaattributes.registry.EntitySubPredicateTypeRegistry;
 import com.github.theredbrain.staminaattributes.registry.ServerEventsRegistry;
 import com.github.theredbrain.staminaattributes.world.item.enchantment.AddStaminaEnchantmentEntityEffect;
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import me.fzzyhmstrs.fzzy_config.api.ConfigApiJava;
 import net.fabricmc.api.ModInitializer;
@@ -47,7 +48,7 @@ public class StaminaAttributes implements ModInitializer {
 	public static final TagKey<Item> USING_COSTS_STAMINA = TagKey.create(Registries.ITEM, identifier("using_costs_stamina"));
 	public static final TagKey<Item> CONTINUOUS_USING_COSTS_STAMINA = TagKey.create(Registries.ITEM, identifier("continuous_using_costs_stamina"));
 
-	public static MapCodec<StaminaUsingEntityPredicate> STAMINA_USING_ENTITY_PREDICATE;
+	public static Codec<StaminaUsingEntityPredicate> STAMINA_USING_ENTITY_PREDICATE;
 
 	public static MapCodec<AddStaminaEnchantmentEntityEffect> ADD_STAMINA;
 
