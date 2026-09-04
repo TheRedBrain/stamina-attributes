@@ -16,6 +16,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.Util;
+import net.minecraft.client.gui.*;
 import org.apache.commons.lang3.tuple.MutablePair;
 
 import java.util.ArrayList;
@@ -38,10 +39,10 @@ public class ClientEventsRegistry {
 			Minecraft minecraft = Minecraft.getInstance();
 			LocalPlayer localPlayer = minecraft.player;
 			ClientConfig clientConfig = StaminaAttributesClient.CLIENT_CONFIG;
-			if (localPlayer != null && !minecraft.options.hideGui) {
+			if (localPlayer != null && !minecraft.gui.hud.isHidden()) {
 				int stamina = Mth.ceil(((StaminaUsingEntity) localPlayer).staminaattributes$getStamina());
 
-				DuckGuiMixin gui = ((DuckGuiMixin) minecraft.gui);
+				DuckGuiMixin gui = ((DuckGuiMixin) minecraft.gui.hud);
 
 				boolean shouldBlink = false;
 				int currentDisplayStamina = stamina;
